@@ -3,6 +3,9 @@ import Phaser from 'phaser';
 import { animalCell, type AnimalDef } from '../core/catalog';
 import { IsoGrid } from '../core/IsoGrid';
 
+/** keeps the coin bubble of animals near the right fence inside the garden picture */
+const BUBBLE_MAX_X = 1000;
+
 export type AnimalLook = 'owned' | 'forSale' | 'locked';
 
 export class AnimalView {
@@ -38,7 +41,7 @@ export class AnimalView {
     this.bubbleText = scene.add
       .text(img.displayWidth / 2 - 10, -8, '', { ...font, fontSize: '50px', color: '#ffc36b', stroke: '#33231a', strokeThickness: 10 })
       .setOrigin(0, 0.5);
-    this.bubble = scene.add.container(top.x + 60, top.y - 70, [img, this.bubbleText]).setDepth(9000).setVisible(false);
+    this.bubble = scene.add.container(Math.min(top.x + 60, BUBBLE_MAX_X), top.y - 70, [img, this.bubbleText]).setDepth(9000).setVisible(false);
     img.setInteractive({ useHandCursor: true }).setData('animal', def.id);
     scene.tweens.add({ targets: this.bubble, y: this.bubble.y - 14, duration: 700, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
   }

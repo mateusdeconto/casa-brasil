@@ -1,0 +1,40 @@
+{
+  "_doc": "Identificação por conteúdo dos arquivos 21-34 de assets/raw. 'reference' = só referência de interface (não recortar). 'sheet' = folha a recortar; 'names' em ordem de leitura (linhas de cima para baixo, esquerda para direita).",
+  "files": {
+    "21": { "role": "reference", "content": "Tela Clube Família (início): expedição da semana Zoológico, planejar visita, próxima saída, missões da semana" },
+    "22": { "role": "reference", "content": "Tela Clube Família (variante): expedição Zoológico com selos 1 de 3, planejar visita, próxima saída" },
+    "23": { "role": "reference", "content": "Tela Clube Família em moldura de celular: expedição, ver mapa, nosso álbum" },
+    "24": { "role": "reference", "content": "Prancha com várias telas: Clube Família, planejar saída, fluxo da visita (local/foto/carimbo), passaporte, álbum, painel dos pais, expedição digital, jardim da turma, painel da turma" },
+    "25": { "role": "reference", "content": "Tela Clube Família em moldura de celular: outras sugestões (museu, parque, centro de ciências) e nossas conquistas" },
+    "26": { "role": "reference", "content": "Prancha horizontal com as telas 21-30: Clube Família, planejar saída, fluxo da visita, passaporte, álbum, painel dos pais, criar expedição, expedição, jardim da turma, acompanhamento da turma" },
+    "27": { "role": "reference", "content": "Tela Clube Família em moldura de celular: últimas conquistas (medalhas)" },
+    "28": { "role": "reference", "content": "Prancha com as mesmas telas em tamanho reduzido sobre fundo magenta" },
+    "29": { "role": "reference", "content": "Prancha 21-30 em alta: Clube Família, planejar saída, local/foto/carimbo, passaporte, álbum, painel dos pais, criar expedição, expedição, jardim da turma, painel da turma" },
+    "30": {
+      "role": "sheet", "sheet": "stamps", "layout": "rows [6, 6]",
+      "names": ["stamp_toucan", "stamp_museum", "stamp_tree", "stamp_science", "stamp_star", "stamp_church",
+                "stamp_toucan_gray", "stamp_museum_gray", "stamp_tree_gray", "stamp_science_gray", "stamp_star_gray", "stamp_church_gray"]
+    },
+    "31": {
+      "role": "sheet", "sheet": "badges", "layout": "rows [3, 3]",
+      "names": ["badge_explorer", "badge_art", "badge_park", "badge_science", "badge_trail", "badge_family"]
+    },
+    "32": {
+      "role": "sheet", "sheet": "icons", "layout": "rows [4, 4, 4, 4]",
+      "names": ["icon_camera", "icon_map", "icon_calendar", "icon_family",
+                "icon_school", "icon_shield", "icon_qr", "icon_check",
+                "icon_clipboard", "icon_notebook", "icon_bell", "icon_gear",
+                "ribbon_demo", "ribbon_limited", "icon_polaroid", "icon_sign"]
+    },
+    "33": {
+      "role": "sheet", "sheet": "items", "layout": "rows [2, 3]",
+      "names": ["trophy_owl", "star_ribbon", "vitrine_map", "vase_plant", "lantern"]
+    },
+    "34": {
+      "role": "sheet", "sheet": "animals2", "layout": "rows [3, 3, 3]",
+      "names": ["macaw_idle1", "macaw_idle2", "macaw_sleep", "tortoise_idle1", "tortoise_idle2", "tortoise_sleep",
+                "wolf_idle1", "wolf_idle2", "wolf_sleep"],
+      "note": "as poses de sono já trazem 'zzz' desenhado; o recorte com fusão de componentes mantém o zzz junto do bicho"
+    }
+  }
+}

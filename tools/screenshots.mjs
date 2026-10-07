@@ -21,11 +21,12 @@ await server.listen();
 const base = server.resolvedUrls.local[0] + (debug ? '?debug=1' : '');
 const browser = await chromium.launch();
 const errors = [];
+let lastPage = null;
 try {
   for (const vp of VIEWPORTS) {
     const { name, ...opts } = vp;
     const ctx = await browser.newContext(opts);
-    const page = await ctx.newPage();
+    const page = (lastPage = await ctx.newPage());
     page.on('pageerror', (e) => errors.push(`${name}: ${e.message}`));
     page.on('console', (m) => m.type() === 'error' && errors.push(`${name}: ${m.text()}`));
     await page.goto(base);
@@ -33,8 +34,11 @@ try {
     await FLOWS[flowName](page, shot, name);
     await ctx.close();
   }
+} catch (e) {
+  await lastPage?.screenshot({ path: `${OUT}/_fail.png` });
+  throw e;
 } finally {
+  console.log(errors.length ? `ERRORS:\n${errors.join('\n')}` : 'no page errors');
   await browser.close();
   await server.close();
 }
-console.log(errors.length ? 'ERRORS:\n' + errors.join('\n') : 'no page errors');

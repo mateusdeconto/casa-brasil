@@ -76,7 +76,7 @@ def components(alpha: np.ndarray, radius: int, min_px: int = 300) -> list[dict]:
     pad = np.zeros((H * DOWN, W * DOWN), bool)
     pad[:h, :w] = mask
     small = pad.reshape(H, DOWN, W, DOWN).any(axis=(1, 3))
-    lab_small = _label(_dilate(small, max(1, radius // DOWN)))
+    lab_small = _label(_dilate(small, max(1, radius // DOWN)) if radius else small)
     lab = np.repeat(np.repeat(lab_small, DOWN, 0), DOWN, 1)[:h, :w] * (alpha > 0)
     comps = []
     for i in range(1, lab_small.max() + 1):
@@ -112,7 +112,7 @@ def merge_to(comps: list[dict], n: int) -> list[dict]:
 
 def find_items(alpha: np.ndarray, expected: int, radius: int = 25):
     """Try the requested fuse radius; shrink it if items got glued together."""
-    for r in (radius, 18, 12, 8, 4):
+    for r in (radius, 18, 12, 8, 4, 0):
         comps, lab = components(alpha, r)
         if len(comps) >= expected:
             return merge_to(comps, expected), lab, r

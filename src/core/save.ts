@@ -1,30 +1,49 @@
-// localStorage persistence (versioned key). Never throws.
-import { SAVE_KEY } from '../config';
-import { defaultSave, type SaveData } from './state';
+// localStorage persistence (versioned key). Never throws; falls back to memory when storage is blocked.
+import { SAVE_KEY, SAVE_KEY_V1 } from '../config';
+import { migrateV1, normalizeRoot, type SaveV1 } from './migrate';
+import { defaultRoot, type RootSave } from './state';
 
-export function loadSave(now = Date.now()): SaveData {
+let storageOk = true;
+export const storageWorks = () => storageOk;
+
+export function loadSave(now = Date.now()): RootSave {
   try {
     const raw = localStorage.getItem(SAVE_KEY);
-    if (!raw) return defaultSave(now);
-    const data = JSON.parse(raw) as SaveData;
-    if (data.v !== 1) return defaultSave(now);
-    return { ...defaultSave(now), ...data };
+    if (raw) {
+      const data = JSON.parse(raw) as RootSave;
+      if (data.v === 2) return normalizeRoot(data, now);
+    }
+    const old = localStorage.getItem(SAVE_KEY_V1);
+    if (old) {
+      const v1 = JSON.parse(old) as SaveV1;
+      if (v1.v === 1) return migrateV1(v1, now);
+    }
   } catch {
-    return defaultSave(now);
+    storageOk = false;
   }
+  return defaultRoot(now);
 }
 
-export function writeSave(data: SaveData, now = Date.now()): void {
+export function writeSave(data: RootSave, now = Date.now()): void {
   try {
     data.time = now;
     localStorage.setItem(SAVE_KEY, JSON.stringify(data));
   } catch {
-    // storage blocked (private mode): the game keeps running without saving
+    storageOk = false; // storage blocked (private mode): the game keeps running without saving
+  }
+}
+
+export function clearSave(): void {
+  try {
+    localStorage.removeItem(SAVE_KEY);
+    localStorage.removeItem(SAVE_KEY_V1);
+  } catch {
+    // nothing to clear
   }
 }
 
 /** Save on every change and when the page is hidden or closed. */
-export function autoSave(getData: () => SaveData, onChange: (fn: () => void) => void): void {
+export function autoSave(getData: () => RootSave, onChange: (fn: () => void) => void): void {
   const save = () => writeSave(getData());
   onChange(save);
   document.addEventListener('visibilitychange', () => {

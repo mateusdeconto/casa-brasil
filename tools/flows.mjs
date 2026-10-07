@@ -51,7 +51,10 @@ async function cellPoint(page, cx, cy) {
 /** Start with a prepared save (skips the avatar picker). */
 async function startWith(page, save) {
   // init script: runs before the page's own pagehide save can overwrite it
-  await page.addInitScript((s) => localStorage.setItem('jogocasa.save.v1', JSON.stringify(s)), save);
+  await page.addInitScript((s) => {
+    localStorage.removeItem('jogocasa.save.v2');
+    localStorage.setItem('jogocasa.save.v1', JSON.stringify(s));
+  }, save);
   await page.reload();
   await wait(page, 600);
   await page.click('text=Jogar');
@@ -81,6 +84,24 @@ async function openGarden(page) {
   await page.click('.nav >> text=Jardim');
   await page.waitForFunction(() => window.game.scene.isActive('garden'));
   await wait(page, 700);
+}
+
+/** Demo-mode visit to a partner, with the garden picture as the test photo (no people). */
+export async function demoVisit(page, partnerId, shot, label = '') {
+  await page.click('.nav >> text=Família');
+  await wait(page, 300);
+  await page.click(`.partner-card[data-partner=${partnerId}] button`);
+  await wait(page, 300);
+  if (shot) await shot(`${label}1_local`);
+  await page.click('button:has-text("Estou aqui")');
+  await page.click('button:has-text("Modo demonstração")');
+  await wait(page, 300);
+  await page.setInputFiles('[data-testid=photo-input]', 'public/assets/garden.png');
+  await wait(page, 600);
+  if (shot) await shot(`${label}2_photo`);
+  await page.click('.flow-actions >> text=Continuar');
+  await wait(page, 1000);
+  if (shot) await shot(`${label}3_stamp`);
 }
 
 export const FLOWS = {
@@ -156,18 +177,50 @@ export const FLOWS = {
     await tapAnimal(page, 'jaguar');
     await wait(page, 300);
     await shot('5_locked_card');
-    await page.click('text=Simular visita ao zoológico');
-    await wait(page, 600);
-    await shot('6_jaguar');
-    await page.click('.nav >> text=Loja');
-    await wait(page, 500);
-    await page.click('.shop-card >> text=Fóssil');
+    await page.click('text=Fazer uma visita');
     await wait(page, 300);
-    await page.click('text=Simular visita ao museu');
+    await shot('6_flow_local');
+    await page.click('.page-head .back');
+    await demoVisit(page, 'zoo');
+    await page.click('text=Ver no jardim');
+    await wait(page, 900);
+    await shot('7_jaguar');
+    await demoVisit(page, 'museu');
     await page.click('.nav >> text=Loja');
     await wait(page, 500);
     await page.locator('.shop-list').evaluate((e) => (e.scrollTop = 9999));
-    await shot('7_museum_shop');
+    await shot('8_museum_shop');
+  },
+  async visit(page, shot) {
+    await startWith(page, baseSave({}));
+    await page.click('.nav >> text=Álbum');
+    await wait(page, 300);
+    await shot('0_album_empty');
+    await page.click('.nav >> text=Família');
+    await wait(page, 300);
+    await shot('1_family');
+    await demoVisit(page, 'zoo', shot);
+    await page.click('text=Ver passaporte');
+    await wait(page, 400);
+    await shot('4_passport');
+    await page.click('.page-head .back');
+    await demoVisit(page, 'parque', null);
+    await page.click('.nav >> text=Álbum');
+    await wait(page, 500);
+    await shot('5_album');
+    await page.locator('.polaroid').first().click();
+    await wait(page, 500);
+    await shot('6_album_detail');
+  },
+  async zoo(page, shot) {
+    const ago = Date.now() - 3600_000;
+    const all = ['capybara', 'toucan', 'tamarin', 'jaguar', 'arara', 'jabuti', 'lobo'].map((id) => ({ id, since: ago }));
+    await startWith(page, baseSave({ coins: 900, animals: all, unlocks: { zoo: true, museum: false } }));
+    await openGarden(page);
+    await shot('1_all');
+    await startWith(page, baseSave({ coins: 900, animals: [{ id: 'capybara', since: ago }] }));
+    await openGarden(page);
+    await shot('2_for_sale');
   },
   async offline(page, shot) {
     const tenHours = Date.now() - 10 * 3600_000;

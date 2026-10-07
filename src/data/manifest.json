@@ -399,6 +399,294 @@
    "w": 226,
    "h": 215,
    "sheet": 19
+  },
+  "stamp_zoo": {
+   "file": "assets/items/stamp_zoo.png",
+   "w": 238,
+   "h": 257,
+   "sheet": 30
+  },
+  "stamp_museu": {
+   "file": "assets/items/stamp_museu.png",
+   "w": 217,
+   "h": 241,
+   "sheet": 30
+  },
+  "stamp_parque": {
+   "file": "assets/items/stamp_parque.png",
+   "w": 235,
+   "h": 260,
+   "sheet": 30
+  },
+  "stamp_ciencia": {
+   "file": "assets/items/stamp_ciencia.png",
+   "w": 222,
+   "h": 245,
+   "sheet": 30
+  },
+  "stamp_evento": {
+   "file": "assets/items/stamp_evento.png",
+   "w": 237,
+   "h": 251,
+   "sheet": 30
+  },
+  "stamp_historico": {
+   "file": "assets/items/stamp_historico.png",
+   "w": 223,
+   "h": 250,
+   "sheet": 30
+  },
+  "stamp_zoo_locked": {
+   "file": "assets/items/stamp_zoo_locked.png",
+   "w": 238,
+   "h": 257,
+   "sheet": 30
+  },
+  "stamp_museu_locked": {
+   "file": "assets/items/stamp_museu_locked.png",
+   "w": 218,
+   "h": 241,
+   "sheet": 30
+  },
+  "stamp_parque_locked": {
+   "file": "assets/items/stamp_parque_locked.png",
+   "w": 235,
+   "h": 259,
+   "sheet": 30
+  },
+  "stamp_ciencia_locked": {
+   "file": "assets/items/stamp_ciencia_locked.png",
+   "w": 222,
+   "h": 245,
+   "sheet": 30
+  },
+  "stamp_evento_locked": {
+   "file": "assets/items/stamp_evento_locked.png",
+   "w": 237,
+   "h": 252,
+   "sheet": 30
+  },
+  "stamp_historico_locked": {
+   "file": "assets/items/stamp_historico_locked.png",
+   "w": 223,
+   "h": 250,
+   "sheet": 30
+  },
+  "badge_biodiversidade": {
+   "file": "assets/items/badge_biodiversidade.png",
+   "w": 414,
+   "h": 399,
+   "sheet": 31
+  },
+  "badge_arte": {
+   "file": "assets/items/badge_arte.png",
+   "w": 416,
+   "h": 400,
+   "sheet": 31
+  },
+  "badge_parque": {
+   "file": "assets/items/badge_parque.png",
+   "w": 415,
+   "h": 401,
+   "sheet": 31
+  },
+  "badge_ciencia": {
+   "file": "assets/items/badge_ciencia.png",
+   "w": 414,
+   "h": 398,
+   "sheet": 31
+  },
+  "badge_primeira_visita": {
+   "file": "assets/items/badge_primeira_visita.png",
+   "w": 415,
+   "h": 398,
+   "sheet": 31
+  },
+  "badge_familia": {
+   "file": "assets/items/badge_familia.png",
+   "w": 416,
+   "h": 398,
+   "sheet": 31
+  },
+  "camera": {
+   "file": "assets/items/camera.png",
+   "w": 249,
+   "h": 215,
+   "sheet": 32
+  },
+  "mappin": {
+   "file": "assets/items/mappin.png",
+   "w": 250,
+   "h": 247,
+   "sheet": 32
+  },
+  "calendar": {
+   "file": "assets/items/calendar.png",
+   "w": 215,
+   "h": 239,
+   "sheet": 32
+  },
+  "family": {
+   "file": "assets/items/family.png",
+   "w": 353,
+   "h": 302,
+   "sheet": 32
+  },
+  "school": {
+   "file": "assets/items/school.png",
+   "w": 391,
+   "h": 282,
+   "sheet": 32
+  },
+  "shield_parent": {
+   "file": "assets/items/shield_parent.png",
+   "w": 241,
+   "h": 277,
+   "sheet": 32
+  },
+  "qr": {
+   "file": "assets/items/qr.png",
+   "w": 213,
+   "h": 216,
+   "sheet": 32
+  },
+  "check": {
+   "file": "assets/items/check.png",
+   "w": 236,
+   "h": 211,
+   "sheet": 32
+  },
+  "clipboard": {
+   "file": "assets/items/clipboard.png",
+   "w": 202,
+   "h": 247,
+   "sheet": 32
+  },
+  "notebook": {
+   "file": "assets/items/notebook.png",
+   "w": 203,
+   "h": 229,
+   "sheet": 32
+  },
+  "bell": {
+   "file": "assets/items/bell.png",
+   "w": 196,
+   "h": 217,
+   "sheet": 32
+  },
+  "gear": {
+   "file": "assets/items/gear.png",
+   "w": 225,
+   "h": 228,
+   "sheet": 32
+  },
+  "ribbon_demo": {
+   "file": "assets/items/ribbon_demo.png",
+   "w": 406,
+   "h": 139,
+   "sheet": 32
+  },
+  "ribbon_limited": {
+   "file": "assets/items/ribbon_limited.png",
+   "w": 451,
+   "h": 139,
+   "sheet": 32
+  },
+  "polaroid": {
+   "file": "assets/items/polaroid.png",
+   "w": 163,
+   "h": 184,
+   "sheet": 32
+  },
+  "signboard": {
+   "file": "assets/items/signboard.png",
+   "w": 295,
+   "h": 195,
+   "sheet": 32
+  },
+  "trophy_owl": {
+   "file": "assets/items/trophy_owl.png",
+   "w": 310,
+   "h": 495,
+   "sheet": 33
+  },
+  "star_award": {
+   "file": "assets/items/star_award.png",
+   "w": 247,
+   "h": 421,
+   "sheet": 33
+  },
+  "vitrine_mapa": {
+   "file": "assets/items/vitrine_mapa.png",
+   "w": 440,
+   "h": 469,
+   "sheet": 33
+  },
+  "vaso_planta": {
+   "file": "assets/items/vaso_planta.png",
+   "w": 393,
+   "h": 472,
+   "sheet": 33
+  },
+  "lantern": {
+   "file": "assets/items/lantern.png",
+   "w": 230,
+   "h": 451,
+   "sheet": 33
+  },
+  "arara_idle1": {
+   "file": "assets/items/arara_idle1.png",
+   "w": 324,
+   "h": 329,
+   "sheet": 34
+  },
+  "arara_idle2": {
+   "file": "assets/items/arara_idle2.png",
+   "w": 348,
+   "h": 341,
+   "sheet": 34
+  },
+  "arara_sleep": {
+   "file": "assets/items/arara_sleep.png",
+   "w": 323,
+   "h": 325,
+   "sheet": 34
+  },
+  "jabuti_idle1": {
+   "file": "assets/items/jabuti_idle1.png",
+   "w": 350,
+   "h": 200,
+   "sheet": 34
+  },
+  "jabuti_idle2": {
+   "file": "assets/items/jabuti_idle2.png",
+   "w": 328,
+   "h": 217,
+   "sheet": 34
+  },
+  "jabuti_sleep": {
+   "file": "assets/items/jabuti_sleep.png",
+   "w": 317,
+   "h": 197,
+   "sheet": 34
+  },
+  "lobo_idle1": {
+   "file": "assets/items/lobo_idle1.png",
+   "w": 362,
+   "h": 370,
+   "sheet": 34
+  },
+  "lobo_idle2": {
+   "file": "assets/items/lobo_idle2.png",
+   "w": 346,
+   "h": 357,
+   "sheet": 34
+  },
+  "lobo_sleep": {
+   "file": "assets/items/lobo_sleep.png",
+   "w": 362,
+   "h": 225,
+   "sheet": 34
   }
  },
  "opening": "assets/abertura.png"

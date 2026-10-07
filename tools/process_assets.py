@@ -31,6 +31,12 @@ SHEETS = {
     14: dict(order="rows", rows=[2, 3], names=["jaguar", None, "fossil", "vase", "meteorite"]),
     19: dict(order="rows", rows=[3, 5, 6], names=["panel_a", "panel_b", "coin", "nav_home", "nav_garden", "nav_shop", "nav_edit", "nav_avatar",
                                                  "arrow_left", "arrow_right", "star", "trophy", "lock", "coin_bubble"]),
+    30: dict(order="rows", rows=[6, 6], names=[f"stamp_{k}{suf}" for suf in ("", "_locked") for k in ("zoo", "museu", "parque", "ciencia", "evento", "historico")]),
+    31: dict(order="rows", rows=[3, 3], names=[f"badge_{k}" for k in ("biodiversidade", "arte", "parque", "ciencia", "primeira_visita", "familia")]),
+    32: dict(order="rows", rows=[4, 4, 4, 4], names=["camera", "mappin", "calendar", "family", "school", "shield_parent", "qr", "check",
+                                                    "clipboard", "notebook", "bell", "gear", "ribbon_demo", "ribbon_limited", "polaroid", "signboard"]),
+    33: dict(order="rows", rows=[2, 3], names=["trophy_owl", "star_award", "vitrine_mapa", "vaso_planta", "lantern"]),
+    34: dict(order="rows", rows=[3, 3, 3], names=[f"{a}_{p}" for a in ("arara", "jabuti", "lobo") for p in ("idle1", "idle2", "sleep")]),
 }
 BASES = {3: "room", 5: "garden"}
 OPENING = 20
@@ -125,8 +131,8 @@ def main() -> None:
     total = sum(p.stat().st_size for p in OUT.rglob("*.png")) / 1e6
     print("\n".join(report))
     print(f"total public/assets: {total:.1f} MB")
-    if total > 20:
-        raise SystemExit("assets above 20 MB")
+    if total > 24:
+        raise SystemExit("assets above 24 MB")
 
 
 if __name__ == "__main__":

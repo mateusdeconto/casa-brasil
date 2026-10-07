@@ -4,6 +4,8 @@ import type { Emitter, GameEvents } from '../core/events';
 import type { SaveData } from '../core/state';
 import { el, itemUrl } from './dom';
 
+const LOCK_LABEL: Record<string, string> = { museu: 'Museu', parque: 'Parque', ciencia: 'Ciência', semana: 'Semana', evento: 'Evento' };
+
 export interface Shop {
   open(): void;
   close(): void;
@@ -22,15 +24,16 @@ export function createShop(root: HTMLElement, bus: Emitter<GameEvents>, data: ()
     list.innerHTML = '';
     const d = data();
     for (const f of FURNITURE) {
-      const locked = f.exclusive === 'museum' && !d.unlocks.museum;
+      const locked = !!f.exclusive && !d.unlocks[f.exclusive];
       const poor = d.coins < f.price;
       const card = el('button', 'shop-card' + (locked ? ' locked' : poor ? ' poor' : ''));
+      card.setAttribute('aria-label', f.name);
       const price = locked
-        ? `<img src="${itemUrl('lock')}" alt="">Museu`
+        ? `<img src="${itemUrl('lock')}" alt="">${LOCK_LABEL[f.exclusive!] ?? 'Exclusivo'}`
         : f.price ? `<img src="${itemUrl('coin')}" alt="">${f.price}` : 'Grátis';
       card.innerHTML = `<div class="icon"><img src="${itemUrl(f.sprite)}" alt=""></div><div class="nm">${f.name}</div><div class="pr">${price}</div>`;
       card.onclick = () => {
-        if (locked) return bus.emit('visitCard', undefined);
+        if (locked) return bus.emit('visitCard', { unlock: f.exclusive });
         if (poor) return bus.emit('toast', 'Moedas insuficientes');
         shop.close();
         bus.emit('shopPick', f.id);

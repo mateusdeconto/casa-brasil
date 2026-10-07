@@ -1,5 +1,6 @@
-// Garden actions that change the save: buy animals, simulated partner visits, collecting.
+// Garden actions that change the save: buy animals, collect coins.
 import { MAX_CYCLES } from '../config';
+import { multiplierAt } from './boost';
 import { animalById } from './catalog';
 import { collect, pendingCoins } from './production';
 import type { Store } from './state';
@@ -14,22 +15,19 @@ export function buyAnimal(store: Store, id: string, now = Date.now()): boolean {
   return true;
 }
 
-/** Demo stand-in for a real visit to a partner zoo or museum. */
-export function simulateVisit(store: Store, kind: 'zoo' | 'museum', now = Date.now()): void {
-  store.data.unlocks[kind] = true;
-  if (kind === 'zoo' && !owns(store, 'jaguar')) store.data.animals.push({ id: 'jaguar', since: now });
-  store.commit();
-}
-
+/** Coins ready to collect, including the 2x boost if a visit granted one. */
 export function pendingFor(store: Store, id: string, now = Date.now()): number {
   const st = store.data.animals.find((a) => a.id === id);
-  return st ? pendingCoins(animalById(id), st, now, MAX_CYCLES) : 0;
+  return st ? pendingCoins(animalById(id), st, now, MAX_CYCLES) * multiplierAt(store.data, now) : 0;
 }
 
 export function collectAnimal(store: Store, id: string, now = Date.now()): number {
   const st = store.data.animals.find((a) => a.id === id);
   if (!st) return 0;
-  const coins = collect(animalById(id), st, now, MAX_CYCLES);
-  if (coins) store.addCoins(coins);
+  const coins = collect(animalById(id), st, now, MAX_CYCLES) * multiplierAt(store.data, now);
+  if (coins) {
+    store.addCoins(coins);
+    store.bus.emit('collected', { animal: id, coins });
+  }
   return coins;
 }

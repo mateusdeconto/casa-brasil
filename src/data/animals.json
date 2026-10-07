@@ -1,11 +1,115 @@
 {
-  "_doc": "at = fractional grid point where the feet go (its cell blocks walking); lift = world px raised (e.g. on top of the table); width = sprite width in cell widths; periodSec = seconds per cycle",
-  "animals": [
-    { "id": "capybara", "name": "Capivara", "price": 0, "coins": 5, "periodSec": 30, "at": [4.6, 4.9], "lift": 0, "width": 1.5 },
-    { "id": "toucan", "name": "Tucano", "price": 150, "coins": 10, "periodSec": 45, "at": [1.2, 4.6], "lift": 95, "width": 1.3 },
-    { "id": "tamarin", "name": "Mico-leão-dourado", "price": 300, "coins": 20, "periodSec": 60, "at": [4.8, 1.8], "lift": 0, "width": 1.3 },
-    { "id": "jaguar", "name": "Onça-pintada", "price": 0, "coins": 60, "periodSec": 60, "at": [2.7, 2.6], "lift": 0, "width": 2.0, "exclusive": "zoo" }
+ "_doc": "at = fractional grid point where the feet go (its cell blocks walking); lift = world px raised (e.g. on top of the table); width = sprite width in cell widths; periodSec = seconds per cycle",
+ "animals": [
+  {
+   "id": "capybara",
+   "name": "Capivara",
+   "price": 0,
+   "coins": 5,
+   "periodSec": 30,
+   "at": [
+    4.6,
+    4.9
+   ],
+   "lift": 0,
+   "width": 1.5
+  },
+  {
+   "id": "toucan",
+   "name": "Tucano",
+   "price": 150,
+   "coins": 10,
+   "periodSec": 45,
+   "at": [
+    1.2,
+    4.6
+   ],
+   "lift": 95,
+   "width": 1.3
+  },
+  {
+   "id": "tamarin",
+   "name": "Mico-leão-dourado",
+   "price": 300,
+   "coins": 20,
+   "periodSec": 60,
+   "at": [
+    4.8,
+    1.8
+   ],
+   "lift": 0,
+   "width": 1.3
+  },
+  {
+   "id": "jaguar",
+   "name": "Onça-pintada",
+   "price": 0,
+   "coins": 60,
+   "periodSec": 60,
+   "at": [
+    2.7,
+    2.6
+   ],
+   "lift": 0,
+   "width": 2.0,
+   "exclusive": "zoo"
+  },
+  {
+   "id": "arara",
+   "name": "Arara-azul",
+   "price": 260,
+   "coins": 15,
+   "periodSec": 40,
+   "at": [
+    4.6,
+    0.6
+   ],
+   "lift": 75,
+   "width": 1.5
+  },
+  {
+   "id": "jabuti",
+   "name": "Jabuti",
+   "price": 120,
+   "coins": 6,
+   "periodSec": 35,
+   "at": [
+    2.7,
+    3.5
+   ],
+   "lift": 0,
+   "width": 0.9
+  },
+  {
+   "id": "lobo",
+   "name": "Lobo-guará",
+   "price": 350,
+   "coins": 25,
+   "periodSec": 60,
+   "at": [
+    5.4,
+    3.5
+   ],
+   "lift": 0,
+   "width": 1.15
+  }
+ ],
+ "blocked": [
+  [
+   1,
+   5
   ],
-  "blocked": [[1, 5], [5, 2], [5, 5]],
-  "avatarStart": [2, 5]
+  [
+   5,
+   2
+  ],
+  [
+   5,
+   5
+  ]
+ ],
+ "avatarStart": [
+  2,
+  5
+ ]
 }

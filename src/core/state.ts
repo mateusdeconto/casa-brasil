@@ -1,5 +1,6 @@
-// Game state shape, defaults and the Store that owns it.
-import { DEFAULT_AVATAR, START_COINS } from '../config';
+// Game state shape (save v2), defaults and the Store that owns it.
+// One RootSave holds every child profile plus device-wide settings; `store.data` is the active profile.
+import { DEFAULT_AVATAR, DEFAULT_DAILY_MINUTES, MAX_PROFILES, START_COINS } from '../config';
 import { START_FURNITURE } from './catalog';
 import type { Emitter, GameEvents } from './events';
 
@@ -16,34 +17,160 @@ export interface AnimalState {
   since: number;
 }
 
+export interface Visit {
+  id: string;
+  partner: string;
+  ts: number;
+  demo: boolean;
+  hasPhoto: boolean;
+}
+
+export interface MissionState {
+  id: string;
+  progress: number;
+}
+
+export interface WeekMissions {
+  /** Monday of the week (day key) */
+  week: string;
+  items: MissionState[];
+  rewarded: boolean;
+}
+
+export interface Outing {
+  partner: string;
+  day: string;
+  time: string;
+  agreedAt: number;
+}
+
+export interface DiaryEntry {
+  text: string;
+  hasPhoto: boolean;
+  ts: number;
+}
+
+/** Everything that belongs to one child. */
 export interface SaveData {
-  v: 1;
+  id: string;
   avatar: string;
   name: string;
   coins: number;
   furniture: PlacedItem[];
   animals: AnimalState[];
-  unlocks: { zoo: boolean; museum: boolean };
+  /** partner type or special key (zoo, museu, parque, ciencia, semana, evento) -> unlocked */
+  unlocks: Record<string, boolean>;
   time: number;
   started: boolean;
+  visits: Visit[];
+  /** partner types stamped in the passport */
+  stamps: string[];
+  /** badge id -> unlocked at */
+  badges: Record<string, number>;
+  missions: WeekMissions | null;
+  outings: Outing[];
+  /** 2x garden production until this timestamp */
+  boostUntil: number;
+  /** event item ids already redeemed (one per profile) */
+  redeemed: string[];
+  /** day key -> seconds played */
+  usage: Record<string, number>;
+  /** school mode, per child */
+  school: { done: string[]; diary: Record<string, DiaryEntry> };
 }
 
-export function defaultSave(now = Date.now()): SaveData {
+export interface Settings {
+  sound: boolean;
+  textSize: 'normal' | 'grande';
+  tutorialDone: boolean;
+  purchasesBlocked: boolean;
+  noAds: boolean;
+  friendsCircle: boolean;
+  dailyLimitMinutes: number;
+}
+
+export interface SchoolExpedition {
+  id: string;
+  theme: string;
+  title: string;
+  published: boolean;
+  columns: Record<'antes' | 'durante' | 'depois', { id: string; kind: string; title: string; hint: string }[]>;
+}
+
+export interface SchoolState {
+  /** published expedition ids, newest last */
+  expeditions: SchoolExpedition[];
+  /** extra completions on top of the demo class (local student) */
+  localDone: string[];
+}
+
+export interface RootSave {
+  v: 2;
+  activeId: string;
+  profiles: SaveData[];
+  settings: Settings;
+  /** PIN stored as a salted hash, only on this device (demo) */
+  pinHash: string | null;
+  school: SchoolState;
+  time: number;
+}
+
+export const defaultSettings = (): Settings => ({
+  sound: true,
+  textSize: 'normal',
+  tutorialDone: false,
+  purchasesBlocked: true,
+  noAds: true,
+  friendsCircle: false,
+  dailyLimitMinutes: DEFAULT_DAILY_MINUTES,
+});
+
+export function defaultProfile(id = 'p1', now = Date.now()): SaveData {
   return {
-    v: 1,
+    id,
     avatar: DEFAULT_AVATAR,
     name: '',
     coins: START_COINS,
     furniture: START_FURNITURE.map((f, i) => ({ uid: i + 1, ...f })),
     animals: [{ id: 'capybara', since: now }],
-    unlocks: { zoo: false, museum: false },
+    unlocks: { zoo: false, museu: false, parque: false, ciencia: false, semana: false, evento: false },
     time: now,
     started: false,
+    visits: [],
+    stamps: [],
+    badges: {},
+    missions: null,
+    outings: [],
+    boostUntil: 0,
+    redeemed: [],
+    usage: {},
+    school: { done: [], diary: {} },
+  };
+}
+
+export function defaultRoot(now = Date.now()): RootSave {
+  return {
+    v: 2,
+    activeId: 'p1',
+    profiles: [defaultProfile('p1', now)],
+    settings: defaultSettings(),
+    pinHash: null,
+    school: { expeditions: [], localDone: [] },
+    time: now,
   };
 }
 
 export class Store {
-  constructor(public data: SaveData, private bus: Emitter<GameEvents>) {}
+  constructor(public root: RootSave, readonly bus: Emitter<GameEvents>) {}
+
+  /** The active child's data. */
+  get data(): SaveData {
+    return this.root.profiles.find((p) => p.id === this.root.activeId) ?? this.root.profiles[0];
+  }
+
+  get settings(): Settings {
+    return this.root.settings;
+  }
 
   commit(): void {
     this.bus.emit('changed', undefined);
@@ -57,5 +184,25 @@ export class Store {
 
   nextUid(): number {
     return this.data.furniture.reduce((m, f) => Math.max(m, f.uid), 0) + 1;
+  }
+
+  canAddProfile(): boolean {
+    return this.root.profiles.length < MAX_PROFILES;
+  }
+
+  addProfile(name: string, avatar: string, now = Date.now()): SaveData {
+    const n = this.root.profiles.reduce((m, p) => Math.max(m, Number(p.id.slice(1)) || 0), 0) + 1;
+    const p = { ...defaultProfile(`p${n}`, now), name, avatar, started: true };
+    this.root.profiles.push(p);
+    this.commit();
+    return p;
+  }
+
+  switchProfile(id: string): boolean {
+    if (!this.root.profiles.some((p) => p.id === id)) return false;
+    this.root.activeId = id;
+    this.bus.emit('profileChanged', id);
+    this.commit();
+    return true;
   }
 }

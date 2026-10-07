@@ -1,14 +1,19 @@
 // Routes nav-bar tabs and garden/shop events between the Phaser scenes and the HTML UI.
 import Phaser from 'phaser';
-import { buyAnimal, simulateVisit } from './core/actions';
-import { animalById } from './core/catalog';
+import { buyAnimal } from './core/actions';
+import { PARTNERS, animalById } from './core/catalog';
 import type { Emitter, GameEvents, Tab } from './core/events';
 import type { Store } from './core/state';
 import type { RoomScene } from './scenes/RoomScene';
+import { createAlbumPage } from './ui/album';
 import { showCard } from './ui/card';
 import { flyCoins } from './ui/coinFly';
+import { createFamilyPage } from './ui/family';
 import type { Hud } from './ui/hud';
+import { PageHost } from './ui/pageHost';
+import { createPassportPage } from './ui/passport';
 import type { Shop } from './ui/shop';
+import { startVisitFlow } from './ui/visitFlow';
 
 export interface RouterDeps {
   game: Phaser.Game;
@@ -22,9 +27,15 @@ export interface RouterDeps {
   asleep: boolean;
 }
 
-export function setupRouter(d: RouterDeps): void {
+const NO_PARTNER_HINT: Record<string, string> = {
+  semana: 'Complete as 3 missões da semana no Clube Família.',
+  evento: 'Escaneie o QR do evento para ganhar este item.',
+};
+
+export function setupRouter(d: RouterDeps): { host: PageHost } {
   const { game, bus, store, ui } = d;
   const ctx = { bus, store };
+  const host = new PageHost(ui);
   let wakeAsleep = d.asleep;
 
   /** Make sure the room scene runs, then hand it over. */
@@ -43,8 +54,15 @@ export function setupRouter(d: RouterDeps): void {
     wakeAsleep = false;
   };
 
+  const openPassport = () => host.push(createPassportPage(store, () => host.pop()));
+  const openFamily = () => host.open(createFamilyPage({ store, bus, openPassport }));
+  const openAlbum = () => host.open(createAlbumPage({ store, ui, goFamily: () => bus.emit('tab', 'family') }));
+
   bus.on('tab', (tab) => {
     d.shop.close();
+    host.closeAll();
+    if (tab === 'family') return (openFamily(), d.setTab(tab));
+    if (tab === 'album') return (openAlbum(), d.setTab(tab));
     if (tab === 'avatar') return withRoom((r) => (r.editor.exit(), d.pickAvatar()));
     if (tab === 'garden') {
       openGarden();
@@ -65,23 +83,35 @@ export function setupRouter(d: RouterDeps): void {
     }),
   );
 
-  const visitButtons = [
-    { label: 'Simular visita ao zoológico (demo)', onClick: () => visit('zoo') },
-    { label: 'Simular visita ao museu (demo)', secondary: true, onClick: () => visit('museum') },
-  ];
-  const visit = (kind: 'zoo' | 'museum') => {
-    simulateVisit(store, kind);
-    bus.emit('gardenChanged', undefined);
-    bus.emit('toast', kind === 'zoo' ? 'Onça-pintada liberada no jardim!' : 'Peças do museu liberadas na loja!');
+  bus.on('startVisit', ({ partner, preGps }) => {
+    const id = partner ?? PARTNERS[0].id;
+    host.push(
+      startVisitFlow(
+        { store, close: () => host.pop(), openGarden: () => bus.emit('tab', 'garden'), openPassport: () => (bus.emit('tab', 'family'), openPassport()) },
+        id,
+        preGps,
+      ),
+    );
+  });
+
+  const goVisit = (unlock?: string) => {
+    const p = PARTNERS.find((x) => x.reward.unlock === unlock);
+    if (p) return bus.emit('startVisit', { partner: p.id });
+    bus.emit('toast', NO_PARTNER_HINT[unlock ?? ''] ?? 'Faça uma visita no Clube Família.');
   };
-  bus.on('visitCard', () =>
-    showCard(ui, { title: 'Exclusivo', image: 'lock', text: 'Exclusivo: só com visita real a um parceiro.', buttons: visitButtons }),
+  const visitText = 'Exclusivo: só com visita real a um parceiro.';
+
+  bus.on('visitCard', ({ unlock }) =>
+    showCard(ui, { title: 'Exclusivo', image: 'lock', text: visitText, buttons: [{ label: 'Fazer uma visita', onClick: () => goVisit(unlock) }] }),
   );
 
   bus.on('animalTap', ({ id, look }) => {
     const def = animalById(id);
     if (look === 'locked') {
-      return showCard(ui, { title: def.name, image: 'jaguar_silhouette', text: 'Exclusivo: só com visita real a um parceiro.', buttons: visitButtons });
+      return showCard(ui, {
+        title: def.name, image: 'jaguar_silhouette', text: visitText,
+        buttons: [{ label: 'Fazer uma visita', onClick: () => goVisit(def.exclusive) }],
+      });
     }
     showCard(ui, {
       title: def.name,
@@ -97,5 +127,8 @@ export function setupRouter(d: RouterDeps): void {
     });
   });
 
+  // a visit may have unlocked an animal (jaguar): refresh the garden if it is the running scene
+  bus.on('unlocked', () => bus.emit('gardenChanged', undefined));
   bus.on('coinsFly', ({ x, y, amount }) => flyCoins(ui, { x, y }, d.hud.coinTarget(), amount));
+  return { host };
 }

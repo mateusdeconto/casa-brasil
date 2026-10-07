@@ -16,7 +16,9 @@ export class Emitter<Events extends Record<string, unknown>> {
   }
 }
 
-export type Tab = 'home' | 'garden' | 'shop' | 'edit' | 'avatar';
+import type { Visit } from './state';
+
+export type Tab = 'home' | 'garden' | 'shop' | 'edit' | 'avatar' | 'family' | 'album';
 
 export interface EditorState {
   mode: 'none' | 'place' | 'edit';
@@ -36,7 +38,19 @@ export interface GameEvents extends Record<string, unknown> {
   editor: EditorState;
   animalTap: { id: string; look: 'forSale' | 'locked' };
   gardenChanged: void;
-  visitCard: void;
+  visitCard: { unlock?: string };
+  profileChanged: string;
+  /** a real or demo visit finished (stamp given, reward applied) */
+  visitCompleted: { visit: Visit };
+  /** coins collected from an animal in the garden */
+  collected: { animal: string; coins: number };
+  /** a shop item or animal became available */
+  unlocked: { key: string };
+  photoAdded: { visitId: string };
+  badgeEarned: { id: string };
+  /** open the 3-step visit flow, optionally for a given partner */
+  startVisit: { partner?: string; preGps?: boolean };
+  openPage: { page: string; arg?: string };
   coinsFly: { x: number; y: number; amount: number };
   [key: string]: unknown;
 }

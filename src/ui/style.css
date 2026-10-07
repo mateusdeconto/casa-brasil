@@ -16,7 +16,7 @@ html, body { margin: 0; height: 100%; background: var(--page); color: var(--text
 body { display: flex; align-items: center; justify-content: center; }
 
 /* Phones: full screen. Wider screens: centered 9:16 box. */
-#app { position: relative; width: 100vw; height: 100dvh; overflow: hidden; touch-action: none; user-select: none; background: var(--page); }
+#app { position: relative; width: 100vw; height: 100dvh; overflow: hidden; overflow: clip; touch-action: none; user-select: none; background: var(--page); }
 @media (min-aspect-ratio: 10/16) {
   #app { height: 100dvh; width: calc(100dvh * 9 / 16); box-shadow: 0 0 0 2px var(--wood), 0 0 60px #0008; }
 }
@@ -74,11 +74,11 @@ button { font-family: inherit; cursor: pointer; border: 0; touch-action: manipul
 
 /* Nav bar */
 .nav {
-  position: absolute; left: 0; right: 0; bottom: 0; height: var(--nav-h); display: grid; grid-template-columns: repeat(5, 1fr);
+  position: absolute; left: 0; right: 0; bottom: 0; height: var(--nav-h); display: grid; grid-template-columns: repeat(6, 1fr);
   background: linear-gradient(var(--wood), var(--wood-dark)); border-top: 3px solid var(--cream); padding: 6px 4px calc(4px + env(safe-area-inset-bottom)); z-index: 10;
 }
-.nav button { background: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: var(--cream); font-size: 13px; border-radius: 10px; transition: transform 0.06s; }
-.nav button img { width: 46px; height: 46px; }
+.nav button { background: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: var(--cream); font-size: 14px; min-width: 0; border-radius: 10px; transition: transform 0.06s; }
+.nav button > img { width: 44px; height: 44px; }
 .nav button:active { transform: scale(0.92) translateY(2px); }
 .nav button.on { color: var(--amber); background: radial-gradient(#ffc36b55, transparent 70%); }
 .nav button.on img { filter: drop-shadow(0 0 6px var(--amber)) brightness(1.15); }
