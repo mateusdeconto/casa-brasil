@@ -19,7 +19,8 @@ interface Item {
 const HOW: Item[] = [
   { icon: 'nav_home', title: 'Casa e jardim', text: 'A criança decora uma casa e cuida de um jardim com bichos brasileiros que produzem moedas. É o jogo do dia a dia.' },
   { icon: 'mappin', title: 'Visita real', text: 'Itens exclusivos só chegam depois de uma visita a um parceiro: Local, Foto do lugar e Carimbo no passaporte.' },
-  { icon: 'family', title: 'Clube Família', text: 'Expedição da semana, saída combinada com a família, missões semanais e medalhas. Tudo com recompensa conhecida antes.' },
+  { icon: 'family', title: 'Clube Família', text: 'Expedição da semana, saída combinada com a família, roteiro completo do dia (antes, durante e depois), missões semanais e medalhas. Tudo com recompensa conhecida antes.' },
+  { icon: 'vitrine', title: 'Galeria do acervo', text: 'Cada visita traz um projeto de obra para ampliar a galeria. Fósseis, dinossauros e quadros dos museus ficam em exposição e dão bônus conhecidos de moedas no jardim.' },
   { icon: 'school', title: 'Modo Escola', text: 'O professor monta uma expedição digital (antes, durante e depois da visita) e acompanha a turma, sem notas e sem ranking.' },
   { icon: 'gear', title: 'Painel da cidade', text: 'A prefeitura vê onde as visitas acontecem e se a campanha espalhou o público. Só números por lugar, a partir de 20 visitas.' },
 ];
@@ -64,7 +65,8 @@ export function mount(root: HTMLElement): void {
   const today = qrUrl(eventToken(dayKey(Date.now())));
   const art = assetUrl(MANIFEST.opening);
   page.innerHTML = `
-    <header class="hero" style="background-image:url(${art})"><div><h1>${esc(TITLE)}</h1><p>Um jogo de casa e jardim que leva as famílias para fora de casa.</p><img src="${itemUrl('ribbon_demo')}" alt="DEMO: protótipo" class="ribbon"></div></header>
+    <header class="hero" style="background-image:url(${art})" role="img" aria-label="${esc(TITLE)}"><img src="${itemUrl('ribbon_demo')}" alt="DEMO: protótipo" class="ribbon"></header>
+    <p class="lede">Um jogo de casa e jardim que leva as famílias para fora de casa.</p>
     <div class="content">
       ${section('problema', 'O problema', '<p>Museus, parques e centros de ciência ficam vazios em dias comuns, enquanto as crianças passam horas em telas. Famílias não sabem por onde começar, escolas têm dificuldade de organizar saídas e a cidade não sabe onde as visitas realmente acontecem.</p>')}
       ${section('solucao', 'A solução', '<p>Um jogo cujo melhor prêmio só se ganha numa visita real. Cada visita vira carimbo no passaporte, foto no álbum e bichos novos no jardim, e a escola e a cidade enxergam o resultado.</p>')}

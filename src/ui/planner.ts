@@ -3,7 +3,7 @@ import { PARTNERS, PLACE_PARTNERS } from '../core/catalog';
 import { nextDays } from '../core/dates';
 import type { Emitter, GameEvents } from '../core/events';
 import { outingLabel, planOuting, shareOuting } from '../core/outings';
-import type { Store } from '../core/state';
+import type { Outing, Store } from '../core/state';
 import { DEFAULT_OUTING_TIME } from '../config';
 import { el } from './dom';
 import { makePage, type PageHandle } from './pageHost';
@@ -14,6 +14,8 @@ export interface PlannerDeps {
   store: Store;
   bus: Emitter<GameEvents>;
   back: () => void;
+  /** the full day plan for the outing just agreed */
+  openRoteiro: (o: Outing) => void;
 }
 
 export function createPlannerPage(d: PlannerDeps, preselect?: string): PageHandle {
@@ -56,8 +58,9 @@ export function createPlannerPage(d: PlannerDeps, preselect?: string): PageHandl
     done.classList.remove('hidden');
     done.innerHTML = '';
     done.append(el('div', 'panel-title', '<span>Saída combinada!</span>'), el('p', '', `${partner ? PARTNERS.find((p) => p.id === partner)!.name : ''}: ${outingLabel(o)}`));
+    done.appendChild(button('Ver roteiro completo', () => d.openRoteiro(o)));
     done.appendChild(
-      button('Compartilhar', async () => {
+      button('Compartilhar convite', async () => {
         const r = await shareOuting(o);
         d.bus.emit('toast', r === 'copied' ? 'Texto copiado. É só colar na conversa!' : r === 'shared' ? 'Convite enviado!' : 'Não deu para compartilhar agora.');
       }),

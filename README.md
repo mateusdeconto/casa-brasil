@@ -1,6 +1,16 @@
 # Passport (protótipo)
 
-Jogo de navegador em retrato: escolha um avatar, decore uma casa isométrica e cuide de um jardim com bichos brasileiros que produzem moedas. Os melhores itens só chegam com uma **visita real** a museus, parques e centros de ciência (Local, Foto, Carimbo). Em volta do jogo há o **Clube Família**, o **Modo Escola**, o **painel da cidade** e uma página **Sobre** para a banca.
+Jogo de navegador em retrato: escolha um avatar, decore uma casa isométrica e cuide de um jardim com bichos brasileiros que produzem moedas. Os melhores itens só chegam com uma **visita real** a museus, parques e centros de ciência (Local, Foto, Carimbo). Em volta do jogo há o **Clube Família** (com o **roteiro completo** de cada saída), a **Galeria** (ala do museu que cresce com obras), o **Modo Escola**, o **painel da cidade** e uma página **Sobre** para a banca.
+
+## Galeria e obras
+
+- Cada visita (real ou demonstração) traz **1 projeto de obra**. Com projetos e moedas a criança constrói a ala da Galeria em 3 níveis (`src/data/gallery.json`: 2 projetos + 300 moedas, 4 + 800, 6 + 1500), cada um abrindo mais piso.
+- Peças de museu (fósseis, esqueletos de dinossauro, quadros) são compradas na Loja, mas só aparecem para compra depois da visita certa (museu: fóssil, vaso, quadros; centro de ciências: meteorito, dinossauros) e ficam **na galeria**, não na casa.
+- **Benefícios, todos mostrados antes**: 2, 4 e 7 peças diferentes expostas dão +10%, +20% e +30% de moedas no jardim (e 2 h / 4 h a mais de produção fora do jogo); coleções completas (dinossauros, arte, achados do museu) dão +5% cada. Só conta o que está em exposição.
+
+## Roteiro da expedição
+
+Depois de combinar uma saída, a família abre o **roteiro completo**: o que fazer antes, o que levar, a linha do tempo do dia (saída, trajeto, chegada, carimbo, atividades, lanche, volta) e o que fazer depois em casa. Dá para marcar o que já foi feito, **trocar** uma atividade por outra ideia, gerar outro roteiro e compartilhar o texto. Conteúdo em `src/data/roteiros.json` (modelos, sem API de IA).
 
 Tudo que é simulado mostra o selo **DEMO**. Nenhum dado sai do aparelho.
 
@@ -65,7 +75,7 @@ Gera `public/qr/evento-<data>.png`, `public/qr/parceiro-<id>.png`, `public/qr-ev
 2. `npm run assets`. Confira `debug/contact_<folha>.png` (cada item recortado com o nome).
 3. Se mudou o tamanho de algo, recalibre pela tela com `?debug=1` (`src/data/calibration.json`, `furniture.json`, `animals.json`) e tire a marca `provisorio` do item.
 
-As folhas 30 a 34 (carimbos, medalhas, ícones, itens e animais novos) são nomeadas em `tools/process_assets.py` (`SHEETS`).
+As folhas 30 a 42 (carimbos, medalhas, ícones, itens, animais, dinossauros e quadros) são nomeadas em `tools/process_assets.py` (`SHEETS`). A capa da abertura é `assets/raw/capa.png` (retrato, com o título pintado); `39` é o logo (ícone do app), `40` e `41` são as fotos do zoológico e do parque, `38` é o piso da galeria e `5 (1)` o jardim.
 
 ## Resetar e carregar a demonstração
 

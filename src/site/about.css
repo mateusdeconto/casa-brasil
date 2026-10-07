@@ -1,5 +1,5 @@
 /* /sobre */
-.about .hero { min-height: 300px; background: #000 center 78% / cover no-repeat; display: grid; align-items: end; border-bottom: 3px solid var(--cream); }
+.about .hero { position: relative; min-height: 340px; background: #000 center 24% / cover no-repeat; display: grid; align-items: end; border-bottom: 3px solid var(--cream); }
 .about .hero > div { position: relative; padding: 70px 22px 24px; background: linear-gradient(transparent, #1c1730e6 70%); max-width: 100%; }
 .about .hero h1 { font-size: clamp(36px, 8vw, 64px); text-shadow: 3px 3px 0 var(--wood-dark); }
 .about .hero p { margin: 4px 0 0; color: var(--cream); font-size: clamp(17px, 2.6vw, 24px); max-width: 640px; }
@@ -19,3 +19,5 @@
 .links { display: flex; gap: 10px; flex-wrap: wrap; }
 .about .small { font-size: 15px; opacity: 0.8; margin-top: 10px; }
 .about code { background: #0006; padding: 2px 6px; border-radius: 6px; word-break: break-all; color: var(--amber); }
+
+.about .lede { max-width: 760px; margin: 18px auto 0; padding: 0 22px; text-align: center; color: var(--cream); font-size: clamp(18px, 2.6vw, 24px); }

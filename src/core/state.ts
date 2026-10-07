@@ -42,6 +42,12 @@ export interface Outing {
   day: string;
   time: string;
   agreedAt: number;
+  /** picks which ideas the generated roteiro starts with */
+  seed?: number;
+  /** how many times each activity slot was swapped for another idea */
+  swaps?: Record<string, number>;
+  /** roteiro items the family already ticked */
+  done?: string[];
 }
 
 export interface DiaryEntry {

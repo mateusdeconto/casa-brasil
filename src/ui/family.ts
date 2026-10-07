@@ -5,7 +5,7 @@ import { BADGES } from '../core/badges';
 import type { Emitter, GameEvents } from '../core/events';
 import { ensureMissions, featuredPartnerId, missionDef, missionDone } from '../core/missions';
 import { nextOuting, outingLabel } from '../core/outings';
-import type { Store } from '../core/state';
+import type { Outing, Store } from '../core/state';
 import { showBadgeDetail } from './badgeDetail';
 import { el, itemUrl } from './dom';
 import { makePage, type PageHandle } from './pageHost';
@@ -17,6 +17,7 @@ export interface FamilyDeps {
   ui: HTMLElement;
   openPassport: () => void;
   openPlanner: (partner?: string) => void;
+  openRoteiro: (o: Outing) => void;
   startVisit: (partner: string) => void;
 }
 
@@ -51,10 +52,13 @@ function expeditionCard(d: FamilyDeps, now: number): HTMLElement {
 
 function nextTrip(d: FamilyDeps, now: number): HTMLElement {
   const o = nextOuting(d.store.data, now);
+  const wrap = el('div', 'next-trip-wrap');
   const row = el('button', 'parch next-trip');
   row.innerHTML = `<img src="${itemUrl('calendar')}" alt=""><span>${o ? `Próxima saída:<br><b>${outingLabel(o)}</b>` : 'Próxima saída:<br><b>combinar agora</b>'}</span><i>›</i>`;
   row.onclick = () => d.openPlanner(o?.partner);
-  return row;
+  wrap.appendChild(row);
+  if (o) wrap.appendChild(button('Ver roteiro da saída', () => d.openRoteiro(o), 'secondary small'));
+  return wrap;
 }
 
 function visitNow(d: FamilyDeps): HTMLElement {

@@ -1,0 +1,109 @@
+{
+  "_doc": "Family itinerary content. For each place type: pools of 'before' (at home, the day before), 'visit' (at the place; the first slots are picked by the outing seed and can be swapped one by one), and 'after' (back home). {lugar} becomes the partner name and {missao} the partner mission. Nothing here asks for photos of people. No external API: this is the template based generator.",
+  "common": {
+    "stampMinutes": 10,
+    "snackMinutes": 20,
+    "arrivalMinutes": 10,
+    "bring": ["Água", "Lanche leve", "Celular carregado (para o Passport)", "Caderninho e lápis"],
+    "ride": [
+      "No caminho, cada um dê um palpite: quantas coisas diferentes vamos ver em {lugar}?",
+      "No caminho, conversem sobre o que cada um mais quer descobrir hoje.",
+      "No caminho, joguem o jogo do silêncio: quem encontra primeiro algo bem antigo e algo bem novo pela janela?"
+    ],
+    "snack": "Hora do lanche! Sentem para comer e contem a descoberta favorita até agora."
+  },
+  "places": {
+    "zoo": {
+      "outdoor": true,
+      "bring": ["Boné e protetor solar", "Calçado confortável"],
+      "tip": "Não alimente os animais e fale baixinho perto dos recintos.",
+      "before": [
+        { "title": "Escolham 3 animais para encontrar", "detail": "Cada pessoa da família escolhe um bicho e fala por que quer vê-lo." },
+        { "title": "Vejam onde cada bicho vive", "detail": "Procurem no mapa do Brasil de onde vem a onça-pintada, o tucano e o mico-leão-dourado." },
+        { "title": "Combinem as regras do passeio", "detail": "Ficar juntos, falar baixinho e nunca dar comida aos animais." }
+      ],
+      "visit": [
+        { "title": "Missão do lugar", "detail": "{missao}", "minutes": 30 },
+        { "title": "Quem come o quê?", "detail": "Leiam as placas e descubram o que 3 animais comem. Anotem no caderninho.", "minutes": 25 },
+        { "title": "Adaptações dos bichos", "detail": "Procurem uma pelagem, um bico ou uma pata que ajuda o animal a viver ali.", "minutes": 20 },
+        { "title": "Foto do lugar", "detail": "Fotografem o recinto ou uma placa, sem pessoas. A foto fica só neste aparelho.", "minutes": 10 },
+        { "title": "Desenho rápido", "detail": "Cada um desenha o animal mais engraçado que viu em 5 minutos.", "minutes": 15 },
+        { "title": "Ouçam os sons", "detail": "Fechem os olhos por um minuto e contem quantos sons de bichos conseguem ouvir.", "minutes": 10 }
+      ],
+      "after": [
+        { "title": "Diário do passeio", "detail": "Cada um conta o bicho favorito e por quê." },
+        { "title": "Desenho do bicho favorito", "detail": "Desenhem juntos e colem na geladeira." },
+        { "title": "Quiz em família", "detail": "Façam 3 perguntas sobre os animais que viram e respondam em roda." }
+      ]
+    },
+    "museu": {
+      "outdoor": false,
+      "bring": ["Roupa leve e agasalho (pode ter ar-condicionado)"],
+      "tip": "Em museu a gente olha com os olhos e as mãos ficam no bolso. Siga as placas.",
+      "before": [
+        { "title": "Escolham uma pergunta", "detail": "Por exemplo: como as pessoas viviam antes? Levem a pergunta para procurar a resposta." },
+        { "title": "Combinem como ver as obras", "detail": "Olhar de longe, depois de perto, e contar o que sente: alegria, medo, curiosidade?" },
+        { "title": "Procurem o museu no mapa", "detail": "Vejam o caminho e quanto tempo leva." }
+      ],
+      "visit": [
+        { "title": "Missão do lugar", "detail": "{missao}", "minutes": 30 },
+        { "title": "Caça às cores", "detail": "Escolham uma cor e encontrem 3 peças ou quadros que tenham essa cor.", "minutes": 20 },
+        { "title": "A peça mais antiga", "detail": "Achem a peça mais antiga que conseguirem e imaginem quem a usava.", "minutes": 25 },
+        { "title": "Foto de uma peça", "detail": "Fotografem uma obra ou peça, sem pessoas. A foto fica só neste aparelho.", "minutes": 10 },
+        { "title": "Dê um título", "detail": "Escolham um quadro e inventem um novo nome para ele.", "minutes": 15 },
+        { "title": "Detetives da arte", "detail": "Cada um escolhe uma obra e os outros adivinham o que o artista quis mostrar.", "minutes": 20 }
+      ],
+      "after": [
+        { "title": "Diário do passeio", "detail": "Cada um fala da obra que mais gostou e por quê." },
+        { "title": "Recriem a obra", "detail": "Desenhem ou montem uma versão da obra favorita com materiais de casa." },
+        { "title": "Escolham uma peça para a Galeria", "detail": "Vejam na loja do Passport qual peça combina com o que viram." }
+      ]
+    },
+    "parque": {
+      "outdoor": true,
+      "bring": ["Boné e protetor solar", "Saquinho para guardar o lixo"],
+      "tip": "Não arranque plantas nem leve nada do parque, só lembranças e fotos.",
+      "before": [
+        { "title": "Escolham um desafio", "detail": "Por exemplo: encontrar 3 folhas diferentes e uma árvore bem grande." },
+        { "title": "Vejam a previsão do tempo", "detail": "Escolham a roupa certa e confiram se precisa de capa de chuva." },
+        { "title": "Combinem o ponto de encontro", "detail": "Se alguém se perder, onde todos se encontram?" }
+      ],
+      "visit": [
+        { "title": "Missão do lugar", "detail": "{missao}", "minutes": 30 },
+        { "title": "Caça às folhas", "detail": "Achem 3 formatos de folha diferentes e comparem as bordas e as nervuras.", "minutes": 20 },
+        { "title": "A árvore mais alta", "detail": "Procurem a árvore mais alta e estimem quantas pessoas de braços abertos abraçam o tronco.", "minutes": 20 },
+        { "title": "Foto do lugar", "detail": "Fotografem uma paisagem do parque, sem pessoas. A foto fica só neste aparelho.", "minutes": 10 },
+        { "title": "Escutem a natureza", "detail": "Sentem por 2 minutos e anotem os sons que ouvem: pássaros, vento, água.", "minutes": 10 },
+        { "title": "Quem mora aqui?", "detail": "Procurem rastros ou casinhas de bichos: formigas, pássaros, insetos.", "minutes": 20 }
+      ],
+      "after": [
+        { "title": "Diário do passeio", "detail": "Cada um conta o lugar mais bonito que viu." },
+        { "title": "Herbário de papel", "detail": "Desenhem as folhas que encontraram e escrevam os formatos." },
+        { "title": "Plantem algo", "detail": "Se tiver espaço, plantem uma sementinha em casa." }
+      ]
+    },
+    "ciencia": {
+      "outdoor": false,
+      "bring": ["Roupa confortável", "Uma pergunta curiosa para fazer"],
+      "tip": "Perguntar é o melhor jeito de aprender. Se não entender, pergunte de novo.",
+      "before": [
+        { "title": "Escolham uma curiosidade", "detail": "Por exemplo: por que o céu é azul? Levem a pergunta para o centro de ciências." },
+        { "title": "Façam uma aposta", "detail": "Cada um chuta como funciona uma coisa que quer ver. Depois conferem quem acertou." },
+        { "title": "Vejam o que tem lá", "detail": "Escolham duas áreas que querem visitar primeiro." }
+      ],
+      "visit": [
+        { "title": "Missão do lugar", "detail": "{missao}", "minutes": 30 },
+        { "title": "Façam uma experiência", "detail": "Escolham um experimento, mexam e contem o que mudou.", "minutes": 25 },
+        { "title": "Procure o espaço", "detail": "Achem algo sobre planetas, estrelas ou meteoritos e contem um fato.", "minutes": 20 },
+        { "title": "Foto do lugar", "detail": "Fotografem uma exposição ou máquina, sem pessoas. A foto fica só neste aparelho.", "minutes": 10 },
+        { "title": "Perguntas ao monitor", "detail": "Façam uma pergunta curiosa para quem trabalha lá e anotem a resposta.", "minutes": 15 },
+        { "title": "Fósseis e dinossauros", "detail": "Procurem um osso, um fóssil ou um esqueleto e adivinhem o animal.", "minutes": 20 }
+      ],
+      "after": [
+        { "title": "Diário do passeio", "detail": "Cada um conta a descoberta mais surpreendente." },
+        { "title": "Repitam a experiência", "detail": "Tentem fazer em casa um experimento simples e seguro, com um adulto." },
+        { "title": "Escolham um dinossauro para a Galeria", "detail": "Vejam na loja do Passport qual esqueleto vocês viram ou gostariam de ter." }
+      ]
+    }
+  }
+}

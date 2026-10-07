@@ -11,6 +11,8 @@ import { showCard } from './ui/card';
 import { flyCoins } from './ui/coinFly';
 import { createFamilyPage } from './ui/family';
 import { createGalleryPage } from './ui/gallery';
+import { createRoteiroPage } from './ui/roteiro';
+import type { Outing } from './core/state';
 import type { Hud } from './ui/hud';
 import { PageHost } from './ui/pageHost';
 import { createPassportPage } from './ui/passport';
@@ -67,8 +69,10 @@ export function setupRouter(d: RouterDeps): { host: PageHost } {
   };
 
   const openPassport = () => host.push(createPassportPage(store, () => host.pop()));
-  const openPlanner = (partner?: string) => host.push(createPlannerPage({ store, bus, back: () => (host.pop(), refreshFamily()) }, partner));
-  const openFamily = () => host.open(createFamilyPage({ store, bus, ui, openPassport, openPlanner, startVisit: (partner) => bus.emit('startVisit', { partner }) }));
+  const openRoteiro = (outing: Outing) => host.push(createRoteiroPage({ store, bus, outing, back: () => host.pop() }));
+  const openPlanner = (partner?: string) =>
+    host.push(createPlannerPage({ store, bus, back: () => (host.pop(), refreshFamily()), openRoteiro }, partner));
+  const openFamily = () => host.open(createFamilyPage({ store, bus, ui, openPassport, openPlanner, openRoteiro, startVisit: (partner) => bus.emit('startVisit', { partner }) }));
   /** the family page lists outings and missions, so redraw it after a sub-page closes */
   const refreshFamily = () => host.isOpen && host.top?.el.classList.contains('family') && openFamily();
   const openGalleryPage = () =>
