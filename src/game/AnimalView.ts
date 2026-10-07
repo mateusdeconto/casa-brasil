@@ -31,7 +31,8 @@ export class AnimalView {
     const top = this.top();
     const font = { fontFamily: '"Fredoka", sans-serif', fontStyle: 'bold', color: '#3a2414' };
     if (look === 'forSale') {
-      this.sprite.setAlpha(0.5).setTint(0x9a8fa8);
+      // clean look: the animal in its real colors (no tint), the price tag says it is for sale
+      this.sprite.setAlpha(0.92);
       this.extras.push(this.tag(String(def.price), top.y));
     }
     if (look === 'locked') {

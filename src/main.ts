@@ -46,7 +46,7 @@ const ui = document.getElementById('ui')!;
 const dpr = () => Math.min(window.devicePixelRatio || 1, 2);
 const size = () => ({ width: Math.round(app.clientWidth * dpr()), height: Math.round(app.clientHeight * dpr()) });
 
-enableWheelScroll(app);
+enableWheelScroll();
 // canvas text is drawn once, so the font must be ready before the scenes create it
 const FONT_WAIT_MS = 2000;
 await Promise.race([
