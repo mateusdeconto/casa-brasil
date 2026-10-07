@@ -97,7 +97,7 @@ button { font-family: inherit; cursor: pointer; border: 0; touch-action: manipul
   transform: translateY(calc(100% + var(--nav-h) + 20px)); transition: transform 0.25s ease-out; z-index: 9;
 }
 .shop.open { transform: none; }
-.shop-list { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; padding: 10px; overflow-y: auto; touch-action: pan-y; }
+.shop-list { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; padding: 10px; overflow-y: auto; }
 .shop-card {
   background: var(--cream); border: 3px solid var(--wood); border-radius: 8px; padding: 4px 2px 6px; display: flex; flex-direction: column; align-items: center; gap: 2px;
   color: #3a2414; font-size: 14px; font-weight: 600; box-shadow: 0 3px 0 var(--wood-dark); transition: transform 0.06s;

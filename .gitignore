@@ -8,3 +8,5 @@ __pycache__/
 JogoCasa/
 test-results/
 playwright-report/
+
+.vercel

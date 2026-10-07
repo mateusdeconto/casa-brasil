@@ -1,6 +1,8 @@
 /* Light pages (/escola, /cidade, /sobre): normal scrolling documents in the game's wood and parchment style. */
-html.site, html.site body { height: auto; min-height: 100%; overflow: auto; display: block; }
-html.site body { background: var(--page); overflow-x: hidden; }
+/* the page itself scrolls (the window); body must not become a scroll container or the wheel stops at it */
+html.site, html.site body { height: auto; min-height: 100%; display: block; overscroll-behavior: auto; }
+html.site { overflow-y: auto; }
+html.site body { background: var(--page); overflow-x: clip; overflow-y: visible; }
 html.site * { touch-action: auto; }
 #site { min-height: 100dvh; font-size: 17px; }
 .site-frame { min-height: 100dvh; display: flex; flex-direction: column; }

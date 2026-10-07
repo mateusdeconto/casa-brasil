@@ -33,7 +33,9 @@ export function showAvatarPicker(
     s.remove();
     onDone(chosen, name);
   };
-  input.onkeydown = (e) => e.key === 'Enter' && go.click();
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') go.click();
+  });
   foot.append(input, go);
   s.appendChild(foot);
   root.appendChild(s);
