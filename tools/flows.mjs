@@ -394,6 +394,30 @@ export const FLOWS = {
     await wait(page, 1200);
     await shot('8_partner_qr');
   },
+  async city(page, shot) {
+    await goto(page, '/cidade');
+    await wait(page, 800);
+    await shot('1_city');
+    await page.locator('.maps').scrollIntoViewIfNeeded();
+    await shot('2_maps');
+    await page.click('.chip[data-type="Cultura"]');
+    await wait(page, 300);
+    await shot('3_filter_cultura');
+    await page.click('.chip[data-type="Todos"]');
+    await page.locator('.city-table').scrollIntoViewIfNeeded();
+    await shot('4_table');
+  },
+  async about(page, shot) {
+    await goto(page, '/sobre');
+    await wait(page, 800);
+    await shot('1_hero');
+    await page.locator('#receita').scrollIntoViewIfNeeded();
+    await shot('2_revenue');
+    await page.locator('#seguranca').scrollIntoViewIfNeeded();
+    await shot('3_safety');
+    await page.locator('#links').scrollIntoViewIfNeeded();
+    await shot('4_links');
+  },
   async offline(page, shot) {
     const tenHours = Date.now() - 10 * 3600_000;
     await startWith(page, baseSave({ time: tenHours, animals: [{ id: 'capybara', since: tenHours }, { id: 'toucan', since: tenHours }] }));

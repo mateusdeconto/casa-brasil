@@ -1,0 +1,14 @@
+{
+  "_doc": "All numbers are fictional (demo). x/y place each marker on the stylised 600x400 map. A place with fewer than minVisits visits is shown as 'dados ocultos' so no small group can be singled out.",
+  "minVisits": 20,
+  "campaign": { "name": "Descubra a Cidade", "text": "4 semanas de missões em família nos equipamentos menos visitados, com carimbo duplo no fim de semana." },
+  "types": ["Zoológico", "Museu", "Parque", "Ciência", "Cultura"],
+  "places": [
+    { "id": "zoo", "name": "Zoológico Municipal", "type": "Zoológico", "area": "Zona Sul", "x": 150, "y": 270, "before": 640, "after": 610 },
+    { "id": "parque", "name": "Parque Municipal", "type": "Parque", "area": "Centro", "x": 330, "y": 190, "before": 520, "after": 540 },
+    { "id": "museu", "name": "Museu de Ciências", "type": "Museu", "area": "Zona Norte", "x": 400, "y": 80, "before": 140, "after": 330 },
+    { "id": "ciencia", "name": "Centro de Ciências", "type": "Ciência", "area": "Zona Oeste", "x": 90, "y": 110, "before": 96, "after": 260 },
+    { "id": "biblioteca", "name": "Biblioteca Central", "type": "Cultura", "area": "Centro", "x": 470, "y": 250, "before": 34, "after": 120 },
+    { "id": "casa", "name": "Casa de Cultura", "type": "Cultura", "area": "Zona Leste", "x": 540, "y": 130, "before": 14, "after": 58 }
+  ]
+}
