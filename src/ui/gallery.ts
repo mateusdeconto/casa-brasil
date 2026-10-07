@@ -1,6 +1,7 @@
 // Gallery wing screens: the "Acervo e obras" page (build the next level, see every benefit) and the corner chip.
 import { furnitureById } from '../core/catalog';
 import type { Emitter, GameEvents } from '../core/events';
+import { HOUSE_LEVELS, buildHouse, canBuildHouse, houseCells } from '../core/house';
 import { GALLERY_COLLECTIONS, GALLERY_LEVELS, GALLERY_TIERS, buildGallery, canBuild, galleryBonus, galleryBounds } from '../core/gallery';
 import type { Store } from '../core/state';
 import { el, esc, itemUrl } from './dom';
@@ -17,6 +18,37 @@ export interface GalleryPageDeps {
 }
 
 const mark = (ok: boolean) => `<span class="gl-mark ${ok ? 'ok' : ''}">${ok ? '✓' : '·'}</span>`;
+
+function houseCard(d: GalleryPageDeps): HTMLElement {
+  const data = d.store.data;
+  const card = el('div', 'panel gl-card');
+  const check = canBuildHouse(data);
+  if (!check.level) {
+    card.append(el('div', 'panel-title', '<span>Obra da casa</span>'), el('p', 'gl-note', `A casa já está do tamanho máximo (${houseCells(data)} x ${houseCells(data)}).`));
+    return card;
+  }
+  const lv = check.level;
+  card.append(
+    el('div', 'panel-title', `<span>Casa: ${houseCells(data)} x ${houseCells(data)}, próxima obra ${lv.level} de ${HOUSE_LEVELS.length}</span>`),
+    el('p', 'gl-note', `${esc(lv.name)}: o piso passa para ${lv.cells} x ${lv.cells}. Seus móveis ficam onde estão.`),
+    el(
+      'ul',
+      'gl-needs',
+      `<li>${mark(data.projects >= lv.projects)} Projetos de obra: <b>${data.projects}</b> de ${lv.projects}</li><li>${mark(data.coins >= lv.coins)} Moedas: <b>${data.coins.toLocaleString('pt-BR')}</b> de ${lv.coins.toLocaleString('pt-BR')}</li>`,
+    ),
+  );
+  const go = button('Ampliar a casa', () => buildHouse(d.store));
+  go.disabled = !check.ok;
+  card.appendChild(go);
+  if (!check.ok) {
+    const parts = [
+      check.missingProjects ? `${check.missingProjects} ${check.missingProjects === 1 ? 'projeto' : 'projetos'} (faça uma visita)` : '',
+      check.missingCoins ? `${check.missingCoins} moedas` : '',
+    ].filter(Boolean);
+    card.appendChild(el('p', 'gl-note small', `Falta: ${parts.join(' e ')}.`));
+  }
+  return card;
+}
 
 function buildCard(d: GalleryPageDeps, rerender: () => void): HTMLElement {
   const data = d.store.data;
@@ -93,29 +125,38 @@ function piecesCard(d: GalleryPageDeps): HTMLElement {
 }
 
 export function createGalleryPage(d: GalleryPageDeps): PageHandle {
-  const page = makePage({ title: 'Galeria: acervo e obras', className: 'gallery-page', back: d.close });
+  const page = makePage({ title: 'Obras e acervo', className: 'gallery-page', back: d.close });
   const render = () => {
     page.body.innerHTML = '';
     const data = d.store.data;
-    const head = el('div', 'gl-head', `<span><b>${data.projects}</b> projetos de obra</span><span>Nível <b>${data.galleryLevel}</b> de ${GALLERY_LEVELS.length}</span>`);
-    page.body.append(head, buildCard(d, render), benefitsCard(d), piecesCard(d));
+    const head = el('div', 'gl-head', `<span><b>${data.projects}</b> projetos de obra</span><span>Casa <b>${houseCells(data)}x${houseCells(data)}</b> · Galeria nível <b>${data.galleryLevel}</b> de ${GALLERY_LEVELS.length}</span>`);
+    page.body.append(head, houseCard(d), buildCard(d, render), benefitsCard(d), piecesCard(d));
     if (galleryBounds(data)) page.body.appendChild(button('Ver a galeria', d.close));
   };
   render();
   return page;
 }
 
-/** Small button under the HUD on the gallery tab: shows the bonus and opens the page. */
+/** Small button under the HUD: on the gallery tab it shows the bonus, on the house tab the floor size. Opens the works page. */
 export function createGalleryChip(root: HTMLElement, bus: Emitter<GameEvents>, store: Store): (tab: string) => void {
   const chip = el('button', 'gallery-chip hidden');
-  chip.setAttribute('aria-label', 'Acervo e obras da galeria');
+  chip.setAttribute('aria-label', 'Obras e acervo');
   root.appendChild(chip);
+  let current = 'home';
   const paint = () => {
     const b = galleryBonus(store.data);
-    chip.innerHTML = `<img src="${itemUrl('vitrine')}" alt=""><span><b>Acervo ${b.pieces}</b><small>+${b.coinsPct}% moedas · obras</small></span>`;
+    const n = houseCells(store.data);
+    chip.innerHTML =
+      current === 'gallery'
+        ? `<img src="${itemUrl('vitrine')}" alt=""><span><b>Acervo ${b.pieces}</b><small>+${b.coinsPct}% moedas · obras</small></span>`
+        : `<img src="${itemUrl('clipboard')}" alt=""><span><b>Casa ${n} x ${n}</b><small>${store.data.projects} projetos · obras</small></span>`;
   };
   chip.onclick = () => bus.emit('openGallery', undefined);
   bus.on('changed', paint);
   paint();
-  return (tab) => chip.classList.toggle('hidden', tab !== 'gallery');
+  return (tab) => {
+    current = tab;
+    paint();
+    chip.classList.toggle('hidden', tab !== 'gallery' && tab !== 'home');
+  };
 }

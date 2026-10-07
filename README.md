@@ -2,9 +2,10 @@
 
 Jogo de navegador em retrato: escolha um avatar, decore uma casa isométrica e cuide de um jardim com bichos brasileiros que produzem moedas. Os melhores itens só chegam com uma **visita real** a museus, parques e centros de ciência (Local, Foto, Carimbo). Em volta do jogo há o **Clube Família** (com o **roteiro completo** de cada saída), a **Galeria** (ala do museu que cresce com obras), o **Modo Escola**, o **painel da cidade** e uma página **Sobre** para a banca.
 
-## Galeria e obras
+## Obras: a casa cresce e a Galeria
 
-- Cada visita (real ou demonstração) traz **1 projeto de obra**. Com projetos e moedas a criança constrói a ala da Galeria em 3 níveis (`src/data/gallery.json`: 2 projetos + 300 moedas, 4 + 800, 6 + 1500), cada um abrindo mais piso.
+- A **casa** passa de 4x4 para 5x5 e 6x6 (`src/data/house.json`: 3 projetos + 600 moedas, depois 6 + 1400). A arte maior é gerada por `tools/grow_room.py`, que repete uma faixa de piso (entre duas emendas de tábua) e de parede; a janela e a porta ficam onde estão e os móveis não mudam de lugar.
+- Cada visita (real ou demonstração) traz **1 projeto de obra** (a casa e a Galeria gastam do mesmo saldo). Com projetos e moedas a criança constrói a ala da Galeria em 3 níveis (`src/data/gallery.json`: 2 projetos + 300 moedas, 4 + 800, 6 + 1500), cada um abrindo mais piso.
 - Peças de museu (fósseis, esqueletos de dinossauro, quadros) são compradas na Loja, mas só aparecem para compra depois da visita certa (museu: fóssil, vaso, quadros; centro de ciências: meteorito, dinossauros) e ficam **na galeria**, não na casa.
 - **Benefícios, todos mostrados antes**: 2, 4 e 7 peças diferentes expostas dão +10%, +20% e +30% de moedas no jardim (e 2 h / 4 h a mais de produção fora do jogo); coleções completas (dinossauros, arte, achados do museu) dão +5% cada. Só conta o que está em exposição.
 

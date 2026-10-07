@@ -122,6 +122,15 @@ export function setupRouter(d: RouterDeps): { host: PageHost } {
     });
   });
   bus.on('openGallery', openGalleryPage);
+  bus.on('houseBuilt', () => {
+    host.closeAll();
+    bus.emit('toast', 'A casa ficou maior! Agora tem mais espaço para decorar.');
+    withRoom((room) => {
+      room.editor.exit();
+      room.scene.restart(ctx);
+      d.setTab('home');
+    });
+  });
   bus.on('galleryBuilt', () => bus.emit('changed', undefined));
   bus.on('pieceTap', ({ id }) => {
     const def = furnitureById(id);

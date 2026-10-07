@@ -20,6 +20,20 @@
    "h": 1024,
    "srcW": 1254,
    "srcH": 1254
+  },
+  "room5": {
+   "file": "assets/room5.webp",
+   "w": 900,
+   "h": 1024,
+   "srcW": 1410,
+   "srcH": 1604
+  },
+  "room6": {
+   "file": "assets/room6.webp",
+   "w": 984,
+   "h": 1024,
+   "srcW": 1679,
+   "srcH": 1747
   }
  },
  "items": {

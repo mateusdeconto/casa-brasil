@@ -60,6 +60,8 @@ export interface GameEvents extends Record<string, unknown> {
   openGallery: void;
   /** a gallery wing level was built */
   galleryBuilt: { level: number };
+  /** the house grew: the room scene restarts with the bigger picture */
+  houseBuilt: { level: number };
   /** a gallery exhibit was tapped (show its "você sabia?") */
   pieceTap: { id: string };
   coinsFly: { x: number; y: number; amount: number };

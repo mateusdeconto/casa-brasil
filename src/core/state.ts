@@ -67,6 +67,8 @@ export interface SaveData {
   gallery: PlacedItem[];
   /** 0 = wing not built yet; each build opens a bigger part of the gallery floor */
   galleryLevel: number;
+  /** 0 = the first 4x4 house; 1 = 5x5; 2 = 6x6 */
+  houseLevel: number;
   /** "projetos de obra": one comes with every visit, spent when building the gallery wing */
   projects: number;
   animals: AnimalState[];
@@ -169,6 +171,7 @@ export function defaultProfile(id = 'p1', now = Date.now()): SaveData {
     furniture: START_FURNITURE.map((f, i) => ({ uid: i + 1, ...f })),
     gallery: [],
     galleryLevel: 0,
+    houseLevel: 0,
     projects: 0,
     animals: [{ id: 'capybara', since: now }],
     unlocks: { zoo: false, museu: false, parque: false, ciencia: false, semana: false, evento: false },

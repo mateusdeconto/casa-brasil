@@ -1,0 +1,19 @@
+{
+  "_doc": "House growth: each build repeats a strip of floor and wall (art made by tools/grow_room.py). cells = size of the floor after the build; projects come with visits (shared with the gallery wing).",
+  "levels": [
+    {
+      "level": 1,
+      "name": "Casa ampliada",
+      "cells": 5,
+      "projects": 3,
+      "coins": 600
+    },
+    {
+      "level": 2,
+      "name": "Casa grande",
+      "cells": 6,
+      "projects": 6,
+      "coins": 1400
+    }
+  ]
+}

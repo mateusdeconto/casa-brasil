@@ -6,6 +6,8 @@ const arg = (name, fallback) => process.argv.find((a) => a.startsWith(`--${name}
 const debug = process.argv.includes('--debug');
 const level = Number(arg('level', '3'));
 const pieces = process.argv.includes('--pieces');
+const house = Number(arg('house', '0'));
+const tab = arg('tab', 'gallery');
 
 const b = await chromium.launch();
 const p = await b.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2 });
@@ -14,12 +16,13 @@ await p.goto('http://localhost:5173/?demo=1');
 await p.waitForSelector('.opening .btn');
 await p.waitForTimeout(500);
 await p.addInitScript(
-  ({ level, pieces }) => {
+  ({ level, pieces, house }) => {
     const raw = localStorage.getItem('jogocasa.save.v2');
     if (!raw) return;
     const root = JSON.parse(raw);
     const me = root.profiles[0];
     me.galleryLevel = level;
+    me.houseLevel = house;
     me.coins = 5000;
     me.unlocks.museu = true;
     me.unlocks.ciencia = true;
@@ -35,12 +38,12 @@ await p.addInitScript(
       : [];
     localStorage.setItem('jogocasa.save.v2', JSON.stringify(root));
   },
-  { level, pieces },
+  { level, pieces, house },
 );
 await p.goto(`http://localhost:5173/${debug ? '?debug=1' : ''}`);
 await p.click('.opening .btn');
 await p.waitForTimeout(2500);
-await p.click('.nav button[data-tab="gallery"]');
+await p.click(`.nav button[data-tab="${tab}"]`);
 await p.waitForTimeout(3000);
-await p.screenshot({ path: `debug/shot-gallery${debug ? '-grid' : ''}-L${level}.png` });
+await p.screenshot({ path: `debug/shot-${tab}${debug ? '-grid' : ''}-L${level}-H${house}.png` });
 await b.close();

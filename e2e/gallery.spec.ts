@@ -27,7 +27,7 @@ test('gallery: a visit brings a project, the wing is built, an exhibit is bought
   await expect(page.getByText('Obra 1 de 3: Galeria pequena')).toBeVisible();
   await expect(page.getByText('Benefícios do acervo: +0% moedas')).toBeVisible();
   await page.getByRole('button', { name: 'Construir a galeria' }).click();
-  await expect(page.getByText('Nível 1 de 3')).toBeVisible();
+  await expect(page.getByText('Galeria nível 1 de 3')).toBeVisible();
   const built = (await saveOf(page)).profiles[0];
   expect(built).toMatchObject({ galleryLevel: 1, projects: 1, coins: 180 });
   await page.getByRole('button', { name: 'Ver a galeria' }).click();

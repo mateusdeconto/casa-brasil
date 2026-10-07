@@ -1,7 +1,8 @@
 // The house: background, iso floor, furniture and the walking avatar. GalleryScene reuses it for the gallery wing.
 import Phaser from 'phaser';
 import calibration from '../data/calibration.json';
-import { MANIFEST } from '../core/catalog';
+import { MANIFEST, assetUrl } from '../core/catalog';
+import { roomKey } from '../core/house';
 import { IsoGrid } from '../core/IsoGrid';
 import type { Emitter, GameEvents } from '../core/events';
 import type { PlacedItem, Store } from '../core/state';
@@ -47,15 +48,21 @@ export class RoomScene extends Phaser.Scene {
     this.ctx = ctx;
   }
 
+  /** Picture and calibration of this room: the house has one per size (room, room5, room6). */
+  private get baseKey(): string {
+    return this.place === 'room' ? roomKey(this.ctx.store.data) : this.place;
+  }
+
   preload(): void {
     loadGroup(this, this.place);
+    if (!this.textures.exists(this.baseKey)) this.load.image(this.baseKey, assetUrl(MANIFEST.bases[this.baseKey].file));
   }
 
   create(): void {
     this.cameras.main.fadeIn(220, 28, 23, 48);
-    const cal = calibration[this.place];
-    const base = MANIFEST.bases[this.place];
-    this.add.image(0, 0, this.place).setOrigin(0).setDisplaySize(base.srcW, base.srcH).setDepth(0);
+    const cal = (calibration as Record<string, { cells: number; view: number[] }>)[this.baseKey];
+    const base = MANIFEST.bases[this.baseKey];
+    this.add.image(0, 0, this.baseKey).setOrigin(0).setDisplaySize(base.srcW, base.srcH).setDepth(0);
     this.grid = new IsoGrid(cal as never);
     keepFitted(this, cal.view);
 

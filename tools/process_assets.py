@@ -11,12 +11,14 @@ from PIL import Image
 sys.path.insert(0, str(Path(__file__).parent))
 from assets_cut import crop, find_items, flood_bg, key_flat, key_magenta  # noqa: E402
 from contact import contact_sheet  # noqa: E402
+from grow_room import grow  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 RAW = ROOT / "assets" / "raw"
 OUT = ROOT / "public" / "assets"
 DEBUG = ROOT / "debug"
 MANIFEST = ROOT / "src" / "data" / "manifest.json"
+CALIBRATION = ROOT / "src" / "data" / "calibration.json"
 
 # order: "x" = left to right; "rows" = split by y into rows of the given sizes, each left to right
 SHEETS = {
@@ -99,6 +101,16 @@ def write_both(im: Image.Image, path_no_ext: Path) -> None:
     rgba.quantize(256, method=Image.Quantize.FASTOCTREE).save(path_no_ext.with_suffix(".png"), optimize=True)
 
 
+def add_base(im: Image.Image, name: str, bases: dict) -> None:
+    """A whole-scene picture (house, garden...): kept at full size in the manifest, shipped at most 1024 px on the long side."""
+    sw, sh = im.size
+    if max(im.size) > 1024:
+        s = 1024 / max(im.size)
+        im = im.resize((round(sw * s), round(sh * s)), Image.LANCZOS)
+    write_both(im, OUT / name)
+    bases[name] = {"file": f"assets/{name}.webp", "w": im.width, "h": im.height, "srcW": sw, "srcH": sh}
+
+
 def save(im: Image.Image, name: str, sheet: int, items: dict, sub: str = "items") -> None:
     write_both(im, OUT / sub / name)
     items[name] = {"file": f"assets/{sub}/{name}.webp", "w": im.width, "h": im.height, "sheet": sheet}
@@ -117,13 +129,20 @@ def main() -> None:
             im = Image.fromarray(key_magenta(np.array(Image.open(src).convert("RGB"))).round().astype(np.uint8), "RGBA")
         else:
             im = flood_bg(Image.open(src))
-        sw, sh = im.size
-        if max(im.size) > 1024:
-            s = 1024 / max(im.size)
-            im = im.resize((round(sw * s), round(sh * s)), Image.LANCZOS)
-        write_both(im, OUT / name)
-        bases[name] = {"file": f"assets/{name}.webp", "w": im.width, "h": im.height, "srcW": sw, "srcH": sh}
+        if name == "room":
+            room_full = im
+        add_base(im, name, bases)
         report.append(f"{n}: {src.name} -> {name}")
+
+    # the house can grow to 5x5 and 6x6 cells: the same floor and walls, repeated (tools/grow_room.py)
+    calibration = json.loads(CALIBRATION.read_text())
+    for extra in (1, 2):
+        grown, cal = grow(room_full, calibration["room"], extra)
+        name = f"room{calibration['room']['cells'] + extra}"
+        calibration[name] = {**cal, "image": name}
+        add_base(grown, name, bases)
+        report.append(f"grow: room + {extra} -> {name} {grown.size}")
+    CALIBRATION.write_text(json.dumps(calibration, indent=2))
 
     for n, rule in SHEETS.items():
         src = raw_file(n)

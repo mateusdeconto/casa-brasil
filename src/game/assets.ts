@@ -12,7 +12,6 @@ const animalKey = (key: string) => ANIMALS.some((a) => key === a.id || key.start
 /** Image keys (bases and items) that belong to a group. Everything else is shown with plain <img> tags. */
 export function keysOf(group: AssetGroup): { key: string; file: string }[] {
   const out: { key: string; file: string }[] = [];
-  if (group === 'room') out.push({ key: 'room', file: MANIFEST.bases.room.file });
   if (group === 'garden') out.push({ key: 'garden', file: MANIFEST.bases.garden.file });
   if (group === 'gallery') out.push({ key: 'gallery', file: MANIFEST.bases.gallery.file });
   for (const [key, e] of Object.entries(MANIFEST.items)) {
