@@ -16,7 +16,8 @@ test('house: building the works makes the floor bigger and the furniture stays',
     localStorage.setItem('jogocasa.save.v2', JSON.stringify(root));
   });
   await page.goto('/');
-  await page.getByRole('button', { name: 'Jogar em família' }).click();
+  await page.getByRole('button', { name: 'Jogar', exact: true }).click();
+  await page.locator('#choice-play').click();
   await waitScene(page, 'room');
   const furniture = (await saveOf(page)).profiles[0].furniture.length;
   const cells = () => page.evaluate(() => (window as unknown as { game: { scene: { getScene(k: string): { grid: { cells: number } } } } }).game.scene.getScene('room').grid.cells);

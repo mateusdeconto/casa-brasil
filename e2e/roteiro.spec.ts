@@ -5,7 +5,8 @@ test('roteiro: the family plans an outing, gets the whole day, swaps an idea and
   const errors = trackErrors(page);
   await page.goto('/?demo=1');
   await page.waitForSelector('.opening .btn');
-  await page.getByRole('button', { name: 'Jogar em família' }).click();
+  await page.getByRole('button', { name: 'Jogar', exact: true }).click();
+  await page.locator('#choice-play').click();
   await page.locator('.nav button[data-tab="family"]').click();
 
   // plan a new outing to the zoo and open the generated roteiro right from the "agreed" card

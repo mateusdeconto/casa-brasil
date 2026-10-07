@@ -7,7 +7,8 @@ test('gallery: a visit brings a project, the wing is built, an exhibit is bought
   const errors = trackErrors(page);
   await page.goto('/?demo=1');
   await page.waitForSelector('.opening .btn');
-  await page.getByRole('button', { name: 'Jogar em família' }).click();
+  await page.getByRole('button', { name: 'Jogar', exact: true }).click();
+  await page.locator('#choice-play').click();
   await waitScene(page, 'room');
   expect((await saveOf(page)).profiles[0]).toMatchObject({ projects: 2, galleryLevel: 0, coins: 480 });
 

@@ -18,6 +18,7 @@ async function start(page, shot) {
   await wait(page, 800);
   await shot('1_opening');
   await page.click('text=Jogar');
+  await page.click('#choice-play');
   await wait(page, 300);
   await page.locator('.card').nth(0).click();
   await page.fill('.picker input', 'Ana');
@@ -58,6 +59,7 @@ async function startWith(page, save) {
   await page.reload();
   await wait(page, 600);
   await page.click('text=Jogar');
+  await page.click('#choice-play');
   await page.waitForFunction(() => window.game?.scene.isActive('room'));
   await wait(page, 500);
 }
@@ -184,6 +186,7 @@ export const FLOWS = {
     await page.reload();
     await wait(page, 600);
     await page.click('text=Jogar');
+    await page.click('#choice-play');
     await wait(page, 900);
     await shot('10_reloaded');
   },
@@ -383,6 +386,7 @@ export const FLOWS = {
     await goto(page, `/?qr=${qrToken(`evento:${localDay(-1)}`)}`);
     await wait(page, 1200);
     await page.click('text=Jogar').catch(() => {});
+    await page.click('#choice-play').catch(() => {});
     await wait(page, 600);
     await shot('6_already');
     await page.click('text=Fechar');
@@ -453,7 +457,8 @@ export const FLOWS = {
     await goto(page, '/?demo=1&rapido=1');
     await wait(page, 1500);
     await shot('1_opening');
-    await page.click('button:has-text("Jogar em família")');
+    await page.click('button:has-text("Jogar")');
+    await page.click('#choice-play');
     await page.waitForFunction(() => window.game?.scene.isActive('room'));
     await wait(page, 900);
     await shot('2_home');

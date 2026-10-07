@@ -7,7 +7,8 @@ test.use({ viewport: { width: 1280, height: 650 }, hasTouch: false, deviceScaleF
 test('desktop: the name can be typed with the keyboard (Enter starts the game)', async ({ page }) => {
   const errors = trackErrors(page);
   await page.goto('/?rapido=1');
-  await page.getByRole('button', { name: 'Jogar em família' }).click();
+  await page.getByRole('button', { name: 'Jogar', exact: true }).click();
+  await page.locator('#choice-play').click();
   await page.locator('.picker .card').nth(1).click();
   await page.locator('.picker input').click();
   await page.keyboard.type('Mateus', { delay: 40 });
@@ -40,7 +41,8 @@ test('desktop: the mouse wheel scrolls the light pages (sobre, cidade, escola)',
 
 test('desktop: the game pages scroll with small touchpad-like steps, over the page or over the margin', async ({ page }) => {
   await page.goto('/?demo=1');
-  await page.getByRole('button', { name: 'Jogar em família' }).click();
+  await page.getByRole('button', { name: 'Jogar', exact: true }).click();
+  await page.locator('#choice-play').click();
   await page.locator('.nav button[data-tab="family"]').click();
   await page.waitForTimeout(600);
   for (const x of [640, 80]) {

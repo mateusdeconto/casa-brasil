@@ -18,12 +18,12 @@ test('family journey: opening, avatar, buy, collect, visit, stamp, album, parent
 
   // opening with the 4 ways in
   await expect(page.locator('.opening')).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Sou professor(a)' })).toHaveAttribute('href', '/escola');
-  await expect(page.getByRole('link', { name: 'Painel da cidade' })).toHaveAttribute('href', '/cidade');
+    await expect(page.getByRole('link', { name: 'Painel da cidade' })).toHaveAttribute('href', '/cidade');
   await expect(page.getByRole('link', { name: 'Sobre o projeto' })).toHaveAttribute('href', '/sobre');
 
   // avatar
-  await page.getByRole('button', { name: 'Jogar em família' }).click();
+  await page.getByRole('button', { name: 'Jogar', exact: true }).click();
+  await page.locator('#choice-play').click();
   await page.locator('.picker .card').nth(1).click();
   await page.fill('.picker input', 'Ana');
   await page.getByRole('button', { name: 'Começar' }).click();

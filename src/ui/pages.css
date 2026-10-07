@@ -241,7 +241,13 @@ html[data-text='grande'] .shop-list,
 html[data-text='grande'] #site,
 html[data-text='grande'] .tutorial { zoom: 1.15; }
 .entry-links { display: grid; grid-template-columns: 1fr 1fr; }
-.entry-links .btn:last-child { grid-column: 1 / -1; justify-self: center; }
+.opening .entries .btn.small { width: auto; }
+.choice-cards { display: flex; flex-direction: column; gap: 10px; width: 100%; }
+.opening .role-card { display: flex; flex-direction: row; align-items: center; gap: 12px; padding: 10px 14px; font-family: inherit; font-size: 22px; text-align: left; cursor: pointer; }
+.opening .role-card img { height: 52px; width: 52px; object-fit: contain; flex: none; }
+.opening .role-card b { display: block; font-weight: 400; }
+.opening .role-card small { display: block; font-size: 15px; opacity: 0.8; }
+.opening .role-card:hover { border-color: var(--amber); }
 
 /* ---- bloco K: polish (focus, touch feedback, transitions, reduced motion) ---- */
 :focus-visible { outline: 3px solid var(--amber); outline-offset: 2px; }
