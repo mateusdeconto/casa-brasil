@@ -90,7 +90,7 @@ async function openGarden(page) {
 export async function demoVisit(page, partnerId, shot, label = '') {
   await page.click('.nav >> text=Família');
   await wait(page, 300);
-  await page.click(`.partner-card[data-partner=${partnerId}] button`);
+  await page.click(`.place-chip[data-partner=${partnerId}]`);
   await wait(page, 300);
   if (shot) await shot(`${label}1_local`);
   await page.click('button:has-text("Estou aqui")');
@@ -221,6 +221,35 @@ export const FLOWS = {
     await startWith(page, baseSave({ coins: 900, animals: [{ id: 'capybara', since: ago }] }));
     await openGarden(page);
     await shot('2_for_sale');
+  },
+  async family(page, shot) {
+    await startWith(page, baseSave({}));
+    await page.click('.nav >> text=Família');
+    await wait(page, 400);
+    await shot('1_family');
+    await page.locator('.page-body').evaluate((e) => (e.scrollTop = 9999));
+    await wait(page, 200);
+    await shot('2_family_bottom');
+    await page.locator('.page-body').evaluate((e) => (e.scrollTop = 0));
+    await page.click('text=Planejar visita');
+    await wait(page, 300);
+    await page.locator('.partner-card[data-partner=museu] button').click();
+    await shot('3_planner');
+    await page.click('text=Combinar com a família');
+    await wait(page, 300);
+    await page.locator('.planner .page-body').evaluate((e) => (e.scrollTop = 9999));
+    await shot('4_agreed');
+    await page.click('.page-head .back');
+    await wait(page, 400);
+    await shot('5_family_after');
+    await demoVisit(page, 'zoo', null);
+    await page.click('text=Ver passaporte');
+    await page.click('.page-head .back');
+    await wait(page, 300);
+    await shot('6_family_visited');
+    await page.locator('.badge-chip').first().click();
+    await wait(page, 300);
+    await shot('7_badge_detail');
   },
   async offline(page, shot) {
     const tenHours = Date.now() - 10 * 3600_000;

@@ -12,6 +12,8 @@ import { createFamilyPage } from './ui/family';
 import type { Hud } from './ui/hud';
 import { PageHost } from './ui/pageHost';
 import { createPassportPage } from './ui/passport';
+import { createPlannerPage } from './ui/planner';
+import { badgeById } from './core/badges';
 import type { Shop } from './ui/shop';
 import { startVisitFlow } from './ui/visitFlow';
 
@@ -55,7 +57,10 @@ export function setupRouter(d: RouterDeps): { host: PageHost } {
   };
 
   const openPassport = () => host.push(createPassportPage(store, () => host.pop()));
-  const openFamily = () => host.open(createFamilyPage({ store, bus, openPassport }));
+  const openPlanner = (partner?: string) => host.push(createPlannerPage({ store, bus, back: () => (host.pop(), refreshFamily()) }, partner));
+  const openFamily = () => host.open(createFamilyPage({ store, bus, ui, openPassport, openPlanner, startVisit: (partner) => bus.emit('startVisit', { partner }) }));
+  /** the family page lists outings and missions, so redraw it after a sub-page closes */
+  const refreshFamily = () => host.isOpen && host.top?.el.classList.contains('family') && openFamily();
   const openAlbum = () => host.open(createAlbumPage({ store, ui, goFamily: () => bus.emit('tab', 'family') }));
 
   bus.on('tab', (tab) => {
@@ -129,6 +134,7 @@ export function setupRouter(d: RouterDeps): { host: PageHost } {
 
   // a visit may have unlocked an animal (jaguar): refresh the garden if it is the running scene
   bus.on('unlocked', () => bus.emit('gardenChanged', undefined));
+  bus.on('badgeEarned', ({ id }) => bus.emit('toast', `Medalha nova: ${badgeById(id).name}!`));
   bus.on('coinsFly', ({ x, y, amount }) => flyCoins(ui, { x, y }, d.hud.coinTarget(), amount));
   return { host };
 }

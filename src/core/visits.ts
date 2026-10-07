@@ -27,11 +27,12 @@ export function completeVisit(store: Store, input: VisitInput, now = Date.now())
   const firstStamp = !d.stamps.includes(partner.type);
   if (firstStamp) d.stamps.push(partner.type);
 
+  const wasUnlocked = !!d.unlocks[partner.reward.unlock];
   d.unlocks[partner.reward.unlock] = true;
   if (partner.reward.animal && !owns(store, partner.reward.animal)) d.animals.push({ id: partner.reward.animal, since: now });
   grantBoost(d, now);
   store.commit();
-  store.bus.emit('unlocked', { key: partner.reward.unlock });
+  if (!wasUnlocked) store.bus.emit('unlocked', { key: partner.reward.unlock });
   store.bus.emit('visitCompleted', { visit });
   if (input.hasPhoto) store.bus.emit('photoAdded', { visitId: visit.id });
   return { visit, firstStamp };

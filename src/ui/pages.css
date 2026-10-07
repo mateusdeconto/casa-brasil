@@ -32,7 +32,8 @@
 .partner-card { display: flex; align-items: center; gap: 10px; padding: 8px; background: var(--parch); color: var(--ink); border: 3px solid var(--wood); border-radius: 10px; box-shadow: 0 3px 0 var(--wood-dark); }
 .partner-card.on { border-color: var(--amber); box-shadow: 0 0 12px var(--amber), 0 3px 0 var(--wood-dark); }
 .partner-card .thumb { width: 64px; height: 64px; background: #2a22331a; border-radius: 8px; display: grid; place-items: center; flex: none; }
-.partner-card .thumb img { max-width: 90%; max-height: 90%; object-fit: contain; }
+.partner-card .thumb { overflow: hidden; }
+.partner-card .thumb img { max-width: 56px; max-height: 56px; object-fit: contain; }
 .partner-card .info { flex: 1; display: flex; flex-direction: column; min-width: 0; }
 .partner-card .info b { font-size: 17px; }
 .partner-card .info small { font-size: 14px; opacity: 0.8; line-height: 1.1; }
@@ -88,3 +89,56 @@
 .reward-chip.off img { filter: brightness(0.15) saturate(0); }
 .reward-icons { display: flex; gap: 8px; justify-content: center; margin-top: -4px; }
 .reward-icons img { height: 56px; width: auto; max-width: 80px; object-fit: contain; filter: drop-shadow(0 2px 2px #0008); }
+
+/* ---- bloco E: Clube Família ---- */
+.page.family .page-body { gap: 12px; padding-bottom: 20px; }
+.club-head { position: relative; display: flex; flex-direction: column; align-items: center; padding: 6px 0 0; margin: -12px -12px 0; background: radial-gradient(circle at 50% 70%, #3f6b2e, #1f3a1a 70%); border-bottom: 3px solid var(--cream); }
+.club-head .sign { position: relative; width: 150px; margin-top: 6px; z-index: 1; }
+.club-head .sign img { width: 100%; display: block; }
+.club-head .sign h1 { position: absolute; inset: 0; margin: 0; display: grid; place-items: center; font-size: 17px; color: var(--cream); text-shadow: 2px 2px 0 #2a1a10; padding-top: 8px; }
+.club-family { width: 34%; max-width: 124px; margin-top: -18px; margin-bottom: 4px; filter: drop-shadow(0 4px 4px #0008); }
+.expedition { padding: 10px 12px 14px; display: flex; flex-direction: column; gap: 8px; align-items: stretch; text-align: center; }
+.expedition h3 { margin: 0; font-size: 16px; font-weight: 400; line-height: 1.15; }
+.expedition h3 b { font-size: 26px; }
+.expedition .banner { height: 120px; border-radius: 8px; background: linear-gradient(#7fb35a, #3f7a35); display: grid; place-items: center; border: 2px solid var(--wood); }
+.expedition .banner img { max-height: 104px; max-width: 70%; object-fit: contain; }
+.seals { display: flex; gap: 10px; align-items: center; justify-content: center; }
+.seals small { font-size: 14px; margin-left: 4px; }
+.seal { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; background: #d4b97a; border: 3px solid var(--wood); color: #7a5a3a; font-weight: 700; }
+.seal.on { background: #5fa23a; border-color: #2f5a1f; }
+.seal img { width: 22px; height: 22px; }
+.next-trip { display: flex; align-items: center; gap: 12px; padding: 10px 12px; text-align: left; font-size: 16px; width: 100%; font-family: inherit; }
+.next-trip img { width: 44px; height: 44px; object-fit: contain; flex: none; }
+.next-trip span { flex: 1; line-height: 1.15; }
+.next-trip b { font-size: 20px; }
+.next-trip i { font-style: normal; font-size: 30px; color: var(--wood); }
+.visit-now h3 { margin: 0 0 6px; font-size: 16px; color: var(--cream); font-weight: 400; }
+.chips { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.place-chip { display: flex; flex-direction: column; align-items: center; gap: 2px; background: var(--parch); color: var(--ink); border: 3px solid var(--wood); border-radius: 10px; padding: 6px 2px; font-size: 14px; line-height: 1.05; box-shadow: 0 3px 0 var(--wood-dark); }
+.place-chip img { height: 40px; width: auto; max-width: 90%; object-fit: contain; }
+.place-chip:active { transform: translateY(2px); }
+.mission-list { list-style: none; margin: 0; padding: 8px 10px 4px; display: flex; flex-direction: column; gap: 8px; }
+.mission-list li { display: flex; align-items: center; gap: 10px; font-size: 16px; color: var(--cream); }
+.mission-list li span:nth-child(2) { flex: 1; line-height: 1.15; }
+.mission-list small { font-size: 14px; opacity: 0.8; }
+.mission-list .box { width: 28px; height: 28px; border: 3px solid var(--cream); border-radius: 6px; display: grid; place-items: center; flex: none; background: #0003; }
+.mission-list .box img { width: 22px; height: 22px; }
+.mission-list li.done { opacity: 0.85; }
+.mission-reward { margin: 4px 10px 10px; font-size: 14px; color: var(--amber); }
+.badge-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 10px; }
+.badge-chip { background: none; color: var(--cream); display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 14px; line-height: 1.05; text-align: center; padding: 2px; }
+.badge-chip img { width: 100%; max-width: 84px; aspect-ratio: 1; object-fit: contain; }
+.badge-chip.off img { filter: grayscale(1) brightness(0.45); }
+.badge-chip.off { opacity: 0.8; }
+
+/* planner */
+.day-strip { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; background: var(--wood); padding: 6px; border-radius: 10px; border: 3px solid var(--cream); }
+.day-strip .day { background: #0003; color: var(--cream); border-radius: 8px; padding: 6px 0; display: flex; flex-direction: column; align-items: center; gap: 0; font-size: 14px; }
+.day-strip .day b { font-size: 20px; }
+.day-strip .day small { font-size: 14px; }
+.day-strip .day.on { background: var(--amber); color: var(--ink); }
+.time-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; color: var(--cream); font-size: 18px; }
+.time-row input { font: inherit; font-size: 20px; padding: 8px 12px; border-radius: 8px; border: 3px solid var(--wood); background: #15111f; color: var(--cream); touch-action: auto; }
+.agreed p { margin: 0; padding: 10px 12px 4px; text-align: center; color: var(--cream); font-size: 18px; }
+.agreed .btn { margin: 8px 12px 12px; display: block; width: calc(100% - 24px); font-size: 18px; }
+.partner-card.on .btn { filter: brightness(1.05); }

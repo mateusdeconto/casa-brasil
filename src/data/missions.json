@@ -1,0 +1,17 @@
+{
+  "_doc": "kind = game event that advances the mission (visit, photo, unlock, collect). combos rotate by week number, so every Monday brings a new set of 3.",
+  "pool": {
+    "visit1": { "kind": "visit", "goal": 1, "text": "Faça 1 visita a um parceiro" },
+    "visit2": { "kind": "visit", "goal": 2, "text": "Faça 2 visitas esta semana" },
+    "photo1": { "kind": "photo", "goal": 1, "text": "Fotografe um lugar, sem pessoas" },
+    "unlock1": { "kind": "unlock", "goal": 1, "text": "Libere 1 item novo" },
+    "collect5": { "kind": "collect", "goal": 5, "text": "Colete moedas 5 vezes no jardim" },
+    "collect10": { "kind": "collect", "goal": 10, "text": "Colete moedas 10 vezes no jardim" }
+  },
+  "combos": [
+    ["visit1", "photo1", "collect5"],
+    ["visit1", "unlock1", "collect10"],
+    ["photo1", "unlock1", "collect5"],
+    ["visit2", "photo1", "collect10"]
+  ]
+}

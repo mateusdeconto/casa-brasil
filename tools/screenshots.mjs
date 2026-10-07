@@ -30,7 +30,11 @@ try {
     page.on('pageerror', (e) => errors.push(`${name}: ${e.message}`));
     page.on('console', (m) => m.type() === 'error' && errors.push(`${name}: ${m.text()}`));
     await page.goto(base);
-    const shot = (label) => page.screenshot({ path: `${OUT}/${flowName}_${label}_${name}.png` });
+    const shot = async (label) => {
+      await page.waitForFunction(() => [...document.images].every((i) => i.complete), null, { timeout: 8000 }).catch(() => {});
+      await page.waitForTimeout(120);
+      await page.screenshot({ path: `${OUT}/${flowName}_${label}_${name}.png` });
+    };
     await FLOWS[flowName](page, shot, name);
     await ctx.close();
   }

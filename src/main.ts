@@ -5,6 +5,7 @@ import './ui/pages.css';
 import { TITLE, COLORS, OFFLINE_CAP_HOURS, AWAY_SLEEP_MS } from './config';
 import { Emitter, type GameEvents, type Tab } from './core/events';
 import { applyOffline } from './core/production';
+import { attachProgress } from './core/progress';
 import { autoSave, loadSave } from './core/save';
 import { Store } from './core/state';
 import { setupRouter } from './router';
@@ -27,6 +28,7 @@ const wasAway = save.profiles.some((p) => p.started) && now - save.time > AWAY_S
 for (const p of save.profiles) applyOffline(p.animals, save.time, now, OFFLINE_CAP_HOURS * 3600_000);
 const store = new Store(save, bus);
 autoSave(() => store.root, (fn) => bus.on('changed', fn));
+attachProgress(bus, store);
 
 const app = document.getElementById('app')!;
 const ui = document.getElementById('ui')!;

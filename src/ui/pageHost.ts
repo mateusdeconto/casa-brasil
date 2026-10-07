@@ -41,6 +41,10 @@ export class PageHost {
 
   constructor(private root: HTMLElement) {}
 
+  get top(): PageHandle | undefined {
+    return this.stack[this.stack.length - 1];
+  }
+
   get isOpen(): boolean {
     return this.stack.length > 0;
   }
