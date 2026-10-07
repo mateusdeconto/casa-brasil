@@ -89,7 +89,7 @@ Importe o repositório; o preset **Vite** serve (`vercel.json` já define o buil
 
 - Menores: sem chat livre (só reações e frases prontas), sem fotos de pessoas (dica "Fotografe o lugar, sem pessoas"), fotos só no aparelho (IndexedDB), compras bloqueadas por padrão, sem anúncios, sem recompensa aleatória paga. Toda recompensa é conhecida antes.
 - Sem ranking e sem notas em lugar nenhum. Sem punição por ausência: os animais só dormem.
-- A fonte (Pixelify Sans, licença OFL) é servida pelo próprio site: o navegador da criança não chama terceiros.
+- A fonte (Fredoka, licença OFL) é servida pelo próprio site: o navegador da criança não chama terceiros.
 
 ## O que é DEMO
 

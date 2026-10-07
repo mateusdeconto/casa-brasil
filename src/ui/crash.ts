@@ -12,7 +12,7 @@ export function installErrorGuard(): void {
     const box = document.createElement('div');
     box.setAttribute('role', 'alertdialog');
     box.setAttribute('aria-label', 'Algo deu errado');
-    box.style.cssText = 'position:fixed;inset:0;z-index:99999;background:#1c1730ee;display:flex;align-items:center;justify-content:center;padding:20px;font-family:"Pixelify Sans",monospace;';
+    box.style.cssText = 'position:fixed;inset:0;z-index:99999;background:#1c1730ee;display:flex;align-items:center;justify-content:center;padding:20px;font-family:"Fredoka",sans-serif;';
     const card = document.createElement('div');
     card.style.cssText = 'max-width:340px;width:100%;background:#efdcae;color:#3a2414;border:4px solid #4a3322;border-radius:14px;padding:18px;text-align:center;font-size:18px;line-height:1.3;';
     card.innerHTML = '<b style="font-size:22px">Ops! Algo deu errado.</b><p style="margin:10px 0 14px">Não se preocupe: o que você já fez está guardado. Toque em Recarregar para continuar.</p>';

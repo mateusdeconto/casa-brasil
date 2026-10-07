@@ -29,7 +29,7 @@ export class AnimalView {
     this.sprite.setData('animal', def.id).setInteractive({ useHandCursor: true });
 
     const top = this.top();
-    const font = { fontFamily: '"Pixelify Sans", monospace', fontStyle: 'bold', color: '#3a2414' };
+    const font = { fontFamily: '"Fredoka", sans-serif', fontStyle: 'bold', color: '#3a2414' };
     if (look === 'forSale') {
       this.sprite.setAlpha(0.5).setTint(0x9a8fa8);
       this.extras.push(this.tag(String(def.price), top.y));
@@ -61,7 +61,7 @@ export class AnimalView {
 
   private tag(text: string, y: number) {
     const label = this.scene.add
-      .text(18, 0, text, { fontFamily: '"Pixelify Sans", monospace', fontSize: '46px', color: '#ffc36b', backgroundColor: '#2a2233', padding: { left: 44, right: 14, y: 6 } })
+      .text(18, 0, text, { fontFamily: '"Fredoka", sans-serif', fontSize: '46px', color: '#ffc36b', backgroundColor: '#2a2233', padding: { left: 44, right: 14, y: 6 } })
       .setOrigin(0.5);
     const coin = this.scene.add.image(label.x - label.width / 2 + 26, 0, 'coin').setScale(0.2);
     return this.scene.add.container(this.base.x, y - 20, [label, coin]).setDepth(9000);
@@ -94,7 +94,7 @@ export class AnimalView {
   private zzz(): void {
     const t = this.top();
     const z = this.scene.add
-      .text(t.x + 40, t.y + 30, 'z', { fontFamily: '"Pixelify Sans", monospace', fontSize: '52px', fontStyle: 'bold', color: '#f1ddb0', stroke: '#2a2233', strokeThickness: 8 })
+      .text(t.x + 40, t.y + 30, 'z', { fontFamily: '"Fredoka", sans-serif', fontSize: '52px', fontStyle: 'bold', color: '#f1ddb0', stroke: '#2a2233', strokeThickness: 8 })
       .setDepth(9000)
       .setAlpha(0);
     this.scene.tweens.add({ targets: z, x: t.x + 110, y: t.y - 90, alpha: { from: 1, to: 0 }, scale: { from: 0.6, to: 1.3 }, duration: 1800, onComplete: () => z.destroy() });

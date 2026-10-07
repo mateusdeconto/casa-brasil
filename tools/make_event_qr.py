@@ -44,12 +44,12 @@ def make_png(url: str, path: Path) -> None:
 STYLE = """
 <style>
   :root { color-scheme: dark; }
-  body { margin: 0; background: #1c1730; color: #f1ddb0; font-family: 'Pixelify Sans', monospace; text-align: center; }
+  body { margin: 0; background: #1c1730; color: #f1ddb0; font-family: 'Fredoka', sans-serif; text-align: center; }
   h1 { color: #ffc36b; margin: 0; }
   img.qr { background: #fff; padding: 14px; border-radius: 16px; border: 6px solid #4a3322; }
   @media print { body { background: #fff; color: #222; } h1 { color: #4a3322; } img.qr { border-color: #4a3322; } .sign { break-inside: avoid; } }
 </style>
-<style>@font-face { font-family: "Pixelify Sans"; font-weight: 400 700; src: url(fonts/PixelifySans-latin.woff2) format("woff2"); }</style>
+<style>@font-face { font-family: "Fredoka"; font-weight: 400 700; src: url(fonts/Fredoka-latin.woff2) format("woff2"); }</style>
 """
 
 
