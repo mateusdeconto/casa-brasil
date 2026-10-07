@@ -41,7 +41,8 @@ attachProgress(bus, store);
 
 const app = document.getElementById('app')!;
 const ui = document.getElementById('ui')!;
-const dpr = () => Math.min(window.devicePixelRatio || 1, 3);
+// 2x is plenty for this pixel-style art and keeps mid-range phones smooth
+const dpr = () => Math.min(window.devicePixelRatio || 1, 2);
 const size = () => ({ width: Math.round(app.clientWidth * dpr()), height: Math.round(app.clientHeight * dpr()) });
 
 const game = new Phaser.Game({
