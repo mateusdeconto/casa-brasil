@@ -8,8 +8,11 @@ import { Store } from './core/state';
 import { BootScene } from './scenes/BootScene';
 import { RoomScene } from './scenes/RoomScene';
 import { showAvatarPicker } from './ui/avatarPicker';
+import { createActionBar } from './ui/actionBar';
+import { toast } from './ui/dom';
 import { createHud, createNav } from './ui/hud';
 import { showOpening } from './ui/opening';
+import { createShop, type Shop } from './ui/shop';
 
 document.title = TITLE;
 const bus = new Emitter<GameEvents>();
@@ -39,6 +42,7 @@ window.addEventListener('resize', () => {
 const assetsReady = new Promise<void>((ok) => game.events.once('assets-ready', ok));
 let hud: ReturnType<typeof createHud> | null = null;
 let setTab: (t: Tab) => void = () => {};
+let shop: Shop | null = null;
 
 function room(): RoomScene {
   return game.scene.getScene('room') as RoomScene;
@@ -48,6 +52,18 @@ function enterGame(): void {
   if (!hud) {
     hud = createHud(ui, bus);
     setTab = createNav(ui, bus);
+    shop = createShop(ui, bus, () => store.data);
+    const editor = () => room().editor;
+    const showActions = createActionBar(ui, {
+      buy: () => editor().confirm(),
+      cancel: () => bus.emit('tab', 'home'),
+      sell: () => editor().sell(),
+      done: () => bus.emit('tab', 'home'),
+    });
+    bus.on('editor', (s) => {
+      showActions(s);
+      if (s.mode === 'none') setTab('home');
+    });
   }
   hud.setPlayer(store.data.avatar, store.data.name);
   hud.setCoins(store.data.coins);
@@ -68,8 +84,20 @@ function pickAvatar(): void {
 }
 
 bus.on('tab', (tab) => {
-  if (tab === 'avatar') return pickAvatar();
+  if (!game.scene.isActive('room')) return;
+  const editor = room().editor;
+  shop?.close();
+  if (tab === 'avatar') return editor.exit(), pickAvatar();
+  if (tab === 'garden') return bus.emit('toast', 'Jardim: em breve');
+  if (tab === 'edit') editor.startEdit();
+  else editor.exit();
+  if (tab === 'shop') shop?.open();
   setTab(tab);
 });
+bus.on('shopPick', (id) => {
+  room().editor.startPlace(id);
+  setTab('shop');
+});
+bus.on('toast', (text) => toast(ui, text));
 
 showOpening(ui, () => (store.data.started ? enterGame() : pickAvatar()));

@@ -18,6 +18,14 @@ export class Emitter<Events extends Record<string, unknown>> {
 
 export type Tab = 'home' | 'garden' | 'shop' | 'edit' | 'avatar';
 
+export interface EditorState {
+  mode: 'none' | 'place' | 'edit';
+  valid: boolean;
+  name?: string;
+  price?: number;
+  selected?: boolean;
+}
+
 export interface GameEvents extends Record<string, unknown> {
   changed: void; // state changed, should be saved
   coins: number; // new coin total
@@ -25,5 +33,6 @@ export interface GameEvents extends Record<string, unknown> {
   avatarChosen: { avatar: string; name: string };
   shopPick: string; // furniture id chosen in the shop
   toast: string;
+  editor: EditorState;
   [key: string]: unknown;
 }

@@ -7,6 +7,7 @@ import type { Emitter, GameEvents } from '../core/events';
 import type { Store } from '../core/state';
 import { Avatar } from '../game/Avatar';
 import { DEBUG, drawDebugGrid } from '../game/DebugGrid';
+import { Editor } from '../game/Editor';
 import { FurnitureLayer } from '../game/FurnitureLayer';
 import { keepFitted } from '../game/viewport';
 
@@ -20,6 +21,7 @@ export class RoomScene extends Phaser.Scene {
   avatar!: Avatar;
   furniture!: FurnitureLayer;
   ctx!: SceneCtx;
+  editor!: Editor;
   /** When set (shop / edit modes), floor taps go here instead of walking. */
   tapHandler: ((cell: { x: number; y: number } | null, ptr: Phaser.Input.Pointer) => boolean) | null = null;
 
@@ -50,6 +52,7 @@ export class RoomScene extends Phaser.Scene {
       if (this.tapHandler?.(cell, ptr)) return;
       if (cell && !this.furniture.blocked(cell.x, cell.y)) this.avatar.walkTo(cell, this.furniture.blocked);
     });
+    this.editor = new Editor(this);
     this.events.emit('room-ready');
   }
 
