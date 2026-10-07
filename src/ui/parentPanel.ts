@@ -4,7 +4,7 @@ import { weekKey } from '../core/dates';
 import type { Emitter, GameEvents } from '../core/events';
 import type { SaveData, Store } from '../core/state';
 import { activeDays, lastDays, LIMIT_CHOICES, limitLabel, minutesToday } from '../core/usage';
-import { el, itemUrl } from './dom';
+import { el, esc, itemUrl } from './dom';
 import { showAvatarPicker } from './avatarPicker';
 import { askText, button, demoRibbon, icon, setFace, toggleRow } from './widgets';
 
@@ -65,7 +65,7 @@ export function createParentPanel(d: ParentPanelDeps): HTMLElement {
     const kidsLabel = el('h3', 'sec', 'Selecione a criança');
     const chips = el('div', 'kid-chips');
     for (const p of store.root.profiles) {
-      const c = el('button', `kid-chip${p.id === selected ? ' on' : ''}`, `<span class="face"></span><b>${p.name || 'Sem nome'}</b>`);
+      const c = el('button', `kid-chip${p.id === selected ? ' on' : ''}`, `<span class="face"></span><b>${esc(p.name || 'Sem nome')}</b>`);
       setFace(c.querySelector('.face') as HTMLElement, p.avatar);
       c.onclick = () => ((selected = p.id), render());
       chips.appendChild(c);
@@ -109,7 +109,7 @@ export function createParentPanel(d: ParentPanelDeps): HTMLElement {
 
     const chartPanel = el('div', 'panel');
     chartPanel.append(el('div', 'panel-title', '<span>Minutos por dia</span>'), minutesChart(kid, now));
-    body.append(kidsLabel, chips, actions, demo, el('h3', 'sec', `Resumo da semana de ${kid.name || 'a criança'}`), summary(kid, now), chartPanel, opts, button('Trocar o PIN', d.changePin, 'secondary small'));
+    body.append(kidsLabel, chips, actions, demo, el('h3', 'sec', `Resumo da semana de ${esc(kid.name || 'a criança')}`), summary(kid, now), chartPanel, opts, button('Trocar o PIN', d.changePin, 'secondary small'));
   };
 
   render();

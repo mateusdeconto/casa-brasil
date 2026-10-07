@@ -1,0 +1,28 @@
+/* Light pages (/escola, /cidade, /sobre): normal scrolling documents in the game's wood and parchment style. */
+html.site, html.site body { height: auto; min-height: 100%; overflow: auto; display: block; }
+html.site body { background: var(--page); overflow-x: hidden; }
+html.site * { touch-action: auto; }
+#site { min-height: 100dvh; font-size: 17px; }
+.site-frame { min-height: 100dvh; display: flex; flex-direction: column; }
+.site-body { flex: 1; }
+.site-bar { display: flex; align-items: center; gap: 16px; padding: 10px 18px; background: linear-gradient(var(--wood), var(--wood-dark)); border-bottom: 3px solid var(--cream); flex-wrap: wrap; }
+.site-bar .brand { font-size: 22px; color: var(--amber); font-weight: 700; text-decoration: none; }
+.site-bar nav { margin-left: auto; display: flex; gap: 6px; flex-wrap: wrap; }
+.site-bar nav a { color: var(--cream); text-decoration: none; padding: 6px 12px; border-radius: 8px; font-size: 16px; }
+.site-bar nav a.on { background: var(--amber); color: var(--ink); }
+.site-bar nav a:hover { background: #ffffff1c; }
+.site-bar nav a.on:hover { background: var(--amber); }
+html.site a { color: var(--amber); }
+html.site a.btn { color: #3a2414; text-decoration: none; display: inline-block; text-align: center; }
+html.site .toast { position: fixed; top: 70px; z-index: 60; }
+html.site .shade { position: fixed; }
+html.site h1 { color: var(--amber); font-size: 30px; margin: 0; }
+html.site button, html.site a, html.site select { min-height: 40px; }
+.bar-track { height: 14px; background: #0006; border: 2px solid var(--wood); border-radius: 8px; overflow: hidden; }
+.bar-track i { display: block; height: 100%; background: linear-gradient(#7fd05a, #3f8a2c); }
+.demo-note { color: var(--cream); opacity: 0.8; font-size: 15px; text-align: center; }
+@media (max-width: 560px) {
+  .site-bar { padding: 6px 10px; gap: 6px; }
+  .site-bar .brand { font-size: 18px; }
+  .site-bar nav a { font-size: 14px; padding: 4px 7px; min-height: 32px; display: inline-flex; align-items: center; }
+}

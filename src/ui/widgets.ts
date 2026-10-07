@@ -4,7 +4,8 @@ import { getPhoto } from '../core/photos';
 import { el, itemUrl } from './dom';
 
 export function button(label: string, onClick: () => void, cls = ''): HTMLButtonElement {
-  const b = el('button', `btn ${cls}`.trim(), label);
+  const b = el('button', `btn ${cls}`.trim());
+  b.textContent = label; // plain text: names typed by children never become markup
   b.onclick = onClick;
   return b;
 }

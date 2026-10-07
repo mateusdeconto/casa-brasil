@@ -76,7 +76,7 @@ export interface SaveData {
   /** day key -> seconds played */
   usage: Record<string, number>;
   /** school mode, per child */
-  school: { done: string[]; diary: Record<string, DiaryEntry> };
+  school: { done: string[]; diary: Record<string, DiaryEntry>; progress: Record<string, string[]> };
 }
 
 export interface Settings {
@@ -89,19 +89,36 @@ export interface Settings {
   dailyLimitMinutes: number;
 }
 
+export interface QuizQuestion {
+  q: string;
+  options: string[];
+  answer: number;
+  ok: string;
+  retry: string;
+}
+
+export type CardKind = 'quiz' | 'leitura' | 'video' | 'missoes' | 'foto' | 'diario' | 'reflexao' | 'criativa';
+
+export interface ExpeditionCard {
+  id: string;
+  kind: CardKind;
+  title: string;
+  hint: string;
+  quiz?: QuizQuestion[];
+}
+
+export type Phase = 'antes' | 'durante' | 'depois';
+
 export interface SchoolExpedition {
   id: string;
   theme: string;
   title: string;
-  published: boolean;
-  columns: Record<'antes' | 'durante' | 'depois', { id: string; kind: string; title: string; hint: string }[]>;
+  columns: Record<Phase, ExpeditionCard[]>;
 }
 
 export interface SchoolState {
-  /** published expedition ids, newest last */
+  /** expeditions the teacher published for the class, newest last */
   expeditions: SchoolExpedition[];
-  /** extra completions on top of the demo class (local student) */
-  localDone: string[];
 }
 
 export interface RootSave {
@@ -144,7 +161,7 @@ export function defaultProfile(id = 'p1', now = Date.now()): SaveData {
     boostUntil: 0,
     redeemed: [],
     usage: {},
-    school: { done: [], diary: {} },
+    school: { done: [], diary: {}, progress: {} },
   };
 }
 
@@ -155,7 +172,7 @@ export function defaultRoot(now = Date.now()): RootSave {
     profiles: [defaultProfile('p1', now)],
     settings: defaultSettings(),
     pinHash: null,
-    school: { expeditions: [], localDone: [] },
+    school: { expeditions: [] },
     time: now,
   };
 }

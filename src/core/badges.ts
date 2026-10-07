@@ -26,6 +26,7 @@ export const BADGES: BadgeDef[] = [
     how: `Tenha ${FAMILY_BADGE_PROFILES} perfis ativos ou combine ${FAMILY_BADGE_OUTINGS} saídas com a família.`,
     earned: (d, root) => root.profiles.filter((p) => p.started).length >= FAMILY_BADGE_PROFILES || d.outings.length >= FAMILY_BADGE_OUTINGS,
   },
+  { id: 'escola', name: 'Expedição da Turma', how: 'Conclua uma expedição digital da sua turma no Modo Escola.', sprite: 'trophy', earned: (d) => d.school.done.length >= 1 },
 ];
 
 export const badgeById = (id: string) => BADGES.find((b) => b.id === id)!;

@@ -1,0 +1,42 @@
+{
+  "_doc": "Demo class, all fictional. students: alphabetical, fixed order. done = how many expeditions the student finished, diary = handed in the field diary. 'voce' is the student on this device: its numbers come from the save. heat: rows Seg..Sex, columns = last 8 weeks (0-4).",
+  "className": "7º ano B",
+  "goal": 25,
+  "students": [
+    { "id": "s01", "name": "Alice", "avatar": "avatar_2", "done": 1, "diary": true },
+    { "id": "s02", "name": "Arthur", "avatar": "avatar_5", "done": 1, "diary": true },
+    { "id": "s03", "name": "Beatriz", "avatar": "avatar_3", "done": 0, "diary": false },
+    { "id": "s04", "name": "Bruno", "avatar": "avatar_6", "done": 1, "diary": true },
+    { "id": "s05", "name": "Caio", "avatar": "avatar_8", "done": 1, "diary": false },
+    { "id": "s06", "name": "Carla", "avatar": "avatar_1", "done": 1, "diary": true },
+    { "id": "s07", "name": "Daniel", "avatar": "avatar_4", "done": 0, "diary": false },
+    { "id": "s08", "name": "Davi", "avatar": "avatar_7", "done": 1, "diary": true },
+    { "id": "s09", "name": "Eduarda", "avatar": "avatar_2", "done": 1, "diary": true },
+    { "id": "s10", "name": "Felipe", "avatar": "avatar_5", "done": 1, "diary": false },
+    { "id": "s11", "name": "Gabriela", "avatar": "avatar_3", "done": 1, "diary": true },
+    { "id": "s12", "name": "Heitor", "avatar": "avatar_6", "done": 0, "diary": false },
+    { "id": "s13", "name": "Isabela", "avatar": "avatar_1", "done": 1, "diary": true },
+    { "id": "s14", "name": "João", "avatar": "avatar_8", "done": 1, "diary": true },
+    { "id": "s15", "name": "Júlia", "avatar": "avatar_2", "done": 2, "diary": true },
+    { "id": "s16", "name": "Larissa", "avatar": "avatar_3", "done": 0, "diary": false },
+    { "id": "s17", "name": "Lucas", "avatar": "avatar_4", "done": 1, "diary": true },
+    { "id": "s18", "name": "Maria", "avatar": "avatar_1", "done": 1, "diary": false },
+    { "id": "s19", "name": "Mateus", "avatar": "avatar_7", "done": 1, "diary": false },
+    { "id": "s20", "name": "Nicole", "avatar": "avatar_2", "done": 1, "diary": true },
+    { "id": "s21", "name": "Pedro", "avatar": "avatar_5", "done": 1, "diary": true },
+    { "id": "s22", "name": "Rafaela", "avatar": "avatar_3", "done": 0, "diary": false },
+    { "id": "s23", "name": "Sofia", "avatar": "avatar_1", "done": 1, "diary": true },
+    { "id": "s24", "name": "Théo", "avatar": "avatar_6", "done": 0, "diary": false },
+    { "id": "voce", "name": "Você", "avatar": "avatar_4", "done": 0, "diary": false, "self": true }
+  ],
+  "heat": [
+    [1, 2, 2, 3, 2, 4, 3, 4],
+    [0, 1, 2, 2, 3, 3, 4, 3],
+    [1, 1, 3, 2, 4, 3, 3, 4],
+    [0, 2, 1, 3, 2, 3, 4, 2],
+    [1, 0, 1, 2, 2, 2, 3, 1]
+  ],
+  "gardenOrder": ["capybara", "toucan", "tamarin", "arara", "jabuti", "lobo", "jaguar"],
+  "animalsEvery": 5,
+  "defaultExpedition": "Biodiversidade"
+}

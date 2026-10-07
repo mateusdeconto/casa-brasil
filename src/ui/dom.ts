@@ -8,6 +8,9 @@ export function el<K extends keyof HTMLElementTagNameMap>(tag: K, cls = '', html
   return e;
 }
 
+/** Escape text before it goes into an innerHTML template. */
+export const esc = (s: string): string => s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!);
+
 export const itemUrl = (key: string) => assetUrl(MANIFEST.items[key].file);
 
 export function toast(root: HTMLElement, text: string, ms = 1800): void {

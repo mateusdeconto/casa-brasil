@@ -36,7 +36,7 @@ export function normalizeRoot(raw: Partial<RootSave>, now = Date.now()): RootSav
     ...defaultProfile(p.id ?? `p${i + 1}`, now),
     ...p,
     unlocks: { ...defaultProfile().unlocks, ...p.unlocks },
-    school: { done: p.school?.done ?? [], diary: p.school?.diary ?? {} },
+    school: { done: p.school?.done ?? [], diary: p.school?.diary ?? {}, progress: p.school?.progress ?? {} },
   }));
   const activeId = profiles.some((p) => p.id === raw.activeId) ? (raw.activeId as string) : profiles[0].id;
   return {
@@ -46,6 +46,6 @@ export function normalizeRoot(raw: Partial<RootSave>, now = Date.now()): RootSav
     profiles,
     activeId,
     settings: { ...defaultSettings(), ...raw.settings },
-    school: { expeditions: raw.school?.expeditions ?? [], localDone: raw.school?.localDone ?? [] },
+    school: { expeditions: raw.school?.expeditions ?? [] },
   };
 }

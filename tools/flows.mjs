@@ -104,6 +104,34 @@ export async function demoVisit(page, partnerId, shot, label = '') {
   if (shot) await shot(`${label}3_stamp`);
 }
 
+const goto = (page, path) => page.goto(new URL(path, page.url()).href);
+
+/** Do every task of the student checklist (quiz, photo, diary, plain ticks). */
+async function doTasks(page) {
+  for (let guard = 0; guard < 20; guard++) {
+    const btn = page.locator('.task button').first();
+    if (!(await btn.count())) break;
+    const label = (await btn.textContent()).trim();
+    await btn.click();
+    await wait(page, 150);
+    if (label.includes('quiz')) {
+      for (let i = 0; i < 3; i++) {
+        await page.locator('.task-modal .opt').first().click();
+        await page.locator('.task-modal .btn:visible').first().click();
+      }
+      await page.locator('.task-modal .btn:visible').first().click();
+    } else if (label.includes('foto')) {
+      await page.setInputFiles('[data-testid=school-photo]', 'public/assets/garden.png');
+      await wait(page, 500);
+      await page.click('.task-modal .btn:has-text("Concluir")');
+    } else if (label.includes('diário')) {
+      await page.fill('.task-modal textarea', 'Vi uma onça-pintada descansando e aprendi que ela se camufla.');
+      await page.click('.task-modal .btn:has-text("Guardar diário")');
+    }
+    await wait(page, 150);
+  }
+}
+
 export const FLOWS = {
   async basic(page, shot) {
     await start(page, shot);
@@ -278,6 +306,45 @@ export const FLOWS = {
     for (const k of '1111') await page.click(`.pin-keys [data-key="${k}"]`);
     await wait(page, 300);
     await shot('6_wrong_pin');
+  },
+  async school(page, shot) {
+    await goto(page, '/escola');
+    await wait(page, 700);
+    await shot('1_chooser');
+    await page.click('#role-teacher');
+    await wait(page, 900);
+    await shot('2_class');
+    await page.locator('.student-chips').scrollIntoViewIfNeeded();
+    await shot('2b_class_chips');
+    await page.click('.side .menu:has-text("Expedições")');
+    await wait(page, 500);
+    await shot('3_builder');
+    await page.locator('.card-edit').first().locator('.icon-btn').first().click();
+    await page.click('.phase[data-phase=durante] .add');
+    await shot('4_builder_edit');
+    await page.click('.kind-opt:has-text("Reflexão")');
+    await page.click('text=Pré-visualizar');
+    await wait(page, 400);
+    await shot('5_preview');
+    await page.click('.phone-frame .close');
+    await page.click('text=Publicar para a turma');
+    await wait(page, 400);
+    await shot('6_published');
+    await page.click('.side .menu:has-text("Relatórios")');
+    await wait(page, 300);
+    await shot('7_reports');
+    await goto(page, '/escola#aluno');
+    await wait(page, 700);
+    await shot('8_student');
+    await doTasks(page);
+    await shot('9_student_done_tasks');
+    await page.click('#finish-expedition');
+    await wait(page, 900);
+    await page.locator('.class-garden').scrollIntoViewIfNeeded();
+    await shot('10_student_finished');
+    await goto(page, '/escola#professor');
+    await wait(page, 600);
+    await shot('11_class_after');
   },
   async offline(page, shot) {
     const tenHours = Date.now() - 10 * 3600_000;

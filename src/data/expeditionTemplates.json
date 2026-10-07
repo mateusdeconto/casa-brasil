@@ -1,0 +1,115 @@
+{
+  "_doc": "Template-based 'IA' for the teacher: each theme has a title, a banner item, a medal, three phases of cards (alt = other wording used on every second suggestion) and a short quiz. No external API.",
+  "themes": {
+    "Biodiversidade": {
+      "title": "Adaptação e Biodiversidade", "banner": "jaguar", "badge": "badge_biodiversidade",
+      "antes": [
+        { "kind": "quiz", "title": "Quiz introdutório", "hint": "Sobre o local e seus animais" },
+        { "kind": "video", "title": "Vídeo curto", "hint": "Para contextualizar o tema", "alt": { "kind": "leitura", "title": "Leitura rápida", "hint": "Um texto sobre animais brasileiros" } }
+      ],
+      "durante": [
+        { "kind": "missoes", "title": "Observar adaptações dos animais", "hint": "Anote o que ajuda cada bicho a viver ali" },
+        { "kind": "foto", "title": "Foto de um animal", "hint": "Fotografe o lugar, sem pessoas" },
+        { "kind": "missoes", "title": "Encontrar 3 curiosidades", "hint": "Registre o que mais chamou a atenção", "alt": { "kind": "missoes", "title": "Descobrir o que cada animal come", "hint": "Pergunte, leia as placas e anote" } }
+      ],
+      "depois": [
+        { "kind": "diario", "title": "Diário de campo", "hint": "Reflexão sobre a experiência" },
+        { "kind": "reflexao", "title": "Roda de conversa", "hint": "Compartilhar descobertas com a turma" },
+        { "kind": "criativa", "title": "Desenho de um animal", "hint": "Desenho, texto ou colagem" }
+      ],
+      "quiz": [
+        { "q": "Qual destes animais é um felino brasileiro?", "options": ["Onça-pintada", "Lobo-guará", "Capivara"], "answer": 0, "ok": "Isso! A onça-pintada é o maior felino das Américas.", "retry": "Quase! O lobo-guará é um canídeo e a capivara é um roedor. O felino é a onça-pintada." },
+        { "q": "O que é biodiversidade?", "options": ["A variedade de seres vivos de um lugar", "Um tipo de planta", "Um parque da cidade"], "answer": 0, "ok": "Boa! Quanto mais variedade de vida, mais forte é o ambiente.", "retry": "Quase! Biodiversidade é a variedade de seres vivos de um lugar: bichos, plantas e outros." },
+        { "q": "Para que serve a camuflagem de um animal?", "options": ["Para se esconder ou surpreender", "Para fazer barulho", "Para ficar mais pesado"], "answer": 0, "ok": "Isso mesmo! Ela ajuda a fugir de predadores ou a se aproximar da presa.", "retry": "Quase! A camuflagem ajuda o animal a se esconder, seja para fugir ou para caçar." }
+      ]
+    },
+    "Arte": {
+      "title": "Olhar de Artista", "banner": "vitrine_mapa", "badge": "badge_arte",
+      "antes": [
+        { "kind": "quiz", "title": "Quiz de aquecimento", "hint": "Cores, formas e técnicas" },
+        { "kind": "leitura", "title": "Leitura sobre um artista", "hint": "Quem pintou e por quê", "alt": { "kind": "video", "title": "Vídeo sobre uma obra", "hint": "Um minuto de história da arte" } }
+      ],
+      "durante": [
+        { "kind": "missoes", "title": "Escolher uma obra favorita", "hint": "Observe cores, formas e sentimentos" },
+        { "kind": "foto", "title": "Foto de um detalhe", "hint": "Fotografe o lugar, sem pessoas" },
+        { "kind": "missoes", "title": "Descobrir a técnica usada", "hint": "Leia a placa e anote o material", "alt": { "kind": "missoes", "title": "Inventar um título novo", "hint": "Como você chamaria essa obra?" } }
+      ],
+      "depois": [
+        { "kind": "diario", "title": "Diário de campo", "hint": "O que a obra fez você sentir" },
+        { "kind": "reflexao", "title": "Roda de conversa", "hint": "Cada um apresenta a sua obra favorita" },
+        { "kind": "criativa", "title": "Releitura da obra", "hint": "Desenho, colagem ou texto" }
+      ],
+      "quiz": [
+        { "q": "Qual destas é uma técnica de pintura?", "options": ["Aquarela", "Cobogó", "Vitrine"], "answer": 0, "ok": "Isso! A aquarela usa tinta com água.", "retry": "Quase! Cobogó é um elemento de construção e vitrine é uma caixa de vidro. A aquarela é técnica de pintura." },
+        { "q": "O que faz um museu?", "options": ["Guarda e mostra obras e objetos", "Vende comida", "Só guarda livros"], "answer": 0, "ok": "Boa! Museus cuidam da memória e da arte para todo mundo ver.", "retry": "Quase! Museus guardam, estudam e mostram obras e objetos importantes." },
+        { "q": "Quais são cores quentes?", "options": ["Vermelho, laranja e amarelo", "Azul e verde", "Só o preto"], "answer": 0, "ok": "Isso! Elas lembram o fogo e o sol.", "retry": "Quase! As cores quentes são vermelho, laranja e amarelo; azul e verde são frias." }
+      ]
+    },
+    "Ciências": {
+      "title": "Cientista por um Dia", "banner": "lantern", "badge": "badge_ciencia",
+      "antes": [
+        { "kind": "quiz", "title": "Quiz de hipóteses", "hint": "O que é investigar" },
+        { "kind": "video", "title": "Vídeo de um experimento", "hint": "Veja o passo a passo", "alt": { "kind": "leitura", "title": "Leitura sobre o método científico", "hint": "Perguntar, testar e registrar" } }
+      ],
+      "durante": [
+        { "kind": "missoes", "title": "Fazer uma experiência", "hint": "Siga as etapas com o monitor do centro" },
+        { "kind": "foto", "title": "Foto do experimento", "hint": "Fotografe o lugar, sem pessoas" },
+        { "kind": "missoes", "title": "Anotar o que mudou", "hint": "Antes e depois, com suas palavras", "alt": { "kind": "missoes", "title": "Criar uma nova pergunta", "hint": "O que você testaria a seguir?" } }
+      ],
+      "depois": [
+        { "kind": "diario", "title": "Diário de campo", "hint": "O que você descobriu" },
+        { "kind": "reflexao", "title": "Roda de conversa", "hint": "Comparar resultados com a turma" },
+        { "kind": "criativa", "title": "Cartaz da descoberta", "hint": "Desenho, texto ou colagem" }
+      ],
+      "quiz": [
+        { "q": "O que é uma hipótese?", "options": ["Uma ideia que podemos testar", "Uma resposta final", "Um instrumento"], "answer": 0, "ok": "Isso! Hipótese é um palpite que a gente testa.", "retry": "Quase! Hipótese é uma ideia que podemos testar para ver se funciona." },
+        { "q": "Qual instrumento mostra coisas muito pequenas?", "options": ["Microscópio", "Termômetro", "Balança"], "answer": 0, "ok": "Boa! O microscópio aumenta o que é pequeno demais para ver.", "retry": "Quase! O termômetro mede temperatura e a balança mede massa. O microscópio amplia." },
+        { "q": "O que fazemos depois de testar uma ideia?", "options": ["Registrar o que aconteceu", "Esquecer", "Trocar o resultado"], "answer": 0, "ok": "Isso! Registrar ajuda todo mundo a aprender com o teste.", "retry": "Quase! O cientista registra o que aconteceu, mesmo quando é diferente do esperado." }
+      ]
+    },
+    "Meio ambiente": {
+      "title": "Guardiões do Parque", "banner": "vaso_planta", "badge": "badge_parque",
+      "antes": [
+        { "kind": "quiz", "title": "Quiz introdutório", "hint": "Natureza e cuidado" },
+        { "kind": "leitura", "title": "Leitura sobre árvores", "hint": "Como elas ajudam a cidade", "alt": { "kind": "video", "title": "Vídeo sobre reciclagem", "hint": "O caminho do lixo" } }
+      ],
+      "durante": [
+        { "kind": "missoes", "title": "Encontrar 3 tipos de folha", "hint": "Compare formas e tamanhos" },
+        { "kind": "foto", "title": "Foto de uma árvore", "hint": "Fotografe o lugar, sem pessoas" },
+        { "kind": "missoes", "title": "Contar sinais de cuidado", "hint": "Lixeiras, placas, jardins", "alt": { "kind": "missoes", "title": "Ouvir os sons do parque", "hint": "Quantos bichos você escuta?" } }
+      ],
+      "depois": [
+        { "kind": "diario", "title": "Diário de campo", "hint": "Como o parque faz bem para a cidade" },
+        { "kind": "reflexao", "title": "Roda de conversa", "hint": "Combinar um cuidado para a escola" },
+        { "kind": "criativa", "title": "Cartaz de cuidado", "hint": "Desenho, texto ou colagem" }
+      ],
+      "quiz": [
+        { "q": "O que significa reciclar?", "options": ["Transformar material usado em algo novo", "Jogar fora", "Queimar o lixo"], "answer": 0, "ok": "Isso! Reciclar dá nova vida aos materiais.", "retry": "Quase! Reciclar é transformar material usado em um produto novo." },
+        { "q": "Qual atitude economiza água?", "options": ["Fechar a torneira ao escovar os dentes", "Lavar a calçada todo dia", "Deixar a mangueira aberta"], "answer": 0, "ok": "Boa! Pequenos hábitos fazem muita diferença.", "retry": "Quase! Fechar a torneira enquanto escova os dentes é uma boa economia." },
+        { "q": "Por que as árvores são importantes?", "options": ["Dão sombra, oxigênio e abrigo", "Só enfeitam", "Atrapalham o vento"], "answer": 0, "ok": "Isso! Elas cuidam do ar, do calor e da vida dos bichos.", "retry": "Quase! Árvores dão sombra, produzem oxigênio e abrigam animais." }
+      ]
+    },
+    "História": {
+      "title": "Detetives da História", "banner": "fossil", "badge": "stamp_historico",
+      "antes": [
+        { "kind": "quiz", "title": "Quiz de fontes históricas", "hint": "Como sabemos o que aconteceu" },
+        { "kind": "leitura", "title": "Leitura sobre o lugar", "hint": "Quando e por que ele existe", "alt": { "kind": "video", "title": "Vídeo sobre o passado da cidade", "hint": "Um minuto de história" } }
+      ],
+      "durante": [
+        { "kind": "missoes", "title": "Achar um objeto antigo", "hint": "Imagine quem usava e para quê" },
+        { "kind": "foto", "title": "Foto de um detalhe antigo", "hint": "Fotografe o lugar, sem pessoas" },
+        { "kind": "missoes", "title": "Perguntar a um guia", "hint": "Anote uma curiosidade do passado", "alt": { "kind": "missoes", "title": "Comparar passado e presente", "hint": "O que mudou e o que ficou igual?" } }
+      ],
+      "depois": [
+        { "kind": "diario", "title": "Diário de campo", "hint": "O que você aprendeu sobre o passado" },
+        { "kind": "reflexao", "title": "Roda de conversa", "hint": "Por que preservar a memória do lugar" },
+        { "kind": "criativa", "title": "Linha do tempo", "hint": "Desenho, texto ou colagem" }
+      ],
+      "quiz": [
+        { "q": "O que é patrimônio histórico?", "options": ["Lugar ou objeto importante para a memória de um povo", "Um brinquedo novo", "Uma loja"], "answer": 0, "ok": "Isso! Cuidar do patrimônio é cuidar da nossa história.", "retry": "Quase! Patrimônio histórico é o que guarda a memória de um povo." },
+        { "q": "Qual destes pode ser uma fonte histórica?", "options": ["Uma carta antiga", "Uma previsão do tempo de amanhã", "Um jogo novo"], "answer": 0, "ok": "Boa! Cartas, fotos e objetos contam o passado.", "retry": "Quase! Fontes históricas vêm do passado: cartas, fotos e objetos antigos." },
+        { "q": "Para que preservamos museus e prédios antigos?", "options": ["Para aprender com o passado", "Para esconder coisas", "Para atrapalhar o trânsito"], "answer": 0, "ok": "Isso mesmo! O passado ajuda a entender o presente.", "retry": "Quase! Preservamos para aprender com o passado e entender o presente." }
+      ]
+    }
+  }
+}
