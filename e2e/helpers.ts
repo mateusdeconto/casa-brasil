@@ -12,7 +12,7 @@ export function trackErrors(page: Page): string[] {
 export const saveOf = (page: Page) =>
   page.evaluate(() => JSON.parse(localStorage.getItem('jogocasa.save.v2') ?? 'null'));
 
-export async function waitScene(page: Page, key: 'room' | 'garden'): Promise<void> {
+export async function waitScene(page: Page, key: 'room' | 'garden' | 'gallery'): Promise<void> {
   await page.waitForFunction((k) => (window as unknown as { game?: { scene: { isActive(k: string): boolean } } }).game?.scene.isActive(k), key);
   await page.waitForTimeout(500);
 }
@@ -26,16 +26,16 @@ type SceneWin = {
 };
 
 /** Click the centre of a floor cell through the game's own grid. */
-export async function tapCell(page: Page, cx: number, cy: number): Promise<void> {
-  const pt = await page.evaluate(([x, y]) => {
+export async function tapCell(page: Page, cx: number, cy: number, key: 'room' | 'gallery' = 'room'): Promise<void> {
+  const pt = await page.evaluate(([x, y, sceneKey]) => {
     const g = (window as unknown as SceneWin).game;
-    const scene = g.scene.getScene('room');
+    const scene = g.scene.getScene(sceneKey as string);
     const w = scene.grid.cellCenter(x, y);
     const cam = scene.cameras.main;
     const r = g.canvas.getBoundingClientRect();
     const k = r.width / g.scale.width;
     return { x: r.left + (cam.x + (w.x - cam.worldView.x) * cam.zoom) * k, y: r.top + (cam.y + (w.y - cam.worldView.y) * cam.zoom) * k };
-  }, [cx, cy]);
+  }, [cx, cy, key] as const);
   await page.mouse.click(pt.x, pt.y);
 }
 

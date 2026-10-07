@@ -22,6 +22,12 @@ export interface FurnitureDef {
   limited?: boolean;
   /** only one copy per house */
   unique?: boolean;
+  /** museum piece: lives in the gallery wing, not in the house */
+  gallery?: boolean;
+  /** hangs on the back wall of the gallery (cells along the right wall) */
+  wall?: boolean;
+  /** the "você sabia?" line shown when the piece is tapped in the gallery */
+  blurb?: string;
 }
 
 export interface ManifestEntry {

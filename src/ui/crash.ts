@@ -6,7 +6,7 @@ export function installErrorGuard(): void {
   let shown = false;
   const show = (err: unknown) => {
     const text = err instanceof Error ? err.message : String(err ?? '');
-    console.error('[Casa Brasil]', err);
+    console.error('[Passport]', err);
     if (shown || IGNORED.test(text)) return;
     shown = true;
     const box = document.createElement('div');

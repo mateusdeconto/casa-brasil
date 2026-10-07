@@ -57,6 +57,12 @@ export interface SaveData {
   name: string;
   coins: number;
   furniture: PlacedItem[];
+  /** pieces on display in the gallery wing (museum items, paintings, fossils) */
+  gallery: PlacedItem[];
+  /** 0 = wing not built yet; each build opens a bigger part of the gallery floor */
+  galleryLevel: number;
+  /** "projetos de obra": one comes with every visit, spent when building the gallery wing */
+  projects: number;
   animals: AnimalState[];
   /** partner type or special key (zoo, museu, parque, ciencia, semana, evento) -> unlocked */
   unlocks: Record<string, boolean>;
@@ -155,6 +161,9 @@ export function defaultProfile(id = 'p1', now = Date.now()): SaveData {
     name: '',
     coins: START_COINS,
     furniture: START_FURNITURE.map((f, i) => ({ uid: i + 1, ...f })),
+    gallery: [],
+    galleryLevel: 0,
+    projects: 0,
     animals: [{ id: 'capybara', since: now }],
     unlocks: { zoo: false, museu: false, parque: false, ciencia: false, semana: false, evento: false },
     time: now,
@@ -208,7 +217,7 @@ export class Store {
   }
 
   nextUid(): number {
-    return this.data.furniture.reduce((m, f) => Math.max(m, f.uid), 0) + 1;
+    return [...this.data.furniture, ...this.data.gallery].reduce((m, f) => Math.max(m, f.uid), 0) + 1;
   }
 
   canAddProfile(): boolean {

@@ -1,5 +1,5 @@
 // The 3-step visit: Local (GPS) -> Foto (camera, stays on the device) -> Carimbo (reward).
-import { VISIT_RADIUS_M } from '../config';
+import { PROJECTS_PER_VISIT, VISIT_RADIUS_M } from '../config';
 import { furnitureById, partnerById } from '../core/catalog';
 import { boostDaysLeft } from '../core/boost';
 import { getPosition, haversineM } from '../core/geo';
@@ -145,6 +145,7 @@ export function startVisitFlow(deps: FlowDeps, partnerId: string, preGps = false
       paper,
       icons,
       el('p', 'reward', `<b>${partner.reward.text}</b>`),
+      el('p', 'flow-msg', `+${PROJECTS_PER_VISIT} projeto de obra para a Galeria (você tem ${store.data.projects})`),
       el('p', 'flow-msg', `Produção 2x no jardim por 7 dias.<br><span class="boost">2x ativo, restam ${days} ${days === 1 ? 'dia' : 'dias'}</span>`),
     );
     const actions = el('div', 'flow-actions');

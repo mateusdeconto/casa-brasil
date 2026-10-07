@@ -1,5 +1,16 @@
 // Save migration: v1 (single child) -> v2 (profiles, visits, badges...). Nothing from v1 is lost.
+import { FURNITURE } from './catalog';
 import { defaultProfile, defaultRoot, defaultSettings, type RootSave, type SaveData } from './state';
+
+/** Museum pieces now live in the gallery wing: ones left in an old house are refunded this much each. */
+const LEGACY_PIECE_REFUND = 100;
+
+function moveMuseumPiecesOut(p: SaveData): SaveData {
+  const isPiece = (id: string) => !!FURNITURE.find((f) => f.id === id)?.gallery;
+  const legacy = p.furniture.filter((i) => isPiece(i.id));
+  if (!legacy.length) return p;
+  return { ...p, furniture: p.furniture.filter((i) => !isPiece(i.id)), coins: p.coins + legacy.length * LEGACY_PIECE_REFUND };
+}
 
 export interface SaveV1 {
   v: 1;
@@ -32,12 +43,14 @@ export function migrateV1(old: SaveV1, now = Date.now()): RootSave {
 /** Fill any field a partial/older v2 save lacks, keeping what is there. */
 export function normalizeRoot(raw: Partial<RootSave>, now = Date.now()): RootSave {
   const root = defaultRoot(now);
-  const profiles = (raw.profiles?.length ? raw.profiles : root.profiles).map((p, i) => ({
-    ...defaultProfile(p.id ?? `p${i + 1}`, now),
-    ...p,
-    unlocks: { ...defaultProfile().unlocks, ...p.unlocks },
-    school: { done: p.school?.done ?? [], diary: p.school?.diary ?? {}, progress: p.school?.progress ?? {} },
-  }));
+  const profiles = (raw.profiles?.length ? raw.profiles : root.profiles).map((p, i) =>
+    moveMuseumPiecesOut({
+      ...defaultProfile(p.id ?? `p${i + 1}`, now),
+      ...p,
+      unlocks: { ...defaultProfile().unlocks, ...p.unlocks },
+      school: { done: p.school?.done ?? [], diary: p.school?.diary ?? {}, progress: p.school?.progress ?? {} },
+    }),
+  );
   const activeId = profiles.some((p) => p.id === raw.activeId) ? (raw.activeId as string) : profiles[0].id;
   return {
     ...root,

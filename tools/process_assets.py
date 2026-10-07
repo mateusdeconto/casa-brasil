@@ -9,7 +9,7 @@ import numpy as np
 from PIL import Image
 
 sys.path.insert(0, str(Path(__file__).parent))
-from assets_cut import crop, find_items, flood_bg, key_magenta  # noqa: E402
+from assets_cut import crop, find_items, flood_bg, key_flat, key_magenta  # noqa: E402
 from contact import contact_sheet  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -37,9 +37,18 @@ SHEETS = {
                                                     "clipboard", "notebook", "bell", "gear", "ribbon_demo", "ribbon_limited", "polaroid", "signboard"]),
     33: dict(order="rows", rows=[2, 3], names=["trophy_owl", "star_award", "vitrine_mapa", "vaso_planta", "lantern"]),
     34: dict(order="rows", rows=[3, 3, 3], names=[f"{a}_{p}" for a in ("arara", "jabuti", "lobo") for p in ("idle1", "idle2", "sleep")]),
+    # 2026-10-07 batch: these replace guitar/vitrine (sheet 11) and the old single jaguar picture
+    35: dict(order="x", names=["guitar", "vitrine"]),
+    36: dict(order="rows", rows=[3, 3], names=["tamarin_sleep", "tamarin_idle1", "tamarin_idle2", "jaguar_idle1", "jaguar_idle2", "jaguar_sleep"]),
+    # museum pieces for the gallery (flat taupe/beige background instead of magenta)
+    37: dict(order="x", key="flat", names=["dino_raptor", "dino_trice", "dino_trex"]),
+    42: dict(order="rows", rows=[2, 2], key="flat", names=["painting_dama", "painting_noite", "painting_perola", "painting_onda"]),
 }
-BASES = {3: "room", 5: "garden"}
-OPENING = 20
+# number -> (name, how the background goes away)
+BASES = {3: ("room", "flood"), 5: ("garden", "magenta"), 38: ("gallery", "flood")}
+# whole pictures shown in <img> tags: number -> (item name, max side)
+PICTURES = {39: ("logo", 512), 40: ("place_zoo", 720), 41: ("place_parque", 720)}
+OPENING = RAW / "capa.png"  # portrait cover with the game title painted into it
 
 
 def raw_file(n: int) -> Path:
@@ -102,9 +111,12 @@ def main() -> None:
     DEBUG.mkdir(exist_ok=True)
     items, bases, report = {}, {}, []
 
-    for n, name in BASES.items():
+    for n, (name, mode) in BASES.items():
         src = raw_file(n)
-        im = flood_bg(Image.open(src))
+        if mode == "magenta":
+            im = Image.fromarray(key_magenta(np.array(Image.open(src).convert("RGB"))).round().astype(np.uint8), "RGBA")
+        else:
+            im = flood_bg(Image.open(src))
         sw, sh = im.size
         if max(im.size) > 1024:
             s = 1024 / max(im.size)
@@ -115,7 +127,8 @@ def main() -> None:
 
     for n, rule in SHEETS.items():
         src = raw_file(n)
-        rgba = key_magenta(np.array(Image.open(src).convert("RGB")))
+        keyer = key_flat if rule.get("key") == "flat" else key_magenta
+        rgba = keyer(np.array(Image.open(src).convert("RGB")))
         comps, lab, r = find_items(rgba[..., 3], len(rule["names"]))
         tiles = []
         for comp, name in zip(ordered(comps, rule), rule["names"]):
@@ -124,14 +137,22 @@ def main() -> None:
             im = crop(rgba, lab, comp)
             save(im, name, n, items)
             tiles.append((name, im))
-            if name == "jaguar":
+            if name in ("jaguar", "jaguar_idle1"):
                 sil = silhouette(im)
                 save(sil, "jaguar_silhouette", n, items)
                 tiles.append(("jaguar_silhouette", sil))
         contact_sheet(tiles, DEBUG / f"contact_{n}.png")
         report.append(f"{n}: {src.name} -> {len(tiles)} itens (raio {r})")
 
-    write_both(Image.open(raw_file(OPENING)), OUT / "abertura")
+    for n, (name, side) in PICTURES.items():
+        pic = Image.open(raw_file(n)).convert("RGBA")
+        if name == "logo":
+            pic = flood_bg(pic, 40)  # sticker on a dark plate: drop the plate
+        k = side / max(pic.size)
+        pic = pic.resize((round(pic.width * k), round(pic.height * k)), Image.LANCZOS)
+        save(pic, name, n, items)
+        report.append(f"{n}: -> {name}")
+    write_both(Image.open(OPENING), OUT / "abertura")
     MANIFEST.parent.mkdir(parents=True, exist_ok=True)
     MANIFEST.write_text(json.dumps({"bases": bases, "items": items, "opening": "assets/abertura.webp"}, indent=1))
     total = sum(p.stat().st_size for p in OUT.rglob("*") if p.is_file()) / 1e6

@@ -18,7 +18,7 @@ export class Emitter<Events extends Record<string, unknown>> {
 
 import type { Visit } from './state';
 
-export type Tab = 'home' | 'garden' | 'shop' | 'edit' | 'avatar' | 'family' | 'album';
+export type Tab = 'home' | 'garden' | 'shop' | 'edit' | 'avatar' | 'family' | 'album' | 'gallery' | 'galleryEdit';
 
 export interface EditorState {
   mode: 'none' | 'place' | 'edit';
@@ -57,6 +57,11 @@ export interface GameEvents extends Record<string, unknown> {
   /** the avatar was sent walking in the house (tutorial step 1) */
   walked: void;
   openSettings: void;
+  openGallery: void;
+  /** a gallery wing level was built */
+  galleryBuilt: { level: number };
+  /** a gallery exhibit was tapped (show its "você sabia?") */
+  pieceTap: { id: string };
   coinsFly: { x: number; y: number; amount: number };
   [key: string]: unknown;
 }

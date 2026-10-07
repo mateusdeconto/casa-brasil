@@ -34,7 +34,7 @@ export class Editor {
 
   private query(def: FurnitureDef, ignoreUid?: number) {
     return {
-      def, gridSize: this.room.grid.cells, items: this.store.data.furniture,
+      def, gridSize: this.room.grid.cells, bounds: this.room.bounds, items: this.room.items,
       defOf: furnitureById, ignoreUid, reserved: [this.room.avatar.cell],
     };
   }
@@ -80,7 +80,7 @@ export class Editor {
     const { store, bus } = this.room.ctx;
     if (store.data.coins < this.def.price) return bus.emit('toast', 'Moedas insuficientes');
     const item = { uid: store.nextUid(), id: this.def.id, ...this.pos };
-    store.data.furniture.push(item);
+    this.room.items.push(item);
     store.addCoins(-this.def.price);
     this.room.furniture.refresh();
     this.room.furniture.bounce(item.uid);
@@ -97,7 +97,7 @@ export class Editor {
     const img = this.room.furniture.sprites.get(it.uid)!;
     const top = img.getTopCenter();
     const { store } = this.room.ctx;
-    store.data.furniture = store.data.furniture.filter((f) => f !== it);
+    this.room.items.splice(this.room.items.indexOf(it), 1);
     this.selected = null;
     this.def = null;
     store.addCoins(value);
@@ -116,8 +116,9 @@ export class Editor {
 
   private moveTo(cell: Vec): void {
     const [w, h] = this.def!.size;
-    const n = this.room.grid.cells;
-    this.pos = { x: Math.min(Math.max(cell.x, 0), n - w), y: Math.min(Math.max(cell.y, 0), n - h) };
+    const n = this.room.bounds;
+    this.pos = { x: Math.min(Math.max(cell.x, 0), Math.max(0, n - w)), y: Math.min(Math.max(cell.y, 0), Math.max(0, n - h)) };
+    if (this.def!.wall) this.pos.y = 0;
   }
 
   private onTap(cell: Vec | null): boolean {

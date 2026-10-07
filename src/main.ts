@@ -2,15 +2,17 @@
 import Phaser from 'phaser';
 import './ui/style.css';
 import './ui/pages.css';
-import { TITLE, COLORS, OFFLINE_CAP_HOURS, AWAY_SLEEP_MS } from './config';
+import { TITLE, COLORS, AWAY_SLEEP_MS } from './config';
 import { ANIMALS } from './core/catalog';
 import { Emitter, type GameEvents, type Tab } from './core/events';
 import { applyOffline } from './core/production';
 import { attachProgress } from './core/progress';
 import { autoSave, loadSave, storageWorks } from './core/save';
+import { galleryBounds, offlineCapHours } from './core/gallery';
 import { Store } from './core/state';
 import { setupRouter } from './router';
 import { BootScene } from './scenes/BootScene';
+import { GalleryScene } from './scenes/GalleryScene';
 import { GardenScene } from './scenes/GardenScene';
 import { RoomScene } from './scenes/RoomScene';
 import { showAvatarPicker } from './ui/avatarPicker';
@@ -18,6 +20,7 @@ import { createActionBar } from './ui/actionBar';
 import { toast } from './ui/dom';
 import { createEditFab, createHud, createNav } from './ui/hud';
 import { showOpening } from './ui/opening';
+import { createGalleryChip } from './ui/gallery';
 import { createShop } from './ui/shop';
 import { loading } from './ui/loading';
 import { handleQr } from './ui/qrFlow';
@@ -35,7 +38,7 @@ const now = Date.now();
 const save = loadSave(now);
 const wasAway = save.profiles.some((p) => p.started) && now - save.time > AWAY_SLEEP_MS;
 // time away counts for production, capped; never a penalty
-for (const p of save.profiles) applyOffline(p.animals, save.time, now, OFFLINE_CAP_HOURS * 3600_000);
+for (const p of save.profiles) applyOffline(p.animals, save.time, now, offlineCapHours(p) * 3600_000);
 const store = new Store(save, bus);
 autoSave(() => store.root, (fn) => bus.on('changed', fn));
 attachProgress(bus, store);
@@ -61,7 +64,7 @@ const game = new Phaser.Game({
   ...size(),
   render: { pixelArt: false, antialias: true },
   scale: { mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH },
-  scene: [BootScene, RoomScene, GardenScene],
+  scene: [BootScene, RoomScene, GalleryScene, GardenScene],
 });
 window.addEventListener('resize', () => {
   const s = size();
@@ -81,26 +84,30 @@ let fabTab: (t: Tab) => void = () => {};
 let tutorial: Tutorial | null = null;
 
 function room(): RoomScene {
-  return game.scene.getScene('room') as RoomScene;
+  return game.scene.getScene(game.scene.isActive('gallery') ? 'gallery' : 'room') as RoomScene;
 }
+
+/** the tab to return to when an editing session ends */
+const homeTab = (): Tab => (game.scene.isActive('gallery') ? 'gallery' : 'home');
 
 function enterGame(): void {
   if (!hud) {
     hud = createHud(ui, bus);
     const navTab = createNav(ui, bus);
-    fabTab = createEditFab(ui, bus);
-    setTab = (t) => (navTab(t), fabTab(t));
+    fabTab = createEditFab(ui, bus, () => galleryBounds(store.data) > 0);
+    const chipTab = createGalleryChip(ui, bus, store);
+    setTab = (t) => (navTab(t), fabTab(t), chipTab(t));
     const shop = createShop(ui, bus, () => store.data);
     const editor = () => room().editor;
     const showActions = createActionBar(ui, {
       buy: () => editor().confirm(),
-      cancel: () => bus.emit('tab', 'home'),
+      cancel: () => bus.emit('tab', homeTab()),
       sell: () => editor().sell(),
-      done: () => bus.emit('tab', 'home'),
+      done: () => bus.emit('tab', homeTab()),
     });
     bus.on('editor', (s) => {
       showActions(s);
-      if (s.mode === 'none' && game.scene.isActive('room')) setTab('home');
+      if (s.mode === 'none' && (game.scene.isActive('room') || game.scene.isActive('gallery'))) setTab(homeTab());
     });
     startUsageTimer(store, ui);
     tutorial = createTutorial(ui, bus, store);

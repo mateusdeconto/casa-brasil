@@ -33,8 +33,8 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['icons/*.png', 'og.jpg'],
       manifest: {
-        name: 'Casa Brasil',
-        short_name: 'Casa Brasil',
+        name: 'Passport',
+        short_name: 'Passport',
         description: 'Um jogo de casa e jardim que leva as famílias a museus, parques e centros de ciência.',
         lang: 'pt-BR',
         start_url: '/',

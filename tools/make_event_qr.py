@@ -78,7 +78,7 @@ def partners_page(partners: list[dict], base: str, secret: str) -> str:
         )
     return f"""<!doctype html>
 <html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>QR dos parceiros · Casa Brasil</title>{STYLE}
+<title>QR dos parceiros · Passport</title>{STYLE}
 <style>main {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; padding: 24px; }}
 .sign {{ border: 4px dashed #4a3322; border-radius: 16px; padding: 18px; }} h2 {{ margin: 0 0 10px; color: #ffc36b; }}
 img.qr {{ width: 240px; height: 240px; image-rendering: pixelated; }} small {{ opacity: .7; word-break: break-all; }}</style></head>

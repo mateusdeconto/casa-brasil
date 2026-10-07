@@ -1,5 +1,5 @@
 // Tunable numbers live here (prices and catalog data live in src/data/*.json).
-export const TITLE = 'Casa Brasil';
+export const TITLE = 'Passport';
 export const SAVE_KEY = 'jogocasa.save.v2';
 export const SAVE_KEY_V1 = 'jogocasa.save.v1';
 
@@ -36,6 +36,9 @@ export const BOOST_DAYS = 7;
 export const PHOTO_MAX_SIDE = 960;
 export const PHOTO_QUALITY = 0.8;
 export const DEMO_RIBBON_KEY = 'ribbon_demo';
+
+// Gallery wing: projects of works that each visit brings (spent on building, see data/gallery.json)
+export const PROJECTS_PER_VISIT = 1;
 
 // Family club (bloco E)
 export const MISSIONS_PER_WEEK = 3;

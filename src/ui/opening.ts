@@ -12,7 +12,9 @@ const LINKS = [
 export function showOpening(root: HTMLElement, onPlay: () => void): void {
   const s = el('div', 'screen opening');
   s.style.backgroundImage = `url(${assetUrl(MANIFEST.opening)})`;
-  s.appendChild(el('div', '', `<h1>${TITLE}</h1><div class="sub">Sua casa, seu jardim, nossos bichos</div>`));
+  // the cover art already paints the game title: keep a text title only for screen readers
+  s.setAttribute('role', 'main');
+  s.appendChild(el('h1', 'sr-only', TITLE));
   const menu = el('div', 'entries');
   const play = el('button', 'btn', 'Jogar em família');
   play.onclick = () => {

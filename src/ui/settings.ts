@@ -86,7 +86,7 @@ export function openSettings(d: SettingsDeps): void {
     button('Privacidade', () => showCard(d.ui, { title: 'Privacidade', image: 'shield_parent', text: PRIVACY_LINES.map((l) => `• ${l}`).join('<br>'), buttons: [{ label: 'Entendi', onClick: () => {} }] }), 'secondary'),
     demo,
     wipe,
-    el('p', 'version', 'Casa Brasil · protótipo · dados só neste aparelho'),
+    el('p', 'version', 'Passport · protótipo · dados só neste aparelho'),
   );
   d.ui.appendChild(screen);
 }

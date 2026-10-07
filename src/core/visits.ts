@@ -2,6 +2,8 @@
 import { partnerById } from './catalog';
 import { grantBoost } from './boost';
 import { owns } from './actions';
+import { grantProject } from './gallery';
+import { PROJECTS_PER_VISIT } from '../config';
 import type { Store, Visit } from './state';
 
 export const makeVisitId = (profileId: string, partnerId: string, now: number) => `${profileId}-${partnerId}-${now}`;
@@ -31,6 +33,7 @@ export function completeVisit(store: Store, input: VisitInput, now = Date.now())
   d.unlocks[partner.reward.unlock] = true;
   if (partner.reward.animal && !owns(store, partner.reward.animal)) d.animals.push({ id: partner.reward.animal, since: now });
   if (partner.boost !== false) grantBoost(d, now);
+  if (!partner.event) grantProject(d, PROJECTS_PER_VISIT);
   store.commit();
   if (!wasUnlocked) store.bus.emit('unlocked', { key: partner.reward.unlock });
   store.bus.emit('visitCompleted', { visit });

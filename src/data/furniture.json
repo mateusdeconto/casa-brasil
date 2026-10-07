@@ -208,8 +208,7 @@
         0.5,
         0.92
       ],
-      "blocks": true,
-      "provisorio": true
+      "blocks": true
     },
     {
       "id": "vitrine",
@@ -225,8 +224,7 @@
         0.5,
         0.95
       ],
-      "blocks": true,
-      "provisorio": true
+      "blocks": true
     },
     {
       "id": "fossil",
@@ -236,14 +234,17 @@
         1,
         1
       ],
-      "price": 0,
+      "price": 60,
       "scale": 0.85,
       "anchor": [
         0.5,
         0.95
       ],
       "blocks": true,
-      "exclusive": "museu"
+      "exclusive": "museu",
+      "gallery": true,
+      "unique": true,
+      "blurb": "Fósseis são restos de seres vivos que viveram há milhões de anos."
     },
     {
       "id": "vase",
@@ -253,14 +254,17 @@
         1,
         1
       ],
-      "price": 0,
+      "price": 60,
       "scale": 0.75,
       "anchor": [
         0.5,
         0.95
       ],
       "blocks": true,
-      "exclusive": "museu"
+      "exclusive": "museu",
+      "gallery": true,
+      "unique": true,
+      "blurb": "Vasos de barro como este ajudavam a guardar água, grãos e azeite."
     },
     {
       "id": "meteorite",
@@ -270,14 +274,17 @@
         1,
         1
       ],
-      "price": 0,
+      "price": 90,
       "scale": 0.85,
       "anchor": [
         0.5,
         0.95
       ],
       "blocks": true,
-      "exclusive": "museu"
+      "exclusive": "ciencia",
+      "gallery": true,
+      "unique": true,
+      "blurb": "Um meteorito é uma rocha que veio do espaço e chegou inteira ao chão."
     },
     {
       "id": "vaso_planta",
@@ -367,6 +374,150 @@
         0.95
       ],
       "blocks": true
+    },
+    {
+      "id": "dino_raptor",
+      "name": "Esqueleto de velociraptor",
+      "sprite": "dino_raptor",
+      "size": [
+        2,
+        2
+      ],
+      "price": 250,
+      "scale": 0.72,
+      "anchor": [
+        0.5,
+        0.93
+      ],
+      "blocks": true,
+      "exclusive": "ciencia",
+      "gallery": true,
+      "unique": true,
+      "blurb": "O velociraptor era do tamanho de um peru grande e tinha penas."
+    },
+    {
+      "id": "dino_trice",
+      "name": "Esqueleto de tricerátops",
+      "sprite": "dino_trice",
+      "size": [
+        2,
+        2
+      ],
+      "price": 450,
+      "scale": 0.8,
+      "anchor": [
+        0.5,
+        0.93
+      ],
+      "blocks": true,
+      "exclusive": "ciencia",
+      "gallery": true,
+      "unique": true,
+      "blurb": "O tricerátops tinha três chifres e uma golona óssea para se proteger."
+    },
+    {
+      "id": "dino_trex",
+      "name": "Esqueleto de T-Rex",
+      "sprite": "dino_trex",
+      "size": [
+        2,
+        2
+      ],
+      "price": 800,
+      "scale": 0.85,
+      "anchor": [
+        0.5,
+        0.93
+      ],
+      "blocks": true,
+      "exclusive": "ciencia",
+      "gallery": true,
+      "unique": true,
+      "blurb": "O T-Rex tinha dentes do tamanho de uma banana e braços bem curtinhos."
+    },
+    {
+      "id": "painting_dama",
+      "name": "Quadro: A Dama do Sorriso",
+      "sprite": "painting_dama",
+      "size": [
+        1,
+        1
+      ],
+      "price": 180,
+      "scale": 0.95,
+      "anchor": [
+        0.5,
+        1.75
+      ],
+      "blocks": false,
+      "exclusive": "museu",
+      "gallery": true,
+      "wall": true,
+      "unique": true,
+      "blurb": "Um retrato famoso pintado há mais de 500 anos, com um sorriso misterioso."
+    },
+    {
+      "id": "painting_noite",
+      "name": "Quadro: Noite Estrelada",
+      "sprite": "painting_noite",
+      "size": [
+        1,
+        1
+      ],
+      "price": 220,
+      "scale": 0.95,
+      "anchor": [
+        0.5,
+        1.75
+      ],
+      "blocks": false,
+      "exclusive": "museu",
+      "gallery": true,
+      "wall": true,
+      "unique": true,
+      "blurb": "O pintor mostrou o céu girando, cheio de estrelas, com pinceladas bem fortes."
+    },
+    {
+      "id": "painting_perola",
+      "name": "Quadro: Menina da Pérola",
+      "sprite": "painting_perola",
+      "size": [
+        1,
+        1
+      ],
+      "price": 260,
+      "scale": 0.95,
+      "anchor": [
+        0.5,
+        1.75
+      ],
+      "blocks": false,
+      "exclusive": "museu",
+      "gallery": true,
+      "wall": true,
+      "unique": true,
+      "blurb": "A luz no rosto e no brinco de pérola faz esta pintura parecer brilhar."
+    },
+    {
+      "id": "painting_onda",
+      "name": "Quadro: A Grande Onda",
+      "sprite": "painting_onda",
+      "size": [
+        1,
+        1
+      ],
+      "price": 300,
+      "scale": 0.95,
+      "anchor": [
+        0.5,
+        1.75
+      ],
+      "blocks": false,
+      "exclusive": "museu",
+      "gallery": true,
+      "wall": true,
+      "unique": true,
+      "blurb": "Uma onda gigante com o monte Fuji lá no fundo, feita com gravura japonesa."
     }
   ],
   "start": [

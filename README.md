@@ -1,4 +1,4 @@
-# Casa Brasil (protótipo)
+# Passport (protótipo)
 
 Jogo de navegador em retrato: escolha um avatar, decore uma casa isométrica e cuide de um jardim com bichos brasileiros que produzem moedas. Os melhores itens só chegam com uma **visita real** a museus, parques e centros de ciência (Local, Foto, Carimbo). Em volta do jogo há o **Clube Família**, o **Modo Escola**, o **painel da cidade** e uma página **Sobre** para a banca.
 

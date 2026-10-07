@@ -1,0 +1,18 @@
+{
+  "_doc": "Gallery wing. levels: what each build costs (projects come with visits) and how much of the 6x6 floor opens (bounds = cells per side from the back corner). tiers: benefits by number of different pieces on display. collections: extra benefit when a themed set is complete. Everything is shown to the player before it is earned.",
+  "levels": [
+    { "level": 1, "name": "Galeria pequena", "bounds": 3, "projects": 2, "coins": 300 },
+    { "level": 2, "name": "Galeria média", "bounds": 4, "projects": 4, "coins": 800 },
+    { "level": 3, "name": "Galeria grande", "bounds": 6, "projects": 6, "coins": 1500 }
+  ],
+  "tiers": [
+    { "pieces": 2, "coinsPct": 10, "offlineHours": 0 },
+    { "pieces": 4, "coinsPct": 20, "offlineHours": 2 },
+    { "pieces": 7, "coinsPct": 30, "offlineHours": 4 }
+  ],
+  "collections": [
+    { "id": "dinos", "name": "Era dos Dinossauros", "items": ["dino_raptor", "dino_trice", "dino_trex"], "coinsPct": 5 },
+    { "id": "arte", "name": "Sala de Arte", "items": ["painting_dama", "painting_noite", "painting_perola", "painting_onda"], "coinsPct": 5 },
+    { "id": "achados", "name": "Achados do Museu", "items": ["fossil", "vase", "meteorite"], "coinsPct": 5 }
+  ]
+}

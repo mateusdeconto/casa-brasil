@@ -1,14 +1,16 @@
 // Routes nav-bar tabs and garden/shop events between the Phaser scenes and the HTML UI.
 import Phaser from 'phaser';
 import { buyAnimal } from './core/actions';
-import { PLACE_PARTNERS, animalById } from './core/catalog';
+import { PLACE_PARTNERS, animalById, furnitureById } from './core/catalog';
 import type { Emitter, GameEvents, Tab } from './core/events';
 import type { Store } from './core/state';
+import { galleryBounds } from './core/gallery';
 import type { RoomScene } from './scenes/RoomScene';
 import { createAlbumPage } from './ui/album';
 import { showCard } from './ui/card';
 import { flyCoins } from './ui/coinFly';
 import { createFamilyPage } from './ui/family';
+import { createGalleryPage } from './ui/gallery';
 import type { Hud } from './ui/hud';
 import { PageHost } from './ui/pageHost';
 import { createPassportPage } from './ui/passport';
@@ -42,18 +44,24 @@ export function setupRouter(d: RouterDeps): { host: PageHost } {
   const host = new PageHost(ui);
   let wakeAsleep = d.asleep;
 
-  /** Make sure the room scene runs, then hand it over. */
-  const withRoom = (fn: (room: RoomScene) => void) => {
-    const room = game.scene.getScene('room') as RoomScene;
-    if (game.scene.isActive('room')) return fn(room);
-    game.scene.stop('garden');
+  /** Make sure the house or the gallery scene runs (and only that one), then hand it over. */
+  const withScene = (key: 'room' | 'gallery', fn: (room: RoomScene) => void) => {
+    const room = game.scene.getScene(key) as RoomScene;
+    if (game.scene.isActive(key)) return fn(room);
+    for (const other of ['garden', key === 'room' ? 'gallery' : 'room']) {
+      if (game.scene.isActive(other) && other !== 'garden') (game.scene.getScene(other) as RoomScene).editor.exit();
+      game.scene.stop(other);
+    }
     room.events.once('room-ready', () => fn(room));
-    game.scene.start('room', ctx);
+    game.scene.start(key, ctx);
   };
+  const withRoom = (fn: (room: RoomScene) => void) => withScene('room', fn);
 
   const openGarden = () => {
-    if (game.scene.isActive('room')) (game.scene.getScene('room') as RoomScene).editor.exit();
-    game.scene.stop('room');
+    for (const key of ['room', 'gallery']) {
+      if (game.scene.isActive(key)) (game.scene.getScene(key) as RoomScene).editor.exit();
+      game.scene.stop(key);
+    }
     if (!game.scene.isActive('garden')) game.scene.start('garden', { ...ctx, asleep: wakeAsleep });
     wakeAsleep = false;
   };
@@ -63,6 +71,8 @@ export function setupRouter(d: RouterDeps): { host: PageHost } {
   const openFamily = () => host.open(createFamilyPage({ store, bus, ui, openPassport, openPlanner, startVisit: (partner) => bus.emit('startVisit', { partner }) }));
   /** the family page lists outings and missions, so redraw it after a sub-page closes */
   const refreshFamily = () => host.isOpen && host.top?.el.classList.contains('family') && openFamily();
+  const openGalleryPage = () =>
+    host.open(createGalleryPage({ store, bus, close: () => host.closeAll(), goShop: () => bus.emit('tab', 'shop') }));
   const openAlbum = () => host.open(createAlbumPage({ store, ui, goFamily: () => bus.emit('tab', 'family') }));
 
   bus.on('tab', (tab) => {
@@ -75,6 +85,14 @@ export function setupRouter(d: RouterDeps): { host: PageHost } {
       openGarden();
       return d.setTab('garden');
     }
+    if (tab === 'gallery' || tab === 'galleryEdit') {
+      return withScene('gallery', (g) => {
+        if (tab === 'galleryEdit') g.editor.startEdit();
+        else g.editor.exit();
+        d.setTab(tab);
+        if (tab === 'gallery' && !galleryBounds(store.data)) openGalleryPage();
+      });
+    }
     withRoom((room) => {
       if (tab === 'edit') room.editor.startEdit();
       else room.editor.exit();
@@ -83,12 +101,28 @@ export function setupRouter(d: RouterDeps): { host: PageHost } {
     });
   });
 
-  bus.on('shopPick', (id) =>
+  bus.on('shopPick', (id) => {
+    if (furnitureById(id).gallery) {
+      if (!galleryBounds(store.data)) {
+        bus.emit('toast', 'Construa a galeria primeiro: abra a aba Galeria.');
+        return bus.emit('tab', 'gallery');
+      }
+      return withScene('gallery', (g) => {
+        g.editor.startPlace(id);
+        d.setTab('gallery');
+      });
+    }
     withRoom((room) => {
       room.editor.startPlace(id);
       d.setTab('shop');
-    }),
-  );
+    });
+  });
+  bus.on('openGallery', openGalleryPage);
+  bus.on('galleryBuilt', () => bus.emit('changed', undefined));
+  bus.on('pieceTap', ({ id }) => {
+    const def = furnitureById(id);
+    showCard(ui, { title: def.name, image: def.sprite, text: `Você sabia? ${def.blurb ?? ''}`, buttons: [] });
+  });
 
   bus.on('startVisit', ({ partner, preGps }) => {
     const id = partner ?? PLACE_PARTNERS[0].id;
@@ -152,6 +186,7 @@ export function setupRouter(d: RouterDeps): { host: PageHost } {
     current = id;
     host.closeAll();
     game.scene.stop('garden');
+    game.scene.stop('gallery');
     game.scene.stop('room');
     game.scene.start('room', ctx);
     d.setTab('home');

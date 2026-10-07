@@ -28,7 +28,7 @@ export function shareText(o: Outing): string {
   const p = partnerById(o.partner);
   const d = parseDayKey(o.day);
   const date = `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth() + 1).padStart(2, '0')}`;
-  return `Vamos ao ${p.name} no ${weekdayLong(o.day)} (${date}), às ${hourLabel(o.time)}! Combinado pelo Clube Família Casa Brasil.`;
+  return `Vamos ao ${p.name} no ${weekdayLong(o.day)} (${date}), às ${hourLabel(o.time)}! Combinado pelo Clube Família Passport.`;
 }
 
 /** Native share sheet when available, otherwise copy the text. Returns which one worked. */

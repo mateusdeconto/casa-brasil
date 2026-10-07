@@ -132,3 +132,29 @@ def crop(rgba: np.ndarray, lab: np.ndarray, comp: dict, margin: int = 4, max_sid
         s = max_side / max(im.size)
         im = im.resize((round(im.width * s), round(im.height * s)), Image.LANCZOS)
     return im
+
+
+def key_flat(rgb: np.ndarray, lo: float = 24.0, hi: float = 52.0) -> np.ndarray:
+    """Remove a flat, light-ish background (beige, taupe) estimated from the image border."""
+    f = rgb.astype(np.float32)
+    border = np.concatenate([f[:6].reshape(-1, 3), f[-6:].reshape(-1, 3), f[:, :6].reshape(-1, 3), f[:, -6:].reshape(-1, 3)])
+    bg = np.median(border, axis=0)
+    dist = np.sqrt(((f - bg) ** 2).sum(-1))
+    alpha = np.clip((dist - lo) / (hi - lo), 0, 1)
+    a = np.maximum(alpha, 1e-3)[..., None]
+    col = np.clip((f - (1 - a) * bg) / a, 0, 255)
+    alpha[alpha < 0.06] = 0.0
+    # pale parts inside the object (a beige sky in a painting) must stay solid: fill holes the border cannot reach
+    clear = alpha < 0.5
+    h, w = clear.shape
+    H, W = -(-h // DOWN), -(-w // DOWN)
+    pad = np.zeros((H * DOWN, W * DOWN), bool)
+    pad[:h, :w] = clear
+    small = pad.reshape(H, DOWN, W, DOWN).all(axis=(1, 3))
+    lab = _label(small)
+    outside = np.repeat(np.repeat(lab == lab[0, 0], DOWN, 0), DOWN, 1)[:h, :w]
+    outside = _dilate(outside, DOWN) & clear
+    inside = ~_dilate(outside, 3)  # everything not touching the outside is solid, keep its true colour
+    alpha[inside] = 1.0
+    col[inside] = f[inside]
+    return np.dstack([col, alpha * 255])

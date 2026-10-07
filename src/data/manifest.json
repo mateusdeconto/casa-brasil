@@ -13,6 +13,13 @@
    "h": 1024,
    "srcW": 1254,
    "srcH": 1254
+  },
+  "gallery": {
+   "file": "assets/gallery.webp",
+   "w": 1024,
+   "h": 1024,
+   "srcW": 1254,
+   "srcH": 1254
   }
  },
  "items": {
@@ -180,15 +187,15 @@
   },
   "guitar": {
    "file": "assets/items/guitar.webp",
-   "w": 190,
-   "h": 484,
-   "sheet": 11
+   "w": 390,
+   "h": 822,
+   "sheet": 35
   },
   "vitrine": {
    "file": "assets/items/vitrine.webp",
-   "w": 313,
-   "h": 589,
-   "sheet": 11
+   "w": 603,
+   "h": 799,
+   "sheet": 35
   },
   "palm": {
    "file": "assets/items/palm.webp",
@@ -270,21 +277,21 @@
   },
   "tamarin_idle1": {
    "file": "assets/items/tamarin_idle1.webp",
-   "w": 376,
-   "h": 279,
-   "sheet": 13
+   "w": 504,
+   "h": 270,
+   "sheet": 36
   },
   "tamarin_idle2": {
    "file": "assets/items/tamarin_idle2.webp",
-   "w": 373,
-   "h": 279,
-   "sheet": 13
+   "w": 469,
+   "h": 440,
+   "sheet": 36
   },
   "tamarin_sleep": {
    "file": "assets/items/tamarin_sleep.webp",
-   "w": 396,
-   "h": 262,
-   "sheet": 13
+   "w": 415,
+   "h": 412,
+   "sheet": 36
   },
   "jaguar": {
    "file": "assets/items/jaguar.webp",
@@ -294,9 +301,9 @@
   },
   "jaguar_silhouette": {
    "file": "assets/items/jaguar_silhouette.webp",
-   "w": 655,
-   "h": 418,
-   "sheet": 14
+   "w": 489,
+   "h": 415,
+   "sheet": 36
   },
   "fossil": {
    "file": "assets/items/fossil.webp",
@@ -687,6 +694,84 @@
    "w": 362,
    "h": 225,
    "sheet": 34
+  },
+  "jaguar_idle1": {
+   "file": "assets/items/jaguar_idle1.webp",
+   "w": 489,
+   "h": 415,
+   "sheet": 36
+  },
+  "jaguar_idle2": {
+   "file": "assets/items/jaguar_idle2.webp",
+   "w": 499,
+   "h": 352,
+   "sheet": 36
+  },
+  "jaguar_sleep": {
+   "file": "assets/items/jaguar_sleep.webp",
+   "w": 496,
+   "h": 308,
+   "sheet": 36
+  },
+  "dino_raptor": {
+   "file": "assets/items/dino_raptor.webp",
+   "w": 423,
+   "h": 444,
+   "sheet": 37
+  },
+  "dino_trice": {
+   "file": "assets/items/dino_trice.webp",
+   "w": 519,
+   "h": 483,
+   "sheet": 37
+  },
+  "dino_trex": {
+   "file": "assets/items/dino_trex.webp",
+   "w": 631,
+   "h": 780,
+   "sheet": 37
+  },
+  "painting_dama": {
+   "file": "assets/items/painting_dama.webp",
+   "w": 426,
+   "h": 420,
+   "sheet": 42
+  },
+  "painting_noite": {
+   "file": "assets/items/painting_noite.webp",
+   "w": 431,
+   "h": 422,
+   "sheet": 42
+  },
+  "painting_perola": {
+   "file": "assets/items/painting_perola.webp",
+   "w": 424,
+   "h": 419,
+   "sheet": 42
+  },
+  "painting_onda": {
+   "file": "assets/items/painting_onda.webp",
+   "w": 437,
+   "h": 419,
+   "sheet": 42
+  },
+  "logo": {
+   "file": "assets/items/logo.webp",
+   "w": 512,
+   "h": 512,
+   "sheet": 39
+  },
+  "place_zoo": {
+   "file": "assets/items/place_zoo.webp",
+   "w": 720,
+   "h": 540,
+   "sheet": 40
+  },
+  "place_parque": {
+   "file": "assets/items/place_parque.webp",
+   "w": 720,
+   "h": 540,
+   "sheet": 41
   }
  },
  "opening": "assets/abertura.webp"

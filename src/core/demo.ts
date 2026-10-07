@@ -40,6 +40,7 @@ function ana(now: number): SaveData {
     stamps: ['zoo', 'parque', 'evento'],
     redeemed: ['trophy_owl'],
     boostUntil: now + 3 * DAY_MS,
+    projects: DEMO_VISITS.length, // one per visit: enough to build the first gallery level
     outings: [{ partner: 'museu', day: nextSaturday(now), time: '10:00', agreedAt: now - DAY_MS }],
   };
 }

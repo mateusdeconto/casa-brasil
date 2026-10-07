@@ -13,7 +13,7 @@ export function placeSprite(img: Phaser.GameObjects.Image, grid: IsoGrid, def: F
   img.setOrigin(def.anchor[0], def.anchor[1]);
   img.setScale(s);
   img.setPosition(fp.centerX, fp.front.y);
-  img.setDepth(def.floor ? 1 : 10 + IsoGrid.depth(x + w - 1, y + h - 1) * 10);
+  img.setDepth(def.floor ? 1 : 10 + IsoGrid.depth(x + w - 1, y + h - 1) * 10 + (def.wall ? -5 : 0));
 }
 
 export class FurnitureLayer {
@@ -29,6 +29,7 @@ export class FurnitureLayer {
       let img = this.sprites.get(it.uid);
       if (!img) {
         img = this.scene.add.image(0, 0, def.sprite);
+        if (def.blurb) img.setData('piece', def.id).setInteractive({ useHandCursor: true });
         this.sprites.set(it.uid, img);
       }
       placeSprite(img, this.grid, def, it.x, it.y);

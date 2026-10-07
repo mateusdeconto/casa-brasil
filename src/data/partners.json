@@ -18,7 +18,7 @@
       "stamp": "stamp_zoo",
       "ageRange": "5 a 10 anos",
       "distanceKm": 3.2,
-      "image": "toucan_idle1"
+      "image": "place_zoo"
     },
     {
       "id": "museu",
@@ -34,9 +34,12 @@
         "items": [
           "fossil",
           "vase",
-          "meteorite"
+          "painting_dama",
+          "painting_noite",
+          "painting_perola",
+          "painting_onda"
         ],
-        "text": "Fóssil, vaso e meteorito liberados na loja!"
+        "text": "Fóssil, vaso e 4 quadros liberados na loja!"
       },
       "stamp": "stamp_museu",
       "ageRange": "5 a 10 anos",
@@ -62,7 +65,7 @@
       "stamp": "stamp_parque",
       "ageRange": "5 a 10 anos",
       "distanceKm": 2.8,
-      "image": "palm"
+      "image": "place_parque"
     },
     {
       "id": "ciencia",
@@ -76,9 +79,13 @@
       "reward": {
         "unlock": "ciencia",
         "items": [
-          "lantern"
+          "lantern",
+          "meteorite",
+          "dino_raptor",
+          "dino_trice",
+          "dino_trex"
         ],
-        "text": "Lanterna liberada na loja!"
+        "text": "Lanterna, meteorito e 3 dinossauros liberados na loja!"
       },
       "stamp": "stamp_ciencia",
       "ageRange": "5 a 10 anos",
