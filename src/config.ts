@@ -9,6 +9,10 @@ export const NAME_MAX = 12;
 export const DEFAULT_AVATAR = 'avatar_1';
 export const AVATAR_IDS = Array.from({ length: 8 }, (_, i) => `avatar_${i + 1}`);
 
+// 2x is plenty for this pixel-style art and keeps mid-range phones smooth.
+// Game pixels per CSS pixel: the canvas is always sized to the page times this.
+export const pixelRatio = (): number => Math.min(window.devicePixelRatio || 1, 2);
+
 // Avatar standing height, in widths of one floor cell.
 export const AVATAR_HEIGHT_CELLS = 1.6;
 export const WALK_MS_PER_CELL = 280;

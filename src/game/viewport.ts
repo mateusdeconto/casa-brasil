@@ -1,11 +1,12 @@
 // Fit a world rectangle into the canvas area left free by the HTML HUD and nav bar.
 import Phaser from 'phaser';
-import { HUD_HEIGHT, NAV_HEIGHT } from '../config';
+import { HUD_HEIGHT, NAV_HEIGHT, pixelRatio } from '../config';
 
 export function fitCamera(scene: Phaser.Scene, view: number[]): void {
   const [x0, y0, x1, y1] = view;
   const cam = scene.cameras.main;
-  const k = scene.scale.displayScale.y || 1; // game px per CSS px
+  // game px per CSS px. Not scale.displayScale: that goes stale when the phone's browser bars move
+  const k = pixelRatio();
   const top = HUD_HEIGHT * k;
   const h = scene.scale.height - (HUD_HEIGHT + NAV_HEIGHT) * k;
   const w = scene.scale.width;

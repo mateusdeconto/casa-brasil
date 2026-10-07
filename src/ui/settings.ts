@@ -1,4 +1,4 @@
-// Settings sheet (gear in the HUD): sound, text size, tutorial, privacy, demo data, reset.
+// Settings sheet (gear in the HUD): back to the start screen, sound, text size, tutorial, privacy, demo data, reset.
 import { clearPhotos } from '../core/photos';
 import { seedDemo } from '../core/demoSeed';
 import { clearSave, freezeSaves } from '../core/save';
@@ -80,7 +80,14 @@ export function openSettings(d: SettingsDeps): void {
   'secondary');
   wipe.classList.add('danger');
 
+  // progress is saved on every change; a clean load of the root page shows the start screen again
+  const home = button('Voltar à tela inicial', () => {
+    store.commit();
+    location.assign(location.pathname);
+  }, 'secondary');
+
   body.append(
+    home,
     opts,
     button('Rever tutorial', () => (close(), d.restartTutorial()), 'secondary'),
     button('Privacidade', () => showCard(d.ui, { title: 'Privacidade', image: 'shield_parent', text: PRIVACY_LINES.map((l) => `• ${l}`).join('<br>'), buttons: [{ label: 'Entendi', onClick: () => {} }] }), 'secondary'),

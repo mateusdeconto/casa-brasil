@@ -2,7 +2,7 @@
 import Phaser from 'phaser';
 import './ui/style.css';
 import './ui/pages.css';
-import { TITLE, COLORS, AWAY_SLEEP_MS } from './config';
+import { TITLE, COLORS, AWAY_SLEEP_MS, pixelRatio } from './config';
 import { ANIMALS } from './core/catalog';
 import { Emitter, type GameEvents, type Tab } from './core/events';
 import { applyOffline } from './core/production';
@@ -45,9 +45,7 @@ attachProgress(bus, store);
 
 const app = document.getElementById('app')!;
 const ui = document.getElementById('ui')!;
-// 2x is plenty for this pixel-style art and keeps mid-range phones smooth
-const dpr = () => Math.min(window.devicePixelRatio || 1, 2);
-const size = () => ({ width: Math.round(app.clientWidth * dpr()), height: Math.round(app.clientHeight * dpr()) });
+const size = () => ({ width: Math.round(app.clientWidth * pixelRatio()), height: Math.round(app.clientHeight * pixelRatio()) });
 
 enableWheelScroll();
 // canvas text is drawn once, so the font must be ready before the scenes create it
@@ -66,10 +64,27 @@ const game = new Phaser.Game({
   scale: { mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH },
   scene: [BootScene, RoomScene, GalleryScene, GardenScene],
 });
-window.addEventListener('resize', () => {
+// Phone browsers move their bars and report sizes in steps. Phaser's FIT mode keeps the aspect ratio of the very first
+// screen, so after the page changes shape the canvas stayed smaller than the screen (the "far away" game):
+// update the ratio and the parent box by hand, then check again once the size settles.
+let settleTimer = 0;
+const syncCanvas = () => {
   const s = size();
   game.scale.resize(s.width, s.height);
-});
+  game.scale.getParentBounds();
+  (game.scale.displaySize as { aspectRatio: number }).aspectRatio = s.width / s.height; // typed read-only, a plain field in Phaser
+  game.scale.refresh();
+};
+const syncSoon = () => {
+  syncCanvas();
+  clearTimeout(settleTimer);
+  settleTimer = window.setTimeout(syncCanvas, 300);
+};
+window.addEventListener('resize', syncSoon);
+window.addEventListener('orientationchange', syncSoon);
+window.visualViewport?.addEventListener('resize', syncSoon);
+window.addEventListener('pageshow', syncSoon);
+document.addEventListener('visibilitychange', () => !document.hidden && syncSoon());
 (window as unknown as { game: Phaser.Game }).game = game;
 
 /** ?qr=<token> from a scanned code; consumed once the child has an avatar and the game is up */
