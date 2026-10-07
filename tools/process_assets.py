@@ -82,11 +82,17 @@ def silhouette(im: Image.Image) -> Image.Image:
     return Image.fromarray(out, "RGBA")
 
 
+def write_both(im: Image.Image, path_no_ext: Path) -> None:
+    """WebP (what browsers load) plus a small 256-colour PNG fallback for browsers without WebP."""
+    path_no_ext.parent.mkdir(parents=True, exist_ok=True)
+    rgba = im.convert("RGBA")
+    rgba.save(path_no_ext.with_suffix(".webp"), "WEBP", quality=92, method=4)
+    rgba.quantize(256, method=Image.Quantize.FASTOCTREE).save(path_no_ext.with_suffix(".png"), optimize=True)
+
+
 def save(im: Image.Image, name: str, sheet: int, items: dict, sub: str = "items") -> None:
-    rel = f"assets/{sub}/{name}.png"
-    (OUT / sub).mkdir(parents=True, exist_ok=True)
-    im.save(OUT / sub / f"{name}.png", optimize=True)
-    items[name] = {"file": rel, "w": im.width, "h": im.height, "sheet": sheet}
+    write_both(im, OUT / sub / name)
+    items[name] = {"file": f"assets/{sub}/{name}.webp", "w": im.width, "h": im.height, "sheet": sheet}
 
 
 def main() -> None:
@@ -103,8 +109,8 @@ def main() -> None:
         if max(im.size) > 1024:
             s = 1024 / max(im.size)
             im = im.resize((round(sw * s), round(sh * s)), Image.LANCZOS)
-        im.save(OUT / f"{name}.png", optimize=True)
-        bases[name] = {"file": f"assets/{name}.png", "w": im.width, "h": im.height, "srcW": sw, "srcH": sh}
+        write_both(im, OUT / name)
+        bases[name] = {"file": f"assets/{name}.webp", "w": im.width, "h": im.height, "srcW": sw, "srcH": sh}
         report.append(f"{n}: {src.name} -> {name}")
 
     for n, rule in SHEETS.items():
@@ -125,12 +131,13 @@ def main() -> None:
         contact_sheet(tiles, DEBUG / f"contact_{n}.png")
         report.append(f"{n}: {src.name} -> {len(tiles)} itens (raio {r})")
 
-    shutil.copy(raw_file(OPENING), OUT / "abertura.png")
+    write_both(Image.open(raw_file(OPENING)), OUT / "abertura")
     MANIFEST.parent.mkdir(parents=True, exist_ok=True)
-    MANIFEST.write_text(json.dumps({"bases": bases, "items": items, "opening": "assets/abertura.png"}, indent=1))
-    total = sum(p.stat().st_size for p in OUT.rglob("*.png")) / 1e6
+    MANIFEST.write_text(json.dumps({"bases": bases, "items": items, "opening": "assets/abertura.webp"}, indent=1))
+    total = sum(p.stat().st_size for p in OUT.rglob("*") if p.is_file()) / 1e6
+    webp = sum(p.stat().st_size for p in OUT.rglob("*.webp")) / 1e6
     print("\n".join(report))
-    print(f"total public/assets: {total:.1f} MB")
+    print(f"total public/assets: {total:.1f} MB (webp {webp:.1f} MB + png fallback {total - webp:.1f} MB)")
     if total > 24:
         raise SystemExit("assets above 24 MB")
 

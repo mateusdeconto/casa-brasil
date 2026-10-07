@@ -9,6 +9,7 @@ import { Avatar } from '../game/Avatar';
 import { DEBUG, drawDebugGrid } from '../game/DebugGrid';
 import { Editor } from '../game/Editor';
 import { FurnitureLayer } from '../game/FurnitureLayer';
+import { loadGroup } from '../game/assets';
 import { keepFitted } from '../game/viewport';
 
 export interface SceneCtx {
@@ -33,7 +34,12 @@ export class RoomScene extends Phaser.Scene {
     this.ctx = ctx;
   }
 
+  preload(): void {
+    loadGroup(this, 'room');
+  }
+
   create(): void {
+    this.cameras.main.fadeIn(220, 28, 23, 48);
     const cal = calibration.room;
     const base = MANIFEST.bases.room;
     this.add.image(0, 0, 'room').setOrigin(0).setDisplaySize(base.srcW, base.srcH).setDepth(0);

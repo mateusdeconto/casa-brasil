@@ -70,7 +70,7 @@
 .k-text { flex: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 .k-text b { font-size: 16px; }
 .k-text small { font-size: 14px; opacity: 0.8; }
-.k-text em { font-size: 13px; color: #7a5a3a; font-style: normal; }
+.k-text em { font-size: 14px; color: #7a5a3a; font-style: normal; }
 .k-text input { background: #fff8e6; color: var(--ink); border-color: var(--wood); width: 100%; }
 .k-actions { display: flex; gap: 2px; }
 .icon-btn { background: none; color: var(--wood); font-size: 18px; width: 36px; height: 36px; border-radius: 8px; }
@@ -97,7 +97,7 @@
 .exp-banner .art img { max-width: 100%; max-height: 80px; object-fit: contain; filter: drop-shadow(0 3px 3px #0008); }
 .exp-banner small { color: #d6eecb; font-size: 14px; }
 .exp-banner h2 { margin: 0; font-size: 21px; color: #fff; line-height: 1.1; }
-.theme-tag { display: inline-block; margin-top: 4px; background: #0005; color: var(--cream); border-radius: 12px; padding: 1px 10px; font-size: 13px; }
+.theme-tag { display: inline-block; margin-top: 4px; background: #0005; color: var(--cream); border-radius: 12px; padding: 1px 10px; font-size: 14px; }
 .checklist h3 { margin: 4px 0; color: var(--amber); font-size: 19px; }
 .checklist h4 { margin: 10px 0 4px; color: var(--cream); font-size: 15px; font-weight: 400; opacity: 0.85; }
 .tasks { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }

@@ -3,7 +3,7 @@ import { VISIT_RADIUS_M } from '../config';
 import { furnitureById, partnerById } from '../core/catalog';
 import { boostDaysLeft } from '../core/boost';
 import { getPosition, haversineM } from '../core/geo';
-import { savePhoto, shrinkImage } from '../core/photos';
+import { photosInMemory, savePhoto, shrinkImage } from '../core/photos';
 import type { Store } from '../core/state';
 import { completeVisit, makeVisitId } from '../core/visits';
 import { el, itemUrl } from './dom';
@@ -126,7 +126,10 @@ export function startVisitFlow(deps: FlowDeps, partnerId: string, preGps = false
   };
 
   const stampStep = async (): Promise<void> => {
-    if (st.photo) await savePhoto(st.visitId, st.photo);
+    if (st.photo) {
+      await savePhoto(st.visitId, st.photo);
+      if (photosInMemory) store.bus.emit('toast', 'Não consegui guardar a foto no aparelho: ela fica só até fechar a página.');
+    }
     const { visit } = completeVisit(store, { partnerId, demo: st.demo, hasPhoto: !!st.photo, id: st.visitId });
     const c = frame(2, 'Carimbo');
     const paper = el('div', 'stamp-paper');
@@ -147,7 +150,6 @@ export function startVisitFlow(deps: FlowDeps, partnerId: string, preGps = false
     const actions = el('div', 'flow-actions');
     actions.append(button('Ver no jardim', () => (deps.close(), deps.openGarden())), button('Ver passaporte', () => (deps.close(), deps.openPassport()), 'secondary'));
     c.appendChild(actions);
-    navigator.vibrate?.(60);
   };
 
   localStep();

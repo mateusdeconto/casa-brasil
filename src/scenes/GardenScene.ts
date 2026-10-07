@@ -8,6 +8,7 @@ import { IsoGrid, type Vec } from '../core/IsoGrid';
 import { readyCycles } from '../core/production';
 import { AnimalView } from '../game/AnimalView';
 import { Avatar } from '../game/Avatar';
+import { loadGroup } from '../game/assets';
 import { DEBUG, drawDebugGrid } from '../game/DebugGrid';
 import { floatText } from '../game/fx';
 import { keepFitted, worldToClient } from '../game/viewport';
@@ -29,7 +30,12 @@ export class GardenScene extends Phaser.Scene {
     this.ctx = ctx;
   }
 
+  preload(): void {
+    loadGroup(this, 'garden');
+  }
+
   create(): void {
+    this.cameras.main.fadeIn(220, 28, 23, 48);
     const cal = calibration.garden;
     const base = MANIFEST.bases.garden;
     this.add.image(0, 0, 'garden').setOrigin(0).setDisplaySize(base.srcW, base.srcH).setDepth(0);

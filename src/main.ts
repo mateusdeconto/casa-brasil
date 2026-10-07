@@ -7,7 +7,7 @@ import { ANIMALS } from './core/catalog';
 import { Emitter, type GameEvents, type Tab } from './core/events';
 import { applyOffline } from './core/production';
 import { attachProgress } from './core/progress';
-import { autoSave, loadSave } from './core/save';
+import { autoSave, loadSave, storageWorks } from './core/save';
 import { Store } from './core/state';
 import { setupRouter } from './router';
 import { BootScene } from './scenes/BootScene';
@@ -19,7 +19,9 @@ import { toast } from './ui/dom';
 import { createEditFab, createHud, createNav } from './ui/hud';
 import { showOpening } from './ui/opening';
 import { createShop } from './ui/shop';
+import { loading } from './ui/loading';
 import { handleQr } from './ui/qrFlow';
+import { createFeedback } from './ui/sound';
 import { openSettings } from './ui/settings';
 import { createTutorial, type Tutorial } from './ui/tutorial';
 import { startUsageTimer } from './ui/timeLimit';
@@ -59,7 +61,10 @@ window.addEventListener('resize', () => {
 
 /** ?qr=<token> from a scanned code; consumed once the child has an avatar and the game is up */
 let pendingQr = new URLSearchParams(location.search).get('qr');
+game.events.on('load-progress', (p: number) => loading.progress(0.2 + p * 0.8));
 const assetsReady = new Promise<void>((ok) => game.events.once('assets-ready', ok));
+assetsReady.then(() => loading.done());
+createFeedback(bus, store);
 let hud: ReturnType<typeof createHud> | null = null;
 let setTab: (t: Tab) => void = () => {};
 let fabTab: (t: Tab) => void = () => {};
@@ -118,7 +123,14 @@ function pickAvatar(): void {
   });
 }
 
-bus.on('toast', (text) => toast(ui, text));
+bus.on('toast', (text) => toast(ui, text, Math.max(1800, text.length * 65)));
+// storage blocked (private window, full disk): keep playing in memory and say so once
+let warned = false;
+bus.on('changed', () => {
+  if (warned || storageWorks()) return;
+  warned = true;
+  bus.emit('toast', 'Não consegui salvar neste aparelho. Seu progresso vale só até fechar a página.');
+});
 
 const begin = () => (store.data.started ? enterGame() : pickAvatar());
 // a scanned QR skips the opening: first the avatar (if needed), then the prize or the partner

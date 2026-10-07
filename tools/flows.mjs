@@ -171,7 +171,7 @@ export const FLOWS = {
     await tapCell(page, 2, 0);
     await wait(page, 400);
     await shot('6_bought');
-    await page.click('.nav >> text=Editar');
+    await page.click('.edit-fab');
     await tapCell(page, 2, 0);
     await wait(page, 300);
     await shot('7_selected');

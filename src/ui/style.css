@@ -94,13 +94,13 @@ button { font-family: inherit; cursor: pointer; border: 0; touch-action: manipul
 .shop-list { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; padding: 10px; overflow-y: auto; touch-action: pan-y; }
 .shop-card {
   background: var(--cream); border: 3px solid var(--wood); border-radius: 8px; padding: 4px 2px 6px; display: flex; flex-direction: column; align-items: center; gap: 2px;
-  color: #3a2414; font-size: 12px; font-weight: 600; box-shadow: 0 3px 0 var(--wood-dark); transition: transform 0.06s;
+  color: #3a2414; font-size: 14px; font-weight: 600; box-shadow: 0 3px 0 var(--wood-dark); transition: transform 0.06s;
 }
 .shop-card:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--wood-dark); }
 .shop-card .icon { width: 100%; height: 64px; display: flex; align-items: center; justify-content: center; }
 .shop-card .icon img { max-width: 90%; max-height: 100%; object-fit: contain; }
 .shop-card .nm { text-align: center; line-height: 1.1; }
-.shop-card .pr { display: flex; align-items: center; gap: 3px; font-size: 13px; font-weight: 700; }
+.shop-card .pr { display: flex; align-items: center; gap: 3px; font-size: 14px; font-weight: 700; }
 .shop-card .pr img { width: 15px; height: 15px; }
 .shop-card.poor { opacity: 0.55; }
 .shop-card.poor .pr { color: #b3261e; }
@@ -112,7 +112,7 @@ button { font-family: inherit; cursor: pointer; border: 0; touch-action: manipul
   position: absolute; left: 8px; right: 8px; bottom: calc(var(--nav-h) + 8px); display: flex; align-items: center; gap: 8px; padding: 8px; z-index: 9;
 }
 .actionbar .info { flex: 1; font-size: 16px; color: var(--cream); display: flex; flex-direction: column; min-width: 0; }
-.actionbar .info small { font-size: 12px; opacity: 0.75; }
+.actionbar .info small { font-size: 14px; opacity: 0.75; }
 .actionbar .info .c { width: 16px; height: 16px; vertical-align: -2px; }
 .actionbar .btn { font-size: 15px; padding: 9px 12px; }
 

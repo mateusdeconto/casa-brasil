@@ -40,7 +40,16 @@ export const MANIFEST = manifestJson as {
   opening: string;
 };
 
-export const assetUrl = (rel: string) => `${import.meta.env.BASE_URL}${rel}`;
+/** WebP when the browser can decode it; the small PNG fallback otherwise. */
+const SUPPORTS_WEBP = (() => {
+  try {
+    return document.createElement('canvas').toDataURL('image/webp').startsWith('data:image/webp');
+  } catch {
+    return false; // no document (tests) or blocked canvas
+  }
+})();
+
+export const assetUrl = (rel: string) => `${import.meta.env.BASE_URL}${SUPPORTS_WEBP ? rel : rel.replace(/\.webp$/, '.png')}`;
 
 export interface AnimalDef {
   id: string;

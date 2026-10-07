@@ -1,6 +1,6 @@
-// Loads every image listed in the manifest, then signals readiness.
+// Loads what every scene needs (avatars, coin, lock), reports progress for the loading bar, then signals readiness.
 import Phaser from 'phaser';
-import { MANIFEST, assetUrl } from '../core/catalog';
+import { loadGroup } from '../game/assets';
 
 export class BootScene extends Phaser.Scene {
   constructor() {
@@ -8,8 +8,8 @@ export class BootScene extends Phaser.Scene {
   }
 
   preload(): void {
-    for (const [key, e] of Object.entries(MANIFEST.bases)) this.load.image(key, assetUrl(e.file));
-    for (const [key, e] of Object.entries(MANIFEST.items)) this.load.image(key, assetUrl(e.file));
+    this.load.on('progress', (p: number) => this.game.events.emit('load-progress', p));
+    loadGroup(this, 'common');
   }
 
   create(): void {

@@ -1,6 +1,8 @@
 // Entry point: the game lives at "/", the school, city and about pages are light pages without Phaser.
 import { loadSave } from './core/save';
 import { seedDemo } from './core/demoSeed';
+import { installErrorGuard } from './ui/crash';
+import { loading } from './ui/loading';
 import { applyTextSize } from './ui/settings';
 
 type SiteModule = { mount: (root: HTMLElement) => void };
@@ -12,6 +14,8 @@ const SITE: Record<string, () => Promise<SiteModule>> = {
 };
 
 async function start(): Promise<void> {
+  installErrorGuard();
+  loading.progress(0.15);
   // ?demo=1 replaces the save with the demonstration family (kept in the URL: ?rapido=1 speeds the garden up)
   const q = new URLSearchParams(location.search);
   if (q.get('demo') === '1') {
@@ -32,6 +36,7 @@ async function start(): Promise<void> {
   root.id = 'site';
   document.body.appendChild(root);
   (await load()).mount(root);
+  loading.done();
 }
 
 void start();

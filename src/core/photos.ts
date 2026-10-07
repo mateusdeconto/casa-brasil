@@ -38,7 +38,8 @@ async function run<T>(mode: IDBTransactionMode, fn: (s: IDBObjectStore) => IDBRe
 
 export async function savePhoto(id: string, blob: Blob): Promise<void> {
   memory.set(id, blob); // always kept in memory for this session as well
-  await run('readwrite', (s) => s.put(blob, id));
+  const stored = await run('readwrite', (s) => s.put(blob, id));
+  if (stored === undefined) photosInMemory = true; // blocked or full: the photo lives only until the page closes
 }
 
 export async function getPhoto(id: string): Promise<Blob | null> {

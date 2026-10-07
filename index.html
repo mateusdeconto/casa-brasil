@@ -5,11 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
     <meta name="theme-color" content="#1C1730" />
     <title>Casa Brasil</title>
+    <meta name="description" content="Casa Brasil: um jogo de casa e jardim que leva as famílias a museus, parques e centros de ciência. Visitas reais, carimbos e bichos brasileiros." />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Casa Brasil" />
+    <meta property="og:title" content="Casa Brasil" />
+    <meta property="og:description" content="Sua casa, seu jardim, nossos bichos. Um jogo que leva a família para fora de casa." />
+    <meta property="og:image" content="%VITE_SITE_URL%/og.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="%VITE_SITE_URL%/og.jpg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+    <style>
+      /* loading screen: inline so it shows before any script or stylesheet arrives */
+      #loading { position: fixed; inset: 0; z-index: 100; background: #1c1730; color: #f1ddb0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; font-family: 'Pixelify Sans', monospace; transition: opacity 0.3s; }
+      #loading.done { opacity: 0; pointer-events: none; }
+      #loading .ld-title { font-size: 40px; font-weight: 700; color: #ffc36b; text-shadow: 3px 3px 0 #33231a; }
+      #loading .ld-bar { width: min(260px, 70vw); height: 18px; border: 3px solid #f1ddb0; border-radius: 10px; background: #0006; overflow: hidden; }
+      #loading .ld-bar i { display: block; width: 6%; height: 100%; background: linear-gradient(#7fd05a, #3f8a2c); transition: width 0.2s; }
+      #loading .ld-text { font-size: 16px; opacity: 0.85; }
+    </style>
   </head>
   <body>
+    <div id="loading" role="status" aria-live="polite">
+      <div class="ld-title">Casa Brasil</div>
+      <div class="ld-bar"><i id="ld-fill"></i></div>
+      <div class="ld-text">Carregando...</div>
+    </div>
+    <noscript>Casa Brasil precisa de JavaScript para funcionar.</noscript>
     <div id="app">
       <div id="game"></div>
       <div id="ui"></div>

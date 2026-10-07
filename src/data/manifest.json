@@ -1,14 +1,14 @@
 {
  "bases": {
   "room": {
-   "file": "assets/room.png",
+   "file": "assets/room.webp",
    "w": 819,
    "h": 1024,
    "srcW": 1122,
    "srcH": 1402
   },
   "garden": {
-   "file": "assets/garden.png",
+   "file": "assets/garden.webp",
    "w": 1024,
    "h": 1024,
    "srcW": 1254,
@@ -17,677 +17,677 @@
  },
  "items": {
   "avatar_front_right": {
-   "file": "assets/items/avatar_front_right.png",
+   "file": "assets/items/avatar_front_right.webp",
    "w": 266,
    "h": 623,
    "sheet": 6
   },
   "avatar_back": {
-   "file": "assets/items/avatar_back.png",
+   "file": "assets/items/avatar_back.webp",
    "w": 275,
    "h": 626,
    "sheet": 6
   },
   "pose_idle": {
-   "file": "assets/items/pose_idle.png",
+   "file": "assets/items/pose_idle.webp",
    "w": 170,
    "h": 395,
    "sheet": 7
   },
   "pose_walk1": {
-   "file": "assets/items/pose_walk1.png",
+   "file": "assets/items/pose_walk1.webp",
    "w": 183,
    "h": 390,
    "sheet": 7
   },
   "pose_walk2": {
-   "file": "assets/items/pose_walk2.png",
+   "file": "assets/items/pose_walk2.webp",
    "w": 200,
    "h": 390,
    "sheet": 7
   },
   "pose_walk3": {
-   "file": "assets/items/pose_walk3.png",
+   "file": "assets/items/pose_walk3.webp",
    "w": 195,
    "h": 393,
    "sheet": 7
   },
   "pose_collect": {
-   "file": "assets/items/pose_collect.png",
+   "file": "assets/items/pose_collect.webp",
    "w": 228,
    "h": 274,
    "sheet": 7
   },
   "pose_celebrate": {
-   "file": "assets/items/pose_celebrate.png",
+   "file": "assets/items/pose_celebrate.webp",
    "w": 242,
    "h": 447,
    "sheet": 7
   },
   "avatar_1": {
-   "file": "assets/items/avatar_1.png",
+   "file": "assets/items/avatar_1.webp",
    "w": 221,
    "h": 455,
    "sheet": 8
   },
   "avatar_2": {
-   "file": "assets/items/avatar_2.png",
+   "file": "assets/items/avatar_2.webp",
    "w": 178,
    "h": 453,
    "sheet": 8
   },
   "avatar_3": {
-   "file": "assets/items/avatar_3.png",
+   "file": "assets/items/avatar_3.webp",
    "w": 180,
    "h": 480,
    "sheet": 8
   },
   "avatar_4": {
-   "file": "assets/items/avatar_4.png",
+   "file": "assets/items/avatar_4.webp",
    "w": 206,
    "h": 453,
    "sheet": 8
   },
   "avatar_5": {
-   "file": "assets/items/avatar_5.png",
+   "file": "assets/items/avatar_5.webp",
    "w": 234,
    "h": 454,
    "sheet": 8
   },
   "avatar_6": {
-   "file": "assets/items/avatar_6.png",
+   "file": "assets/items/avatar_6.webp",
    "w": 168,
    "h": 460,
    "sheet": 8
   },
   "avatar_7": {
-   "file": "assets/items/avatar_7.png",
+   "file": "assets/items/avatar_7.webp",
    "w": 228,
    "h": 455,
    "sheet": 8
   },
   "avatar_8": {
-   "file": "assets/items/avatar_8.png",
+   "file": "assets/items/avatar_8.webp",
    "w": 207,
    "h": 466,
    "sheet": 8
   },
   "bed": {
-   "file": "assets/items/bed.png",
+   "file": "assets/items/bed.webp",
    "w": 672,
    "h": 566,
    "sheet": 9
   },
   "sofa": {
-   "file": "assets/items/sofa.png",
+   "file": "assets/items/sofa.webp",
    "w": 581,
    "h": 494,
    "sheet": 9
   },
   "table": {
-   "file": "assets/items/table.png",
+   "file": "assets/items/table.webp",
    "w": 542,
    "h": 485,
    "sheet": 9
   },
   "bookshelf": {
-   "file": "assets/items/bookshelf.png",
+   "file": "assets/items/bookshelf.webp",
    "w": 314,
    "h": 531,
    "sheet": 9
   },
   "plant": {
-   "file": "assets/items/plant.png",
+   "file": "assets/items/plant.webp",
    "w": 316,
    "h": 481,
    "sheet": 10
   },
   "lamp": {
-   "file": "assets/items/lamp.png",
+   "file": "assets/items/lamp.webp",
    "w": 182,
    "h": 453,
    "sheet": 10
   },
   "rug": {
-   "file": "assets/items/rug.png",
+   "file": "assets/items/rug.webp",
    "w": 814,
    "h": 482,
    "sheet": 10
   },
   "dresser": {
-   "file": "assets/items/dresser.png",
+   "file": "assets/items/dresser.webp",
    "w": 549,
    "h": 514,
    "sheet": 10
   },
   "armchair": {
-   "file": "assets/items/armchair.png",
+   "file": "assets/items/armchair.webp",
    "w": 440,
    "h": 505,
    "sheet": 10
   },
   "hammock": {
-   "file": "assets/items/hammock.png",
+   "file": "assets/items/hammock.webp",
    "w": 514,
    "h": 559,
    "sheet": 11
   },
   "cobogo": {
-   "file": "assets/items/cobogo.png",
+   "file": "assets/items/cobogo.webp",
    "w": 262,
    "h": 336,
    "sheet": 11
   },
   "guitar": {
-   "file": "assets/items/guitar.png",
+   "file": "assets/items/guitar.webp",
    "w": 190,
    "h": 484,
    "sheet": 11
   },
   "vitrine": {
-   "file": "assets/items/vitrine.png",
+   "file": "assets/items/vitrine.webp",
    "w": 313,
    "h": 589,
    "sheet": 11
   },
   "palm": {
-   "file": "assets/items/palm.png",
+   "file": "assets/items/palm.webp",
    "w": 384,
    "h": 733,
    "sheet": 11
   },
   "wall_frame_a": {
-   "file": "assets/items/wall_frame_a.png",
+   "file": "assets/items/wall_frame_a.webp",
    "w": 314,
    "h": 383,
    "sheet": 12
   },
   "wall_clock": {
-   "file": "assets/items/wall_clock.png",
+   "file": "assets/items/wall_clock.webp",
    "w": 209,
    "h": 218,
    "sheet": 12
   },
   "wall_window": {
-   "file": "assets/items/wall_window.png",
+   "file": "assets/items/wall_window.webp",
    "w": 335,
    "h": 508,
    "sheet": 12
   },
   "wall_door": {
-   "file": "assets/items/wall_door.png",
+   "file": "assets/items/wall_door.webp",
    "w": 283,
    "h": 776,
    "sheet": 12
   },
   "wall_frame_b": {
-   "file": "assets/items/wall_frame_b.png",
+   "file": "assets/items/wall_frame_b.webp",
    "w": 296,
    "h": 398,
    "sheet": 12
   },
   "wall_shelf": {
-   "file": "assets/items/wall_shelf.png",
+   "file": "assets/items/wall_shelf.webp",
    "w": 421,
    "h": 454,
    "sheet": 12
   },
   "capybara_idle1": {
-   "file": "assets/items/capybara_idle1.png",
+   "file": "assets/items/capybara_idle1.webp",
    "w": 369,
    "h": 268,
    "sheet": 13
   },
   "capybara_idle2": {
-   "file": "assets/items/capybara_idle2.png",
+   "file": "assets/items/capybara_idle2.webp",
    "w": 366,
    "h": 268,
    "sheet": 13
   },
   "capybara_sleep": {
-   "file": "assets/items/capybara_sleep.png",
+   "file": "assets/items/capybara_sleep.webp",
    "w": 376,
    "h": 225,
    "sheet": 13
   },
   "toucan_idle1": {
-   "file": "assets/items/toucan_idle1.png",
+   "file": "assets/items/toucan_idle1.webp",
    "w": 395,
    "h": 321,
    "sheet": 13
   },
   "toucan_idle2": {
-   "file": "assets/items/toucan_idle2.png",
+   "file": "assets/items/toucan_idle2.webp",
    "w": 398,
    "h": 336,
    "sheet": 13
   },
   "toucan_sleep": {
-   "file": "assets/items/toucan_sleep.png",
+   "file": "assets/items/toucan_sleep.webp",
    "w": 397,
    "h": 335,
    "sheet": 13
   },
   "tamarin_idle1": {
-   "file": "assets/items/tamarin_idle1.png",
+   "file": "assets/items/tamarin_idle1.webp",
    "w": 376,
    "h": 279,
    "sheet": 13
   },
   "tamarin_idle2": {
-   "file": "assets/items/tamarin_idle2.png",
+   "file": "assets/items/tamarin_idle2.webp",
    "w": 373,
    "h": 279,
    "sheet": 13
   },
   "tamarin_sleep": {
-   "file": "assets/items/tamarin_sleep.png",
+   "file": "assets/items/tamarin_sleep.webp",
    "w": 396,
    "h": 262,
    "sheet": 13
   },
   "jaguar": {
-   "file": "assets/items/jaguar.png",
+   "file": "assets/items/jaguar.webp",
    "w": 655,
    "h": 418,
    "sheet": 14
   },
   "jaguar_silhouette": {
-   "file": "assets/items/jaguar_silhouette.png",
+   "file": "assets/items/jaguar_silhouette.webp",
    "w": 655,
    "h": 418,
    "sheet": 14
   },
   "fossil": {
-   "file": "assets/items/fossil.png",
+   "file": "assets/items/fossil.webp",
    "w": 442,
    "h": 489,
    "sheet": 14
   },
   "vase": {
-   "file": "assets/items/vase.png",
+   "file": "assets/items/vase.webp",
    "w": 347,
    "h": 520,
    "sheet": 14
   },
   "meteorite": {
-   "file": "assets/items/meteorite.png",
+   "file": "assets/items/meteorite.webp",
    "w": 389,
    "h": 421,
    "sheet": 14
   },
   "panel_a": {
-   "file": "assets/items/panel_a.png",
+   "file": "assets/items/panel_a.webp",
    "w": 525,
    "h": 219,
    "sheet": 19
   },
   "panel_b": {
-   "file": "assets/items/panel_b.png",
+   "file": "assets/items/panel_b.webp",
    "w": 509,
    "h": 219,
    "sheet": 19
   },
   "coin": {
-   "file": "assets/items/coin.png",
+   "file": "assets/items/coin.webp",
    "w": 213,
    "h": 212,
    "sheet": 19
   },
   "nav_home": {
-   "file": "assets/items/nav_home.png",
+   "file": "assets/items/nav_home.webp",
    "w": 247,
    "h": 240,
    "sheet": 19
   },
   "nav_garden": {
-   "file": "assets/items/nav_garden.png",
+   "file": "assets/items/nav_garden.webp",
    "w": 242,
    "h": 240,
    "sheet": 19
   },
   "nav_shop": {
-   "file": "assets/items/nav_shop.png",
+   "file": "assets/items/nav_shop.webp",
    "w": 243,
    "h": 240,
    "sheet": 19
   },
   "nav_edit": {
-   "file": "assets/items/nav_edit.png",
+   "file": "assets/items/nav_edit.webp",
    "w": 242,
    "h": 240,
    "sheet": 19
   },
   "nav_avatar": {
-   "file": "assets/items/nav_avatar.png",
+   "file": "assets/items/nav_avatar.webp",
    "w": 242,
    "h": 240,
    "sheet": 19
   },
   "arrow_left": {
-   "file": "assets/items/arrow_left.png",
+   "file": "assets/items/arrow_left.webp",
    "w": 211,
    "h": 220,
    "sheet": 19
   },
   "arrow_right": {
-   "file": "assets/items/arrow_right.png",
+   "file": "assets/items/arrow_right.webp",
    "w": 213,
    "h": 221,
    "sheet": 19
   },
   "star": {
-   "file": "assets/items/star.png",
+   "file": "assets/items/star.webp",
    "w": 212,
    "h": 220,
    "sheet": 19
   },
   "trophy": {
-   "file": "assets/items/trophy.png",
+   "file": "assets/items/trophy.webp",
    "w": 211,
    "h": 221,
    "sheet": 19
   },
   "lock": {
-   "file": "assets/items/lock.png",
+   "file": "assets/items/lock.webp",
    "w": 212,
    "h": 221,
    "sheet": 19
   },
   "coin_bubble": {
-   "file": "assets/items/coin_bubble.png",
+   "file": "assets/items/coin_bubble.webp",
    "w": 226,
    "h": 215,
    "sheet": 19
   },
   "stamp_zoo": {
-   "file": "assets/items/stamp_zoo.png",
+   "file": "assets/items/stamp_zoo.webp",
    "w": 238,
    "h": 257,
    "sheet": 30
   },
   "stamp_museu": {
-   "file": "assets/items/stamp_museu.png",
+   "file": "assets/items/stamp_museu.webp",
    "w": 217,
    "h": 241,
    "sheet": 30
   },
   "stamp_parque": {
-   "file": "assets/items/stamp_parque.png",
+   "file": "assets/items/stamp_parque.webp",
    "w": 235,
    "h": 260,
    "sheet": 30
   },
   "stamp_ciencia": {
-   "file": "assets/items/stamp_ciencia.png",
+   "file": "assets/items/stamp_ciencia.webp",
    "w": 222,
    "h": 245,
    "sheet": 30
   },
   "stamp_evento": {
-   "file": "assets/items/stamp_evento.png",
+   "file": "assets/items/stamp_evento.webp",
    "w": 237,
    "h": 251,
    "sheet": 30
   },
   "stamp_historico": {
-   "file": "assets/items/stamp_historico.png",
+   "file": "assets/items/stamp_historico.webp",
    "w": 223,
    "h": 250,
    "sheet": 30
   },
   "stamp_zoo_locked": {
-   "file": "assets/items/stamp_zoo_locked.png",
+   "file": "assets/items/stamp_zoo_locked.webp",
    "w": 238,
    "h": 257,
    "sheet": 30
   },
   "stamp_museu_locked": {
-   "file": "assets/items/stamp_museu_locked.png",
+   "file": "assets/items/stamp_museu_locked.webp",
    "w": 218,
    "h": 241,
    "sheet": 30
   },
   "stamp_parque_locked": {
-   "file": "assets/items/stamp_parque_locked.png",
+   "file": "assets/items/stamp_parque_locked.webp",
    "w": 235,
    "h": 259,
    "sheet": 30
   },
   "stamp_ciencia_locked": {
-   "file": "assets/items/stamp_ciencia_locked.png",
+   "file": "assets/items/stamp_ciencia_locked.webp",
    "w": 222,
    "h": 245,
    "sheet": 30
   },
   "stamp_evento_locked": {
-   "file": "assets/items/stamp_evento_locked.png",
+   "file": "assets/items/stamp_evento_locked.webp",
    "w": 237,
    "h": 252,
    "sheet": 30
   },
   "stamp_historico_locked": {
-   "file": "assets/items/stamp_historico_locked.png",
+   "file": "assets/items/stamp_historico_locked.webp",
    "w": 223,
    "h": 250,
    "sheet": 30
   },
   "badge_biodiversidade": {
-   "file": "assets/items/badge_biodiversidade.png",
+   "file": "assets/items/badge_biodiversidade.webp",
    "w": 414,
    "h": 399,
    "sheet": 31
   },
   "badge_arte": {
-   "file": "assets/items/badge_arte.png",
+   "file": "assets/items/badge_arte.webp",
    "w": 416,
    "h": 400,
    "sheet": 31
   },
   "badge_parque": {
-   "file": "assets/items/badge_parque.png",
+   "file": "assets/items/badge_parque.webp",
    "w": 415,
    "h": 401,
    "sheet": 31
   },
   "badge_ciencia": {
-   "file": "assets/items/badge_ciencia.png",
+   "file": "assets/items/badge_ciencia.webp",
    "w": 414,
    "h": 398,
    "sheet": 31
   },
   "badge_primeira_visita": {
-   "file": "assets/items/badge_primeira_visita.png",
+   "file": "assets/items/badge_primeira_visita.webp",
    "w": 415,
    "h": 398,
    "sheet": 31
   },
   "badge_familia": {
-   "file": "assets/items/badge_familia.png",
+   "file": "assets/items/badge_familia.webp",
    "w": 416,
    "h": 398,
    "sheet": 31
   },
   "camera": {
-   "file": "assets/items/camera.png",
+   "file": "assets/items/camera.webp",
    "w": 249,
    "h": 215,
    "sheet": 32
   },
   "mappin": {
-   "file": "assets/items/mappin.png",
+   "file": "assets/items/mappin.webp",
    "w": 250,
    "h": 247,
    "sheet": 32
   },
   "calendar": {
-   "file": "assets/items/calendar.png",
+   "file": "assets/items/calendar.webp",
    "w": 215,
    "h": 239,
    "sheet": 32
   },
   "family": {
-   "file": "assets/items/family.png",
+   "file": "assets/items/family.webp",
    "w": 353,
    "h": 302,
    "sheet": 32
   },
   "school": {
-   "file": "assets/items/school.png",
+   "file": "assets/items/school.webp",
    "w": 391,
    "h": 282,
    "sheet": 32
   },
   "shield_parent": {
-   "file": "assets/items/shield_parent.png",
+   "file": "assets/items/shield_parent.webp",
    "w": 241,
    "h": 277,
    "sheet": 32
   },
   "qr": {
-   "file": "assets/items/qr.png",
+   "file": "assets/items/qr.webp",
    "w": 213,
    "h": 216,
    "sheet": 32
   },
   "check": {
-   "file": "assets/items/check.png",
+   "file": "assets/items/check.webp",
    "w": 236,
    "h": 211,
    "sheet": 32
   },
   "clipboard": {
-   "file": "assets/items/clipboard.png",
+   "file": "assets/items/clipboard.webp",
    "w": 202,
    "h": 247,
    "sheet": 32
   },
   "notebook": {
-   "file": "assets/items/notebook.png",
+   "file": "assets/items/notebook.webp",
    "w": 203,
    "h": 229,
    "sheet": 32
   },
   "bell": {
-   "file": "assets/items/bell.png",
+   "file": "assets/items/bell.webp",
    "w": 196,
    "h": 217,
    "sheet": 32
   },
   "gear": {
-   "file": "assets/items/gear.png",
+   "file": "assets/items/gear.webp",
    "w": 225,
    "h": 228,
    "sheet": 32
   },
   "ribbon_demo": {
-   "file": "assets/items/ribbon_demo.png",
+   "file": "assets/items/ribbon_demo.webp",
    "w": 406,
    "h": 139,
    "sheet": 32
   },
   "ribbon_limited": {
-   "file": "assets/items/ribbon_limited.png",
+   "file": "assets/items/ribbon_limited.webp",
    "w": 451,
    "h": 139,
    "sheet": 32
   },
   "polaroid": {
-   "file": "assets/items/polaroid.png",
+   "file": "assets/items/polaroid.webp",
    "w": 163,
    "h": 184,
    "sheet": 32
   },
   "signboard": {
-   "file": "assets/items/signboard.png",
+   "file": "assets/items/signboard.webp",
    "w": 295,
    "h": 195,
    "sheet": 32
   },
   "trophy_owl": {
-   "file": "assets/items/trophy_owl.png",
+   "file": "assets/items/trophy_owl.webp",
    "w": 310,
    "h": 495,
    "sheet": 33
   },
   "star_award": {
-   "file": "assets/items/star_award.png",
+   "file": "assets/items/star_award.webp",
    "w": 247,
    "h": 421,
    "sheet": 33
   },
   "vitrine_mapa": {
-   "file": "assets/items/vitrine_mapa.png",
+   "file": "assets/items/vitrine_mapa.webp",
    "w": 440,
    "h": 469,
    "sheet": 33
   },
   "vaso_planta": {
-   "file": "assets/items/vaso_planta.png",
+   "file": "assets/items/vaso_planta.webp",
    "w": 393,
    "h": 472,
    "sheet": 33
   },
   "lantern": {
-   "file": "assets/items/lantern.png",
+   "file": "assets/items/lantern.webp",
    "w": 230,
    "h": 451,
    "sheet": 33
   },
   "arara_idle1": {
-   "file": "assets/items/arara_idle1.png",
+   "file": "assets/items/arara_idle1.webp",
    "w": 324,
    "h": 329,
    "sheet": 34
   },
   "arara_idle2": {
-   "file": "assets/items/arara_idle2.png",
+   "file": "assets/items/arara_idle2.webp",
    "w": 348,
    "h": 341,
    "sheet": 34
   },
   "arara_sleep": {
-   "file": "assets/items/arara_sleep.png",
+   "file": "assets/items/arara_sleep.webp",
    "w": 323,
    "h": 325,
    "sheet": 34
   },
   "jabuti_idle1": {
-   "file": "assets/items/jabuti_idle1.png",
+   "file": "assets/items/jabuti_idle1.webp",
    "w": 350,
    "h": 200,
    "sheet": 34
   },
   "jabuti_idle2": {
-   "file": "assets/items/jabuti_idle2.png",
+   "file": "assets/items/jabuti_idle2.webp",
    "w": 328,
    "h": 217,
    "sheet": 34
   },
   "jabuti_sleep": {
-   "file": "assets/items/jabuti_sleep.png",
+   "file": "assets/items/jabuti_sleep.webp",
    "w": 317,
    "h": 197,
    "sheet": 34
   },
   "lobo_idle1": {
-   "file": "assets/items/lobo_idle1.png",
+   "file": "assets/items/lobo_idle1.webp",
    "w": 362,
    "h": 370,
    "sheet": 34
   },
   "lobo_idle2": {
-   "file": "assets/items/lobo_idle2.png",
+   "file": "assets/items/lobo_idle2.webp",
    "w": 346,
    "h": 357,
    "sheet": 34
   },
   "lobo_sleep": {
-   "file": "assets/items/lobo_sleep.png",
+   "file": "assets/items/lobo_sleep.webp",
    "w": 362,
    "h": 225,
    "sheet": 34
   }
  },
- "opening": "assets/abertura.png"
+ "opening": "assets/abertura.webp"
 }
