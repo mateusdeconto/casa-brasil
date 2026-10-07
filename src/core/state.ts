@@ -83,6 +83,8 @@ export interface Settings {
   sound: boolean;
   textSize: 'normal' | 'grande';
   tutorialDone: boolean;
+  /** step to resume the tutorial from (0-3) */
+  tutorialStep: number;
   purchasesBlocked: boolean;
   noAds: boolean;
   friendsCircle: boolean;
@@ -136,6 +138,7 @@ export const defaultSettings = (): Settings => ({
   sound: true,
   textSize: 'normal',
   tutorialDone: false,
+  tutorialStep: 0,
   purchasesBlocked: true,
   noAds: true,
   friendsCircle: false,

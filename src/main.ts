@@ -3,6 +3,7 @@ import Phaser from 'phaser';
 import './ui/style.css';
 import './ui/pages.css';
 import { TITLE, COLORS, OFFLINE_CAP_HOURS, AWAY_SLEEP_MS } from './config';
+import { ANIMALS } from './core/catalog';
 import { Emitter, type GameEvents, type Tab } from './core/events';
 import { applyOffline } from './core/production';
 import { attachProgress } from './core/progress';
@@ -19,9 +20,13 @@ import { createEditFab, createHud, createNav } from './ui/hud';
 import { showOpening } from './ui/opening';
 import { createShop } from './ui/shop';
 import { handleQr } from './ui/qrFlow';
+import { openSettings } from './ui/settings';
+import { createTutorial, type Tutorial } from './ui/tutorial';
 import { startUsageTimer } from './ui/timeLimit';
 
 document.title = TITLE;
+// ?rapido=1 (with ?demo=1): the garden produces 10x faster, for presentations
+if (new URLSearchParams(location.search).get('rapido') === '1') for (const a of ANIMALS) a.periodSec /= 10;
 const bus = new Emitter<GameEvents>();
 const now = Date.now();
 const save = loadSave(now);
@@ -58,6 +63,7 @@ const assetsReady = new Promise<void>((ok) => game.events.once('assets-ready', o
 let hud: ReturnType<typeof createHud> | null = null;
 let setTab: (t: Tab) => void = () => {};
 let fabTab: (t: Tab) => void = () => {};
+let tutorial: Tutorial | null = null;
 
 function room(): RoomScene {
   return game.scene.getScene('room') as RoomScene;
@@ -82,8 +88,11 @@ function enterGame(): void {
       if (s.mode === 'none' && game.scene.isActive('room')) setTab('home');
     });
     startUsageTimer(store, ui);
+    tutorial = createTutorial(ui, bus, store);
+    bus.on('openSettings', () => openSettings({ store, ui, restartTutorial: () => tutorial?.start(0) }));
     setupRouter({ game, bus, store, ui, hud, shop, setTab: (t) => setTab(t), pickAvatar, asleep: wasAway });
     if (wasAway && store.data.animals.length) bus.emit('toast', 'Seus bichos produziram enquanto você esteve fora!');
+    if (!store.settings.tutorialDone && !pendingQr) tutorial.start(store.settings.tutorialStep);
   }
   hud.setPlayer(store.data.avatar, store.data.name);
   hud.setCoins(store.data.coins);

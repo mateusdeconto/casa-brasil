@@ -4,6 +4,11 @@ import { migrateV1, normalizeRoot, type SaveV1 } from './migrate';
 import { defaultRoot, type RootSave } from './state';
 
 let storageOk = true;
+let frozen = false;
+/** After a reset or demo load the page reloads: nothing may overwrite the new save on the way out. */
+export const freezeSaves = (): void => {
+  frozen = true;
+};
 export const storageWorks = () => storageOk;
 
 export function loadSave(now = Date.now()): RootSave {
@@ -25,6 +30,7 @@ export function loadSave(now = Date.now()): RootSave {
 }
 
 export function writeSave(data: RootSave, now = Date.now()): void {
+  if (frozen) return;
   try {
     data.time = now;
     localStorage.setItem(SAVE_KEY, JSON.stringify(data));

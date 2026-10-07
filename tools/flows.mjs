@@ -418,6 +418,60 @@ export const FLOWS = {
     await page.locator('#links').scrollIntoViewIfNeeded();
     await shot('4_links');
   },
+  async tutorial(page, shot) {
+    await goto(page, '/?rapido=1');
+    await start(page, shot);
+    await shot('3_tut1_walk');
+    await tapCell(page, 1, 0);
+    await wait(page, 1500);
+    await shot('4_tut2_buy');
+    await page.click('.nav >> text=Loja');
+    await wait(page, 600);
+    await page.click('.shop-card:has-text("Sofá")');
+    await wait(page, 300);
+    await tapCell(page, 3, 2);
+    await wait(page, 200);
+    await tapCell(page, 3, 2);
+    await wait(page, 1200);
+    await shot('5_tut3_garden');
+    await openGarden(page);
+    await wait(page, 4500);
+    await tapAnimal(page, 'capybara');
+    await wait(page, 4000);
+    await shot('6_tut4_visit');
+    await demoVisit(page, 'zoo', null);
+    await wait(page, 1500);
+    await shot('7_tut_done');
+    await page.click('.hud-btn[aria-label="Configurações"]');
+    await wait(page, 300);
+    await shot('8_settings');
+    await page.click('.seg-btn:has-text("Grande")');
+    await wait(page, 200);
+    await shot('9_settings_large');
+  },
+  async demo(page, shot) {
+    await goto(page, '/?demo=1&rapido=1');
+    await wait(page, 1500);
+    await shot('1_opening');
+    await page.click('button:has-text("Jogar em família")');
+    await page.waitForFunction(() => window.game?.scene.isActive('room'));
+    await wait(page, 900);
+    await shot('2_home');
+    await openGarden(page);
+    await wait(page, 600);
+    await shot('3_garden');
+    await page.click('.nav >> text=Álbum');
+    await wait(page, 700);
+    await shot('4_album');
+    await page.click('.nav >> text=Família');
+    await wait(page, 500);
+    await shot('5_family');
+    await page.locator('.family .page-body').evaluate((e) => (e.scrollTop = 9999));
+    await shot('6_family_bottom');
+    await page.click('text=Passaporte e carimbos');
+    await wait(page, 400);
+    await shot('7_passport');
+  },
   async offline(page, shot) {
     const tenHours = Date.now() - 10 * 3600_000;
     await startWith(page, baseSave({ time: tenHours, animals: [{ id: 'capybara', since: tenHours }, { id: 'toucan', since: tenHours }] }));

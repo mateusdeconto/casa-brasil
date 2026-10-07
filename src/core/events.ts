@@ -54,6 +54,8 @@ export interface GameEvents extends Record<string, unknown> {
   startVisit: { partner?: string; preGps?: boolean };
   openPage: { page: string; arg?: string };
   openParent: void;
+  /** the avatar was sent walking in the house (tutorial step 1) */
+  walked: void;
   openSettings: void;
   coinsFly: { x: number; y: number; amount: number };
   [key: string]: unknown;

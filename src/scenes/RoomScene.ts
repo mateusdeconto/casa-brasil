@@ -50,7 +50,10 @@ export class RoomScene extends Phaser.Scene {
       const w = ptr.positionToCamera(this.cameras.main) as Phaser.Math.Vector2;
       const cell = this.grid.cellAt(w.x, w.y);
       if (this.tapHandler?.(cell, ptr)) return;
-      if (cell && !this.furniture.blocked(cell.x, cell.y)) this.avatar.walkTo(cell, this.furniture.blocked);
+      if (cell && !this.furniture.blocked(cell.x, cell.y)) {
+        this.avatar.walkTo(cell, this.furniture.blocked);
+        this.ctx.bus.emit('walked', undefined);
+      }
     });
     this.editor = new Editor(this);
     this.events.emit('room-ready');
