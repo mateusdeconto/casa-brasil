@@ -58,6 +58,18 @@ button { font-family: inherit; cursor: pointer; border: 0; touch-action: manipul
 .picker { background: var(--page); padding: 16px 12px 0; }
 .picker h2 { margin: 4px 0 12px; color: var(--amber); font-size: 24px; }
 .picker .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; width: 100%; max-width: 420px; flex: 1 1 auto; min-height: 0; overflow-y: auto; align-content: start; }
+.picker .pick-body { width: 100%; max-width: 420px; flex: 1 1 auto; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+.pick-preview { height: 150px; width: auto; max-width: 100%; object-fit: contain; align-self: center; flex: none; filter: drop-shadow(0 4px 4px #0008); }
+.pick-sec { display: flex; flex-direction: column; gap: 6px; flex: none; }
+.pick-sec h3 { margin: 0; color: var(--cream); font-size: 15px; font-weight: 400; opacity: 0.85; }
+.pick-sec .seg { align-self: flex-start; }
+.pick-sec .seg-btn { font-size: 17px; padding: 8px 20px; }
+.pick-styles { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; }
+.pick-styles .card { flex: 0 0 22%; min-width: 70px; }
+.swatches { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.swatch { width: 36px; height: 36px; border-radius: 50%; border: 3px solid var(--wood); padding: 0; }
+.swatch.original { width: auto; border-radius: 18px; padding: 0 12px; background: #0004; color: var(--cream); font-size: 14px; }
+.swatch.on { border-color: var(--amber); box-shadow: 0 0 10px var(--amber); }
 .card { background: var(--panel); border: 3px solid var(--wood); border-radius: 10px; padding: 6px 2px; display: flex; align-items: center; justify-content: center; aspect-ratio: 3 / 5; }
 .card img { max-width: 92%; max-height: 100%; object-fit: contain; }
 .card.on { border-color: var(--amber); box-shadow: 0 0 12px var(--amber); background: #3a2f45; }

@@ -3,10 +3,13 @@ import Phaser from 'phaser';
 import { AVATAR_HEIGHT_CELLS, WALK_MS_PER_CELL } from '../config';
 import { IsoGrid, type Vec } from '../core/IsoGrid';
 import { findPath } from '../core/path';
+import { formatAvatar, isPlain, parseAvatar, type AvatarSpec } from '../core/avatarSpec';
+import { recolorCanvas } from '../ui/avatarImage';
 
 const FULL_SET = 'avatar_1'; // the only avatar with walk/back/collect frames
 
 export class Avatar {
+  private spec: AvatarSpec;
   readonly cell: Vec;
   private pos: Vec; // fractional grid position of the feet
   private sprite: Phaser.GameObjects.Image;
@@ -18,24 +21,36 @@ export class Avatar {
   private pose: string | null = null;
   private breath = 0;
 
-  constructor(private scene: Phaser.Scene, private grid: IsoGrid, private id: string, start: Vec) {
+  constructor(private scene: Phaser.Scene, private grid: IsoGrid, id: string, start: Vec) {
+    this.spec = parseAvatar(id);
     this.cell = { ...start };
     this.pos = { x: start.x + 0.5, y: start.y + 0.5 };
     this.height = grid.cellWidth * AVATAR_HEIGHT_CELLS;
     const cw = grid.cellWidth;
     this.shadow = scene.add.ellipse(0, 0, cw * 0.42, cw * 0.16, 0x000000, 0.28);
-    this.sprite = scene.add.image(0, 0, this.textureFor(0)).setOrigin(0.5, 0.98);
+    this.sprite = scene.add.image(0, 0, this.paintedKey(this.textureFor(0))).setOrigin(0.5, 0.98);
     scene.tweens.add({ targets: this, breath: 1, duration: 1400, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
     scene.events.on('update', this.update, this);
     scene.events.once('shutdown', () => scene.events.off('update', this.update, this));
   }
 
   get full(): boolean {
-    return this.id === FULL_SET;
+    return this.spec.base === FULL_SET;
   }
 
   setAvatar(id: string): void {
-    this.id = id;
+    this.spec = parseAvatar(id);
+  }
+
+  /** Texture to draw for a frame: the painted original, or a recoloured copy made once per frame. */
+  private paintedKey(key: string): string {
+    if (isPlain(this.spec)) return key;
+    const painted = `${key}@${formatAvatar(this.spec)}`;
+    if (!this.scene.textures.exists(painted)) {
+      const source = this.scene.textures.get(key).getSourceImage() as HTMLImageElement;
+      this.scene.textures.addCanvas(painted, recolorCanvas(source, this.spec));
+    }
+    return painted;
   }
 
   /** Pose for a moment ('pose_collect', 'pose_celebrate'); only the full set has them. */
@@ -90,7 +105,7 @@ export class Avatar {
   }
 
   private textureFor(time: number): string {
-    if (!this.full) return this.id;
+    if (!this.full) return this.spec.base;
     if (this.pose) return this.pose;
     if (this.back) return 'avatar_back';
     if (!this.walking) return 'pose_idle';
@@ -106,7 +121,8 @@ export class Avatar {
   private update(time: number): void {
     const p = this.grid.toWorld(this.pos.x, this.pos.y);
     const key = this.textureFor(time);
-    if (this.sprite.texture.key !== key) this.sprite.setTexture(key);
+    const painted = this.paintedKey(key);
+    if (this.sprite.texture.key !== painted) this.sprite.setTexture(painted);
     const s = this.scaleFor(key);
     const bob = this.walking && (!this.full || this.back) ? -Math.abs(Math.sin(time / 110)) * this.height * 0.025 : 0;
     const breathe = this.walking ? 0 : this.breath * 0.012;

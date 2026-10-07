@@ -1,5 +1,6 @@
 // Top HUD (avatar face, name, coins) and bottom nav bar.
 import type { Emitter, GameEvents, Tab } from '../core/events';
+import { paintAvatar } from './avatarImage';
 import { el, itemUrl } from './dom';
 
 export interface Hud {
@@ -25,7 +26,7 @@ export function createHud(root: HTMLElement, bus: Emitter<GameEvents>): Hud {
   bus.on('coins', (n) => (label.textContent = n.toLocaleString('pt-BR')));
   return {
     setPlayer(avatar, n) {
-      face.style.backgroundImage = `url(${itemUrl(avatar)})`;
+      paintAvatar(face, avatar);
       name.textContent = n;
     },
     setCoins: (n) => (label.textContent = n.toLocaleString('pt-BR')),

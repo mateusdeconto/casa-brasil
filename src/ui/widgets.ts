@@ -1,6 +1,7 @@
 // Small shared UI pieces: buttons, the DEMO ribbon, stamps, photos from IndexedDB.
 import { partnerById, PARTNERS } from '../core/catalog';
 import { getPhoto } from '../core/photos';
+import { paintAvatar } from './avatarImage';
 import { el, itemUrl } from './dom';
 
 export function button(label: string, onClick: () => void, cls = ''): HTMLButtonElement {
@@ -63,7 +64,7 @@ export function confirmBox(root: HTMLElement, text: string, yesLabel: string, on
 
 /** Avatar head crop used by the HUD and the profile chips. */
 export function setFace(node: HTMLElement, avatar: string): void {
-  node.style.backgroundImage = `url(${itemUrl(avatar)})`;
+  paintAvatar(node, avatar);
 }
 
 /** On/off switch with a text label. */
