@@ -1,3 +1,6 @@
+/* Pixelify Sans (SIL OFL, see fonts/OFL-LICENSE.txt), hosted here so no child's browser calls Google. */
+@font-face { font-family: 'Pixelify Sans'; font-style: normal; font-weight: 400 700; font-display: swap; src: url('./fonts/PixelifySans-latin.woff2') format('woff2'); }
+
 :root {
   --page: #1c1730;
   --panel: #2a2233;

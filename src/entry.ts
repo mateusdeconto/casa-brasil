@@ -18,7 +18,9 @@ async function start(): Promise<void> {
   loading.progress(0.15);
   // ?demo=1 replaces the save with the demonstration family (kept in the URL: ?rapido=1 speeds the garden up)
   const q = new URLSearchParams(location.search);
-  if (q.get('demo') === '1') {
+  // it replaces the save, so ask first when this device already has a game in progress
+  const hasGame = loadSave().profiles.some((p) => p.started);
+  if (q.get('demo') === '1' && (!hasGame || window.confirm('Carregar os dados de demonstração? O jogo salvo neste aparelho será substituído.'))) {
     await seedDemo();
     q.delete('demo');
     const rest = q.toString();

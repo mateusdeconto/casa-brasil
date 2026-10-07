@@ -6,10 +6,13 @@ export interface PinPad {
   el: HTMLElement;
   setMessage(text: string, bad?: boolean): void;
   reset(): void;
+  /** locked keypad ignores presses (too many wrong tries) */
+  setLocked(locked: boolean): void;
 }
 
 export function createPinPad(title: string, onComplete: (pin: string) => void): PinPad {
   let value = '';
+  let locked = false;
   const root = el('div', 'pinpad');
   const msg = el('p', 'pin-msg', title);
   const dots = el('div', 'pin-dots');
@@ -19,6 +22,7 @@ export function createPinPad(title: string, onComplete: (pin: string) => void): 
     dots.setAttribute('aria-label', `${value.length} de ${PIN_LENGTH} dígitos`);
   };
   const press = (k: string) => {
+    if (locked) return;
     if (k === '⌫') value = value.slice(0, -1);
     else if (value.length < PIN_LENGTH) value += k;
     paint();
@@ -39,5 +43,10 @@ export function createPinPad(title: string, onComplete: (pin: string) => void): 
     el: root,
     setMessage: (t, bad) => ((msg.textContent = t), msg.classList.toggle('bad', !!bad)),
     reset: () => ((value = ''), paint()),
+    setLocked: (l) => {
+      locked = l;
+      keys.classList.toggle('locked', l);
+      keys.querySelectorAll('button').forEach((b) => ((b as HTMLButtonElement).disabled = l || b.classList.contains('empty')));
+    },
   };
 }

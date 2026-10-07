@@ -51,7 +51,8 @@ export function loadPhoto(img: HTMLImageElement, visitId: string): () => void {
 /** Modal "are you sure": calls onYes only on confirmation. */
 export function confirmBox(root: HTMLElement, text: string, yesLabel: string, onYes: () => void): void {
   const shade = el('div', 'shade');
-  const card = el('div', 'panel card-modal', `<div class="card-body"><p>${text}</p></div>`);
+  const card = el('div', 'panel card-modal', '<div class="card-body"><p></p></div>');
+  card.querySelector('p')!.textContent = text; // plain text only
   const body = card.querySelector('.card-body')!;
   const no = button('Voltar', () => shade.remove(), 'secondary');
   const yes = button(yesLabel, () => (shade.remove(), onYes()));
@@ -68,7 +69,10 @@ export function setFace(node: HTMLElement, avatar: string): void {
 /** On/off switch with a text label. */
 export function toggleRow(label: string, hint: string, on: boolean, onChange: (v: boolean) => void): HTMLElement {
   const row = el('div', 'opt-row');
-  const text = el('div', 'opt-text', `<b>${label}</b><small>${hint}</small>`);
+  const text = el('div', 'opt-text');
+  text.append(el('b'), el('small'));
+  text.firstElementChild!.textContent = label;
+  text.lastElementChild!.textContent = hint;
   const sw = el('button', `switch${on ? ' on' : ''}`, '<i></i>');
   sw.setAttribute('role', 'switch');
   sw.setAttribute('aria-checked', String(on));
@@ -86,7 +90,8 @@ export function toggleRow(label: string, hint: string, on: boolean, onChange: (v
 /** Modal asking for one line of text. */
 export function askText(root: HTMLElement, title: string, initial: string, max: number, onOk: (v: string) => void): void {
   const shade = el('div', 'shade');
-  const card = el('div', 'panel card-modal', `<div class="panel-title"><span>${title}</span></div>`);
+  const card = el('div', 'panel card-modal', '<div class="panel-title"><span></span></div>');
+  card.querySelector('span')!.textContent = title;
   const body = el('div', 'card-body');
   const input = el('input');
   input.maxLength = max;

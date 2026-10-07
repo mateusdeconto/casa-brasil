@@ -3,11 +3,32 @@ import { defineConfig } from 'vitest/config';
 
 const THEME = '#1C1730';
 
+// Production only (the dev server needs inline scripts and websockets). Nothing leaves the site: no external hosts at all.
+const CSP = [
+  "default-src 'self'",
+  "img-src 'self' data: blob:",
+  "style-src 'self' 'unsafe-inline'",
+  "script-src 'self'",
+  "connect-src 'self'",
+  "font-src 'self'",
+  "worker-src 'self' blob:",
+  "manifest-src 'self'",
+  "object-src 'none'",
+  "base-uri 'none'",
+  "form-action 'none'",
+].join('; ');
+
 // Phaser alone is ~1.2 MB minified; one chunk is fine for this game.
 export default defineConfig({
   build: { chunkSizeWarningLimit: 2000 },
   test: { include: ['tests/**/*.test.ts'] },
   plugins: [
+    {
+      name: 'casa-brasil-csp',
+      apply: 'build',
+      transformIndexHtml: (html: string) => html.replace('</title>', `</title>
+    <meta http-equiv="Content-Security-Policy" content="${CSP}" />`),
+    },
     VitePWA({
       registerType: 'autoUpdate',
       includeAssets: ['icons/*.png', 'og.jpg'],
@@ -37,7 +58,6 @@ export default defineConfig({
         navigateFallbackDenylist: [/^\/qr/],
         runtimeCaching: [
           { urlPattern: /\/assets\/.*\.png$/, handler: 'CacheFirst', options: { cacheName: 'art-fallback', expiration: { maxEntries: 250 } } },
-          { urlPattern: /^https:\/\/fonts\.(googleapis|gstatic)\.com\//, handler: 'StaleWhileRevalidate', options: { cacheName: 'fonts' } },
         ],
       },
     }),

@@ -1,6 +1,6 @@
 // PIN gate for the parent panel: first time creates a PIN, afterwards asks for it.
 import { PIN_LENGTH } from '../config';
-import { checkPin, hashPin } from '../core/pin';
+import { checkPin, hashPin, lockAfterFail, lockSecondsLeft } from '../core/pin';
 import type { Store } from '../core/state';
 import { el } from './dom';
 import { createPinPad } from './keypad';
@@ -45,13 +45,33 @@ export function openParentGate(ui: HTMLElement, store: Store, onOpen: () => void
 
   const enter = () => {
     body.innerHTML = '';
+    let timer = 0;
+    /** shows the countdown while the keypad is locked, then opens it again */
+    const refreshLock = () => {
+      const left = lockSecondsLeft(store.root.pinLockUntil, Date.now());
+      pad.setLocked(left > 0);
+      if (left > 0) {
+        pad.setMessage(`Muitas tentativas. Tente de novo em ${left} s.`, true);
+        timer = window.setTimeout(refreshLock, 1000);
+      } else if (timer) {
+        timer = 0;
+        pad.setMessage('Digite o PIN');
+      }
+    };
     const pad = createPinPad('Digite o PIN', (pin) => {
       if (checkPin(pin, store.root.pinHash)) {
+        store.root.pinFails = 0;
+        store.root.pinLockUntil = 0;
+        store.commit();
         close();
         return onOpen();
       }
-      pad.setMessage('PIN incorreto. Tente de novo.', true);
+      store.root.pinFails += 1;
+      store.root.pinLockUntil = lockAfterFail(store.root.pinFails, Date.now());
+      store.commit();
       pad.reset();
+      if (store.root.pinLockUntil) return refreshLock();
+      pad.setMessage('PIN incorreto. Tente de novo.', true);
     });
     const forgot = button('Esqueci o PIN', () =>
       confirmBox(ui, 'Esqueceu o PIN? Vamos apagar o PIN deste aparelho para você criar um novo. Os dados das crianças continuam.', 'Apagar o PIN', () => {
@@ -62,6 +82,7 @@ export function openParentGate(ui: HTMLElement, store: Store, onOpen: () => void
       'secondary small',
     );
     body.append(pad.el, forgot, demo);
+    refreshLock();
   };
 
   if (store.root.pinHash) enter();

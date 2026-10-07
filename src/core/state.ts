@@ -130,6 +130,9 @@ export interface RootSave {
   settings: Settings;
   /** PIN stored as a salted hash, only on this device (demo) */
   pinHash: string | null;
+  /** wrong PIN tries in a row, and the time until which the keypad stays locked */
+  pinFails: number;
+  pinLockUntil: number;
   school: SchoolState;
   time: number;
 }
@@ -175,6 +178,8 @@ export function defaultRoot(now = Date.now()): RootSave {
     profiles: [defaultProfile('p1', now)],
     settings: defaultSettings(),
     pinHash: null,
+    pinFails: 0,
+    pinLockUntil: 0,
     school: { expeditions: [] },
     time: now,
   };

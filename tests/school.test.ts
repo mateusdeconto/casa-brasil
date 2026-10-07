@@ -73,6 +73,15 @@ describe('CSV report', () => {
     expect(csv).toContain('"Ana, ""a"" Silva",1,sim');
   });
 
+  it('defuses names that would run as a spreadsheet formula', () => {
+    const row = (name: string) => reportCsv([{ id: 'x', name, avatar: 'avatar_1', done: 0, diary: false }]).split('\r\n')[1];
+    expect(row('=SOMA(A1)')).toBe("'=SOMA(A1),0,não");
+    expect(row('+55 11')).toBe("'+55 11,0,não");
+    expect(row('@ana')).toBe("'@ana,0,não");
+    expect(row('-1')).toBe("'-1,0,não");
+    expect(row('Ana')).toBe('Ana,0,não');
+  });
+
   it('a diary without a finished expedition is not counted as handed in', () => {
     const csv = reportCsv([{ id: 'x', name: 'Zé', avatar: 'avatar_1', done: 0, diary: true }]);
     expect(csv).toContain('Zé,0,não');

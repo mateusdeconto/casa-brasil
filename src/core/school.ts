@@ -45,7 +45,8 @@ export function untilNextAnimal(completions: number, every = ANIMALS_EVERY, orde
 }
 
 const csvCell = (v: string | number): string => {
-  const s = String(v);
+  // a name that starts with = + - @ would run as a formula in Excel or Sheets: defuse it
+  const s = typeof v === 'string' && /^[=+\-@\t\r]/.test(v) ? `'${v}` : String(v);
   return /[",\n;]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
 };
 

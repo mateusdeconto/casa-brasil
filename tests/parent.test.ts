@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { Emitter, type GameEvents } from '../src/core/events';
 import { sha256Hex } from '../src/core/hash';
-import { checkPin, hashPin, isValidPin } from '../src/core/pin';
+import { checkPin, hashPin, isValidPin, lockAfterFail, lockSecondsLeft } from '../src/core/pin';
 import { defaultRoot, Store } from '../src/core/state';
 import { activeDays, addUsage, lastDays, limitLabel, limitReached, minutesToday } from '../src/core/usage';
 
@@ -30,6 +30,24 @@ describe('PIN', () => {
     expect(checkPin('4821', h)).toBe(true);
     expect(checkPin('4822', h)).toBe(false);
     expect(checkPin('4821', null)).toBe(false);
+  });
+});
+
+describe('PIN lockout', () => {
+  it('locks after every 3 wrong tries, for longer each time, up to 10 minutes', () => {
+    expect(lockAfterFail(1, NOW)).toBe(0);
+    expect(lockAfterFail(2, NOW)).toBe(0);
+    expect(lockAfterFail(3, NOW)).toBe(NOW + 30_000);
+    expect(lockAfterFail(4, NOW)).toBe(0);
+    expect(lockAfterFail(6, NOW)).toBe(NOW + 60_000);
+    expect(lockAfterFail(9, NOW)).toBe(NOW + 120_000);
+    expect(lockAfterFail(60, NOW)).toBe(NOW + 600_000);
+  });
+
+  it('counts the seconds left, never negative', () => {
+    expect(lockSecondsLeft(NOW + 30_000, NOW)).toBe(30);
+    expect(lockSecondsLeft(NOW + 1_500, NOW)).toBe(2);
+    expect(lockSecondsLeft(NOW - 5, NOW)).toBe(0);
   });
 });
 
