@@ -1,0 +1,405 @@
+{
+ "bases": {
+  "room": {
+   "file": "assets/room.png",
+   "w": 819,
+   "h": 1024,
+   "srcW": 1122,
+   "srcH": 1402
+  },
+  "garden": {
+   "file": "assets/garden.png",
+   "w": 1024,
+   "h": 1024,
+   "srcW": 1254,
+   "srcH": 1254
+  }
+ },
+ "items": {
+  "avatar_front_right": {
+   "file": "assets/items/avatar_front_right.png",
+   "w": 266,
+   "h": 623,
+   "sheet": 6
+  },
+  "avatar_back": {
+   "file": "assets/items/avatar_back.png",
+   "w": 275,
+   "h": 626,
+   "sheet": 6
+  },
+  "pose_idle": {
+   "file": "assets/items/pose_idle.png",
+   "w": 170,
+   "h": 395,
+   "sheet": 7
+  },
+  "pose_walk1": {
+   "file": "assets/items/pose_walk1.png",
+   "w": 183,
+   "h": 390,
+   "sheet": 7
+  },
+  "pose_walk2": {
+   "file": "assets/items/pose_walk2.png",
+   "w": 200,
+   "h": 390,
+   "sheet": 7
+  },
+  "pose_walk3": {
+   "file": "assets/items/pose_walk3.png",
+   "w": 195,
+   "h": 393,
+   "sheet": 7
+  },
+  "pose_collect": {
+   "file": "assets/items/pose_collect.png",
+   "w": 228,
+   "h": 274,
+   "sheet": 7
+  },
+  "pose_celebrate": {
+   "file": "assets/items/pose_celebrate.png",
+   "w": 242,
+   "h": 447,
+   "sheet": 7
+  },
+  "avatar_1": {
+   "file": "assets/items/avatar_1.png",
+   "w": 221,
+   "h": 455,
+   "sheet": 8
+  },
+  "avatar_2": {
+   "file": "assets/items/avatar_2.png",
+   "w": 178,
+   "h": 453,
+   "sheet": 8
+  },
+  "avatar_3": {
+   "file": "assets/items/avatar_3.png",
+   "w": 180,
+   "h": 480,
+   "sheet": 8
+  },
+  "avatar_4": {
+   "file": "assets/items/avatar_4.png",
+   "w": 206,
+   "h": 453,
+   "sheet": 8
+  },
+  "avatar_5": {
+   "file": "assets/items/avatar_5.png",
+   "w": 234,
+   "h": 454,
+   "sheet": 8
+  },
+  "avatar_6": {
+   "file": "assets/items/avatar_6.png",
+   "w": 168,
+   "h": 460,
+   "sheet": 8
+  },
+  "avatar_7": {
+   "file": "assets/items/avatar_7.png",
+   "w": 228,
+   "h": 455,
+   "sheet": 8
+  },
+  "avatar_8": {
+   "file": "assets/items/avatar_8.png",
+   "w": 207,
+   "h": 466,
+   "sheet": 8
+  },
+  "bed": {
+   "file": "assets/items/bed.png",
+   "w": 672,
+   "h": 566,
+   "sheet": 9
+  },
+  "sofa": {
+   "file": "assets/items/sofa.png",
+   "w": 581,
+   "h": 494,
+   "sheet": 9
+  },
+  "table": {
+   "file": "assets/items/table.png",
+   "w": 542,
+   "h": 485,
+   "sheet": 9
+  },
+  "bookshelf": {
+   "file": "assets/items/bookshelf.png",
+   "w": 314,
+   "h": 531,
+   "sheet": 9
+  },
+  "plant": {
+   "file": "assets/items/plant.png",
+   "w": 316,
+   "h": 481,
+   "sheet": 10
+  },
+  "lamp": {
+   "file": "assets/items/lamp.png",
+   "w": 182,
+   "h": 453,
+   "sheet": 10
+  },
+  "rug": {
+   "file": "assets/items/rug.png",
+   "w": 814,
+   "h": 482,
+   "sheet": 10
+  },
+  "dresser": {
+   "file": "assets/items/dresser.png",
+   "w": 549,
+   "h": 514,
+   "sheet": 10
+  },
+  "armchair": {
+   "file": "assets/items/armchair.png",
+   "w": 440,
+   "h": 505,
+   "sheet": 10
+  },
+  "hammock": {
+   "file": "assets/items/hammock.png",
+   "w": 514,
+   "h": 559,
+   "sheet": 11
+  },
+  "cobogo": {
+   "file": "assets/items/cobogo.png",
+   "w": 262,
+   "h": 336,
+   "sheet": 11
+  },
+  "guitar": {
+   "file": "assets/items/guitar.png",
+   "w": 190,
+   "h": 484,
+   "sheet": 11
+  },
+  "vitrine": {
+   "file": "assets/items/vitrine.png",
+   "w": 313,
+   "h": 589,
+   "sheet": 11
+  },
+  "palm": {
+   "file": "assets/items/palm.png",
+   "w": 384,
+   "h": 733,
+   "sheet": 11
+  },
+  "wall_frame_a": {
+   "file": "assets/items/wall_frame_a.png",
+   "w": 314,
+   "h": 383,
+   "sheet": 12
+  },
+  "wall_clock": {
+   "file": "assets/items/wall_clock.png",
+   "w": 209,
+   "h": 218,
+   "sheet": 12
+  },
+  "wall_window": {
+   "file": "assets/items/wall_window.png",
+   "w": 335,
+   "h": 508,
+   "sheet": 12
+  },
+  "wall_door": {
+   "file": "assets/items/wall_door.png",
+   "w": 283,
+   "h": 776,
+   "sheet": 12
+  },
+  "wall_frame_b": {
+   "file": "assets/items/wall_frame_b.png",
+   "w": 296,
+   "h": 398,
+   "sheet": 12
+  },
+  "wall_shelf": {
+   "file": "assets/items/wall_shelf.png",
+   "w": 421,
+   "h": 454,
+   "sheet": 12
+  },
+  "capybara_idle1": {
+   "file": "assets/items/capybara_idle1.png",
+   "w": 369,
+   "h": 268,
+   "sheet": 13
+  },
+  "capybara_idle2": {
+   "file": "assets/items/capybara_idle2.png",
+   "w": 366,
+   "h": 268,
+   "sheet": 13
+  },
+  "capybara_sleep": {
+   "file": "assets/items/capybara_sleep.png",
+   "w": 376,
+   "h": 225,
+   "sheet": 13
+  },
+  "toucan_idle1": {
+   "file": "assets/items/toucan_idle1.png",
+   "w": 395,
+   "h": 321,
+   "sheet": 13
+  },
+  "toucan_idle2": {
+   "file": "assets/items/toucan_idle2.png",
+   "w": 398,
+   "h": 336,
+   "sheet": 13
+  },
+  "toucan_sleep": {
+   "file": "assets/items/toucan_sleep.png",
+   "w": 397,
+   "h": 335,
+   "sheet": 13
+  },
+  "tamarin_idle1": {
+   "file": "assets/items/tamarin_idle1.png",
+   "w": 376,
+   "h": 279,
+   "sheet": 13
+  },
+  "tamarin_idle2": {
+   "file": "assets/items/tamarin_idle2.png",
+   "w": 373,
+   "h": 279,
+   "sheet": 13
+  },
+  "tamarin_sleep": {
+   "file": "assets/items/tamarin_sleep.png",
+   "w": 396,
+   "h": 262,
+   "sheet": 13
+  },
+  "jaguar": {
+   "file": "assets/items/jaguar.png",
+   "w": 655,
+   "h": 418,
+   "sheet": 14
+  },
+  "jaguar_silhouette": {
+   "file": "assets/items/jaguar_silhouette.png",
+   "w": 655,
+   "h": 418,
+   "sheet": 14
+  },
+  "fossil": {
+   "file": "assets/items/fossil.png",
+   "w": 442,
+   "h": 489,
+   "sheet": 14
+  },
+  "vase": {
+   "file": "assets/items/vase.png",
+   "w": 347,
+   "h": 520,
+   "sheet": 14
+  },
+  "meteorite": {
+   "file": "assets/items/meteorite.png",
+   "w": 389,
+   "h": 421,
+   "sheet": 14
+  },
+  "panel_a": {
+   "file": "assets/items/panel_a.png",
+   "w": 525,
+   "h": 219,
+   "sheet": 19
+  },
+  "panel_b": {
+   "file": "assets/items/panel_b.png",
+   "w": 509,
+   "h": 219,
+   "sheet": 19
+  },
+  "coin": {
+   "file": "assets/items/coin.png",
+   "w": 213,
+   "h": 212,
+   "sheet": 19
+  },
+  "nav_home": {
+   "file": "assets/items/nav_home.png",
+   "w": 247,
+   "h": 240,
+   "sheet": 19
+  },
+  "nav_garden": {
+   "file": "assets/items/nav_garden.png",
+   "w": 242,
+   "h": 240,
+   "sheet": 19
+  },
+  "nav_shop": {
+   "file": "assets/items/nav_shop.png",
+   "w": 243,
+   "h": 240,
+   "sheet": 19
+  },
+  "nav_edit": {
+   "file": "assets/items/nav_edit.png",
+   "w": 242,
+   "h": 240,
+   "sheet": 19
+  },
+  "nav_avatar": {
+   "file": "assets/items/nav_avatar.png",
+   "w": 242,
+   "h": 240,
+   "sheet": 19
+  },
+  "arrow_left": {
+   "file": "assets/items/arrow_left.png",
+   "w": 211,
+   "h": 220,
+   "sheet": 19
+  },
+  "arrow_right": {
+   "file": "assets/items/arrow_right.png",
+   "w": 213,
+   "h": 221,
+   "sheet": 19
+  },
+  "star": {
+   "file": "assets/items/star.png",
+   "w": 212,
+   "h": 220,
+   "sheet": 19
+  },
+  "trophy": {
+   "file": "assets/items/trophy.png",
+   "w": 211,
+   "h": 221,
+   "sheet": 19
+  },
+  "lock": {
+   "file": "assets/items/lock.png",
+   "w": 212,
+   "h": 221,
+   "sheet": 19
+  },
+  "coin_bubble": {
+   "file": "assets/items/coin_bubble.png",
+   "w": 226,
+   "h": 215,
+   "sheet": 19
+  }
+ },
+ "opening": "assets/abertura.png"
+}

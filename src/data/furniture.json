@@ -1,0 +1,23 @@
+{
+  "_doc": "size = [cells along grid x (down-right), cells along grid y (down-left)]; scale = sprite width / footprint width; anchor = sprite origin (0..1); lift = extra px up in world units",
+  "items": [
+    { "id": "table", "name": "Mesa", "sprite": "table", "size": [1, 2], "price": 0, "scale": 1.0, "anchor": [0.5, 0.97], "blocks": true },
+    { "id": "bed", "name": "Cama", "sprite": "bed", "size": [2, 2], "price": 180, "scale": 1.0, "anchor": [0.5, 0.95], "blocks": true },
+    { "id": "sofa", "name": "Sofá", "sprite": "sofa", "size": [1, 2], "price": 120, "scale": 1.0, "anchor": [0.5, 0.97], "blocks": true },
+    { "id": "bookshelf", "name": "Estante", "sprite": "bookshelf", "size": [1, 1], "price": 90, "scale": 0.9, "anchor": [0.5, 0.97], "blocks": true },
+    { "id": "plant", "name": "Planta", "sprite": "plant", "size": [1, 1], "price": 40, "scale": 0.7, "anchor": [0.5, 0.92], "blocks": true },
+    { "id": "lamp", "name": "Luminária", "sprite": "lamp", "size": [1, 1], "price": 50, "scale": 0.5, "anchor": [0.5, 0.9], "blocks": true },
+    { "id": "rug", "name": "Tapete", "sprite": "rug", "size": [2, 2], "price": 70, "scale": 0.95, "anchor": [0.5, 0.94], "blocks": false, "floor": true },
+    { "id": "dresser", "name": "Cômoda", "sprite": "dresser", "size": [1, 2], "price": 100, "scale": 1.0, "anchor": [0.5, 0.97], "blocks": true },
+    { "id": "armchair", "name": "Poltrona", "sprite": "armchair", "size": [1, 1], "price": 90, "scale": 1.0, "anchor": [0.5, 0.96], "blocks": true },
+    { "id": "hammock", "name": "Rede", "sprite": "hammock", "size": [1, 2], "price": 160, "scale": 1.0, "anchor": [0.5, 0.95], "blocks": true },
+    { "id": "cobogo", "name": "Cobogó", "sprite": "cobogo", "size": [1, 1], "price": 60, "scale": 0.85, "anchor": [0.5, 0.97], "blocks": true },
+    { "id": "palm", "name": "Palmeira", "sprite": "palm", "size": [1, 1], "price": 120, "scale": 0.85, "anchor": [0.5, 0.95], "blocks": true },
+    { "id": "guitar", "name": "Violão", "sprite": "guitar", "size": [1, 1], "price": 50, "scale": 0.45, "anchor": [0.5, 0.92], "blocks": true, "provisorio": true },
+    { "id": "vitrine", "name": "Vitrine", "sprite": "vitrine", "size": [1, 1], "price": 150, "scale": 0.8, "anchor": [0.5, 0.95], "blocks": true, "provisorio": true },
+    { "id": "fossil", "name": "Fóssil", "sprite": "fossil", "size": [1, 1], "price": 0, "scale": 0.85, "anchor": [0.5, 0.95], "blocks": true, "exclusive": "museum" },
+    { "id": "vase", "name": "Vaso", "sprite": "vase", "size": [1, 1], "price": 0, "scale": 0.75, "anchor": [0.5, 0.95], "blocks": true, "exclusive": "museum" },
+    { "id": "meteorite", "name": "Meteorito", "sprite": "meteorite", "size": [1, 1], "price": 0, "scale": 0.85, "anchor": [0.5, 0.95], "blocks": true, "exclusive": "museum" }
+  ],
+  "start": [{ "id": "table", "x": 0, "y": 2 }]
+}
