@@ -34,5 +34,9 @@ export interface GameEvents extends Record<string, unknown> {
   shopPick: string; // furniture id chosen in the shop
   toast: string;
   editor: EditorState;
+  animalTap: { id: string; look: 'forSale' | 'locked' };
+  gardenChanged: void;
+  visitCard: void;
+  coinsFly: { x: number; y: number; amount: number };
   [key: string]: unknown;
 }

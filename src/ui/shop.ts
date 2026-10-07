@@ -30,7 +30,7 @@ export function createShop(root: HTMLElement, bus: Emitter<GameEvents>, data: ()
         : f.price ? `<img src="${itemUrl('coin')}" alt="">${f.price}` : 'Grátis';
       card.innerHTML = `<div class="icon"><img src="${itemUrl(f.sprite)}" alt=""></div><div class="nm">${f.name}</div><div class="pr">${price}</div>`;
       card.onclick = () => {
-        if (locked) return bus.emit('toast', 'Exclusivo: só com visita real a um museu parceiro');
+        if (locked) return bus.emit('visitCard', undefined);
         if (poor) return bus.emit('toast', 'Moedas insuficientes');
         shop.close();
         bus.emit('shopPick', f.id);

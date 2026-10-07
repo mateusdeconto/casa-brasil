@@ -1,0 +1,11 @@
+{
+  "_doc": "at = fractional grid point where the feet go (its cell blocks walking); lift = world px raised (e.g. on top of the table); width = sprite width in cell widths; periodSec = seconds per cycle",
+  "animals": [
+    { "id": "capybara", "name": "Capivara", "price": 0, "coins": 5, "periodSec": 30, "at": [4.6, 4.9], "lift": 0, "width": 1.5 },
+    { "id": "toucan", "name": "Tucano", "price": 150, "coins": 10, "periodSec": 45, "at": [1.2, 4.6], "lift": 95, "width": 1.3 },
+    { "id": "tamarin", "name": "Mico-leão-dourado", "price": 300, "coins": 20, "periodSec": 60, "at": [4.8, 1.8], "lift": 0, "width": 1.3 },
+    { "id": "jaguar", "name": "Onça-pintada", "price": 0, "coins": 60, "periodSec": 60, "at": [2.7, 2.6], "lift": 0, "width": 2.0, "exclusive": "zoo" }
+  ],
+  "blocked": [[1, 5], [5, 2], [5, 5]],
+  "avatarStart": [2, 5]
+}

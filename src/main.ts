@@ -1,22 +1,30 @@
-// Entry point: state, save, Phaser game and the HTML interface.
+// Entry point: state, save, offline production, Phaser game and the HTML interface.
 import Phaser from 'phaser';
 import './ui/style.css';
-import { TITLE, COLORS } from './config';
+import { TITLE, COLORS, OFFLINE_CAP_HOURS, AWAY_SLEEP_MS } from './config';
 import { Emitter, type GameEvents, type Tab } from './core/events';
+import { applyOffline } from './core/production';
 import { autoSave, loadSave } from './core/save';
 import { Store } from './core/state';
+import { setupRouter } from './router';
 import { BootScene } from './scenes/BootScene';
+import { GardenScene } from './scenes/GardenScene';
 import { RoomScene } from './scenes/RoomScene';
 import { showAvatarPicker } from './ui/avatarPicker';
 import { createActionBar } from './ui/actionBar';
 import { toast } from './ui/dom';
 import { createHud, createNav } from './ui/hud';
 import { showOpening } from './ui/opening';
-import { createShop, type Shop } from './ui/shop';
+import { createShop } from './ui/shop';
 
 document.title = TITLE;
 const bus = new Emitter<GameEvents>();
-const store = new Store(loadSave(), bus);
+const now = Date.now();
+const save = loadSave(now);
+const wasAway = save.started && now - save.time > AWAY_SLEEP_MS;
+// time away counts for production, capped; never a penalty
+applyOffline(save.animals, save.time, now, OFFLINE_CAP_HOURS * 3600_000);
+const store = new Store(save, bus);
 autoSave(() => store.data, (fn) => bus.on('changed', fn));
 
 const app = document.getElementById('app')!;
@@ -31,7 +39,7 @@ const game = new Phaser.Game({
   ...size(),
   render: { pixelArt: false, antialias: true },
   scale: { mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH },
-  scene: [BootScene, RoomScene],
+  scene: [BootScene, RoomScene, GardenScene],
 });
 window.addEventListener('resize', () => {
   const s = size();
@@ -42,7 +50,6 @@ window.addEventListener('resize', () => {
 const assetsReady = new Promise<void>((ok) => game.events.once('assets-ready', ok));
 let hud: ReturnType<typeof createHud> | null = null;
 let setTab: (t: Tab) => void = () => {};
-let shop: Shop | null = null;
 
 function room(): RoomScene {
   return game.scene.getScene('room') as RoomScene;
@@ -52,7 +59,7 @@ function enterGame(): void {
   if (!hud) {
     hud = createHud(ui, bus);
     setTab = createNav(ui, bus);
-    shop = createShop(ui, bus, () => store.data);
+    const shop = createShop(ui, bus, () => store.data);
     const editor = () => room().editor;
     const showActions = createActionBar(ui, {
       buy: () => editor().confirm(),
@@ -62,14 +69,16 @@ function enterGame(): void {
     });
     bus.on('editor', (s) => {
       showActions(s);
-      if (s.mode === 'none') setTab('home');
+      if (s.mode === 'none' && game.scene.isActive('room')) setTab('home');
     });
+    setupRouter({ game, bus, store, ui, hud, shop, setTab: (t) => setTab(t), pickAvatar, asleep: wasAway });
+    if (wasAway && store.data.animals.length) bus.emit('toast', 'Seus bichos produziram enquanto você esteve fora!');
   }
   hud.setPlayer(store.data.avatar, store.data.name);
   hud.setCoins(store.data.coins);
   setTab('home');
   assetsReady.then(() => {
-    if (!game.scene.isActive('room')) game.scene.start('room', { bus, store });
+    if (!game.scene.isActive('room') && !game.scene.isActive('garden')) game.scene.start('room', { bus, store });
   });
 }
 
@@ -83,21 +92,6 @@ function pickAvatar(): void {
   });
 }
 
-bus.on('tab', (tab) => {
-  if (!game.scene.isActive('room')) return;
-  const editor = room().editor;
-  shop?.close();
-  if (tab === 'avatar') return editor.exit(), pickAvatar();
-  if (tab === 'garden') return bus.emit('toast', 'Jardim: em breve');
-  if (tab === 'edit') editor.startEdit();
-  else editor.exit();
-  if (tab === 'shop') shop?.open();
-  setTab(tab);
-});
-bus.on('shopPick', (id) => {
-  room().editor.startPlace(id);
-  setTab('shop');
-});
 bus.on('toast', (text) => toast(ui, text));
 
 showOpening(ui, () => (store.data.started ? enterGame() : pickAvatar()));

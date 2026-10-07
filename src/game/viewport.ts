@@ -21,3 +21,11 @@ export function keepFitted(scene: Phaser.Scene, view: number[]): void {
   scene.scale.on('resize', refit);
   scene.events.once('shutdown', () => scene.scale.off('resize', refit));
 }
+
+/** World point -> browser client coordinates (for HTML effects over the canvas). */
+export function worldToClient(scene: Phaser.Scene, x: number, y: number): { x: number; y: number } {
+  const cam = scene.cameras.main;
+  const r = scene.game.canvas.getBoundingClientRect();
+  const k = r.width / scene.scale.width;
+  return { x: r.left + (cam.x + (x - cam.worldView.x) * cam.zoom) * k, y: r.top + (cam.y + (y - cam.worldView.y) * cam.zoom) * k };
+}

@@ -64,6 +64,25 @@ const baseSave = (extra) => ({
   furniture: [{ uid: 1, id: 'table', x: 0, y: 2 }], animals: [], unlocks: { zoo: false, museum: false }, ...extra,
 });
 
+/** Tap an animal in the garden scene by id. */
+async function tapAnimal(page, id) {
+  const pt = await page.evaluate((animal) => {
+    const scene = window.game.scene.getScene('garden');
+    const c = scene.views.get(animal).sprite.getCenter();
+    const cam = scene.cameras.main;
+    const r = window.game.canvas.getBoundingClientRect();
+    const k = r.width / window.game.scale.width;
+    return { x: r.left + (cam.x + (c.x - cam.worldView.x) * cam.zoom) * k, y: r.top + (cam.y + (c.y - cam.worldView.y) * cam.zoom) * k };
+  }, id);
+  await page.mouse.click(pt.x, pt.y);
+}
+
+async function openGarden(page) {
+  await page.click('.nav >> text=Jardim');
+  await page.waitForFunction(() => window.game.scene.isActive('garden'));
+  await wait(page, 700);
+}
+
 export const FLOWS = {
   async basic(page, shot) {
     await start(page, shot);
@@ -118,5 +137,42 @@ export const FLOWS = {
       f(5, 'vitrine', 0, 3), f(6, 'fossil', 1, 3), f(7, 'vase', 2, 3), f(8, 'meteorite', 3, 3), f(9, 'table', 0, 2),
     ] }));
     await shot('b');
+  },
+  async garden(page, shot) {
+    const hourAgo = Date.now() - 3600_000;
+    await startWith(page, baseSave({ coins: 400, animals: [{ id: 'capybara', since: hourAgo }] }));
+    await openGarden(page);
+    await shot('1_garden');
+    await tapAnimal(page, 'capybara');
+    await wait(page, 1300);
+    await shot('2_collecting');
+    await wait(page, 1500);
+    await shot('3_collected');
+    await tapAnimal(page, 'toucan');
+    await wait(page, 300);
+    await shot('4_buy_card');
+    await page.click('text=Comprar por');
+    await wait(page, 400);
+    await tapAnimal(page, 'jaguar');
+    await wait(page, 300);
+    await shot('5_locked_card');
+    await page.click('text=Simular visita ao zoológico');
+    await wait(page, 600);
+    await shot('6_jaguar');
+    await page.click('.nav >> text=Loja');
+    await wait(page, 500);
+    await page.click('.shop-card >> text=Fóssil');
+    await wait(page, 300);
+    await page.click('text=Simular visita ao museu');
+    await page.click('.nav >> text=Loja');
+    await wait(page, 500);
+    await page.locator('.shop-list').evaluate((e) => (e.scrollTop = 9999));
+    await shot('7_museum_shop');
+  },
+  async offline(page, shot) {
+    const tenHours = Date.now() - 10 * 3600_000;
+    await startWith(page, baseSave({ time: tenHours, animals: [{ id: 'capybara', since: tenHours }, { id: 'toucan', since: tenHours }] }));
+    await openGarden(page);
+    await shot('1_asleep');
   },
 };
