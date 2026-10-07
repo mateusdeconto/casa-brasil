@@ -17,14 +17,16 @@ export function haversineM(a: LatLng, b: LatLng): number {
 
 export const isWithin = (a: LatLng, b: LatLng, radiusM: number): boolean => haversineM(a, b) <= radiusM;
 
-export type GpsResult = { ok: true; pos: LatLng } | { ok: false; reason: 'denied' | 'unavailable' | 'timeout' };
+export type GpsFix = LatLng & { accuracyM?: number };
+
+export type GpsResult = { ok: true; pos: GpsFix } | { ok: false; reason: 'denied' | 'unavailable' | 'timeout' };
 
 /** One-shot position request with a friendly failure reason. */
 export function getPosition(timeoutMs = 10_000): Promise<GpsResult> {
   return new Promise((resolve) => {
     if (!('geolocation' in navigator)) return resolve({ ok: false, reason: 'unavailable' });
     navigator.geolocation.getCurrentPosition(
-      (p) => resolve({ ok: true, pos: { lat: p.coords.latitude, lng: p.coords.longitude } }),
+      (p) => resolve({ ok: true, pos: { lat: p.coords.latitude, lng: p.coords.longitude, accuracyM: p.coords.accuracy } }),
       (e) => resolve({ ok: false, reason: e.code === 1 ? 'denied' : e.code === 3 ? 'timeout' : 'unavailable' }),
       { enableHighAccuracy: true, timeout: timeoutMs, maximumAge: 30_000 },
     );

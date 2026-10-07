@@ -36,8 +36,15 @@ export function distanceLabel(meters: number): string {
 
 export const walkMinutes = (meters: number): number => Math.max(1, Math.round(meters / WALK_M_PER_MIN));
 
-/** "650 m · 8 min a pé" */
-export const walkLabel = (meters: number): string => `${distanceLabel(meters)} · ${walkMinutes(meters)} min a pé`;
+/** Walking is only worth saying for short trips. */
+const WALKABLE_M = 3000;
+
+/** Further than this from every place, the demo has nothing "nearby" to show. */
+export const FAR_M = 15_000;
+
+/** "650 m · 8 min a pé", or just the distance when it is too far to walk. */
+export const walkLabel = (meters: number): string =>
+  meters < WALKABLE_M ? `${distanceLabel(meters)} · ${walkMinutes(meters)} min a pé` : distanceLabel(meters);
 
 /** Google Maps walking directions, opened by the phone's maps app. Needs no API key. */
 export function routeUrl(from: LatLng, to: LatLng): string {

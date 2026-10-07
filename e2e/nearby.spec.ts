@@ -20,6 +20,6 @@ test('perto de você: the Família tab opens a map and the nearest places first'
   await expect(page.locator('.leaflet-popup')).toContainText('Rotas no Google Maps');
   await page.getByRole('button', { name: 'Voltar' }).click();
   await expect(page.locator('.nearby-card')).toBeVisible();
-  // map tiles come from OpenStreetMap: a blocked network must not fail the test
-  await expectNoErrors(errors.filter((e) => !/tile\.openstreetmap/.test(e)));
+  // a tile blocked by the CSP shows up as a console error, so this also guards the map images
+  await expectNoErrors(errors);
 });

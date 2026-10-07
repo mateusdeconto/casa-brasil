@@ -3,10 +3,10 @@ import { defineConfig } from 'vitest/config';
 
 const THEME = '#1C1730';
 
-// Production only (the dev server needs inline scripts and websockets). Nothing leaves the site: no external hosts at all.
+// Production only (the dev server needs inline scripts and websockets). The only outside host is the OpenStreetMap tile server (map images).
 const CSP = [
   "default-src 'self'",
-  "img-src 'self' data: blob:",
+  "img-src 'self' data: blob: https://tile.openstreetmap.org",
   "style-src 'self' 'unsafe-inline'",
   "script-src 'self'",
   "connect-src 'self'",

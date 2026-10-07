@@ -21,6 +21,10 @@ describe('nearby places', () => {
     expect(walkLabel(800)).toBe('800 m · 10 min a pé');
   });
 
+  it('does not talk about walking for long distances', () => {
+    expect(walkLabel(12_400)).toBe('12,4 km');
+  });
+
   it('builds a walking route link', () => {
     const url = routeUrl({ lat: 1, lng: 2 }, { lat: 3, lng: 4 });
     expect(url).toContain('origin=1,2');
