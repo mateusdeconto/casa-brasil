@@ -13,6 +13,8 @@ import type { Hud } from './ui/hud';
 import { PageHost } from './ui/pageHost';
 import { createPassportPage } from './ui/passport';
 import { createPlannerPage } from './ui/planner';
+import { createParentPanel } from './ui/parentPanel';
+import { openParentGate } from './ui/parentGate';
 import { badgeById } from './core/badges';
 import type { Shop } from './ui/shop';
 import { startVisitFlow } from './ui/visitFlow';
@@ -134,6 +136,26 @@ export function setupRouter(d: RouterDeps): { host: PageHost } {
 
   // a visit may have unlocked an animal (jaguar): refresh the garden if it is the running scene
   bus.on('unlocked', () => bus.emit('gardenChanged', undefined));
+  const openParent = () =>
+    openParentGate(ui, store, () => {
+      const panel = createParentPanel({ store, bus, ui, changePin: () => (panel.remove(), (store.root.pinHash = null), store.commit(), openParent()) });
+      ui.appendChild(panel);
+    });
+  bus.on('openParent', openParent);
+
+  /** another child was selected (or renamed): reload header and scenes with their data */
+  let current = store.data.id;
+  bus.on('profileChanged', (id) => {
+    d.hud.setPlayer(store.data.avatar, store.data.name);
+    d.hud.setCoins(store.data.coins);
+    if (id === current) return; // just a rename
+    current = id;
+    host.closeAll();
+    game.scene.stop('garden');
+    game.scene.stop('room');
+    game.scene.start('room', ctx);
+    d.setTab('home');
+  });
   bus.on('badgeEarned', ({ id }) => bus.emit('toast', `Medalha nova: ${badgeById(id).name}!`));
   bus.on('coinsFly', ({ x, y, amount }) => flyCoins(ui, { x, y }, d.hud.coinTarget(), amount));
   return { host };

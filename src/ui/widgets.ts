@@ -58,3 +58,42 @@ export function confirmBox(root: HTMLElement, text: string, yesLabel: string, on
   shade.appendChild(card);
   root.appendChild(shade);
 }
+
+/** Avatar head crop used by the HUD and the profile chips. */
+export function setFace(node: HTMLElement, avatar: string): void {
+  node.style.backgroundImage = `url(${itemUrl(avatar)})`;
+}
+
+/** On/off switch with a text label. */
+export function toggleRow(label: string, hint: string, on: boolean, onChange: (v: boolean) => void): HTMLElement {
+  const row = el('div', 'opt-row');
+  const text = el('div', 'opt-text', `<b>${label}</b><small>${hint}</small>`);
+  const sw = el('button', `switch${on ? ' on' : ''}`, '<i></i>');
+  sw.setAttribute('role', 'switch');
+  sw.setAttribute('aria-checked', String(on));
+  sw.setAttribute('aria-label', label);
+  sw.onclick = () => {
+    const v = !sw.classList.contains('on');
+    sw.classList.toggle('on', v);
+    sw.setAttribute('aria-checked', String(v));
+    onChange(v);
+  };
+  row.append(text, sw);
+  return row;
+}
+
+/** Modal asking for one line of text. */
+export function askText(root: HTMLElement, title: string, initial: string, max: number, onOk: (v: string) => void): void {
+  const shade = el('div', 'shade');
+  const card = el('div', 'panel card-modal', `<div class="panel-title"><span>${title}</span></div>`);
+  const body = el('div', 'card-body');
+  const input = el('input');
+  input.maxLength = max;
+  input.value = initial;
+  input.setAttribute('aria-label', title);
+  body.append(input, button('Salvar', () => (shade.remove(), onOk(input.value.trim().slice(0, max))), ''), button('Voltar', () => shade.remove(), 'secondary'));
+  card.appendChild(body);
+  shade.appendChild(card);
+  root.appendChild(shade);
+  input.focus();
+}

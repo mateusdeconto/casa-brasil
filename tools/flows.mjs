@@ -251,6 +251,34 @@ export const FLOWS = {
     await wait(page, 300);
     await shot('7_badge_detail');
   },
+  async parent(page, shot) {
+    await startWith(page, baseSave({}));
+    await page.click('.hud-btn[aria-label="Painel dos pais"]');
+    await wait(page, 300);
+    await shot('1_pin_create');
+    for (const k of '1234') await page.click(`.pin-keys [data-key="${k}"]`);
+    await wait(page, 300);
+    for (const k of '1234') await page.click(`.pin-keys [data-key="${k}"]`);
+    await wait(page, 500);
+    await shot('2_panel');
+    await page.locator('.parent .page-body').evaluate((e) => (e.scrollTop = 9999));
+    await shot('3_panel_options');
+    await page.locator('.parent .page-body').evaluate((e) => (e.scrollTop = 0));
+    await page.click('text=Novo perfil');
+    await wait(page, 300);
+    await page.locator('.picker .card').nth(3).click();
+    await page.fill('.picker input', 'Leo');
+    await page.click('.picker >> text=Começar');
+    await wait(page, 400);
+    await shot('4_new_profile');
+    await page.click('text=Jogar como Leo');
+    await wait(page, 900);
+    await shot('5_playing_as_leo');
+    await page.click('.hud-btn[aria-label="Painel dos pais"]');
+    for (const k of '1111') await page.click(`.pin-keys [data-key="${k}"]`);
+    await wait(page, 300);
+    await shot('6_wrong_pin');
+  },
   async offline(page, shot) {
     const tenHours = Date.now() - 10 * 3600_000;
     await startWith(page, baseSave({ time: tenHours, animals: [{ id: 'capybara', since: tenHours }, { id: 'toucan', since: tenHours }] }));

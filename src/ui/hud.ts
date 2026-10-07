@@ -13,7 +13,13 @@ export function createHud(root: HTMLElement, bus: Emitter<GameEvents>): Hud {
   const face = el('div', 'face');
   const name = el('div', 'name');
   const coins = el('div', 'coins', `<img src="${itemUrl('coin')}" alt=""><span>0</span>`);
-  bar.append(face, name, coins);
+  const tool = (key: string, label: string, event: 'openParent' | 'openSettings') => {
+    const b = el('button', 'hud-btn', `<img src="${itemUrl(key)}" alt="">`);
+    b.setAttribute('aria-label', label);
+    b.onclick = () => bus.emit(event, undefined);
+    return b;
+  };
+  bar.append(face, name, coins, tool('shield_parent', 'Painel dos pais', 'openParent'), tool('gear', 'Configurações', 'openSettings'));
   root.appendChild(bar);
   const label = coins.querySelector('span')!;
   bus.on('coins', (n) => (label.textContent = n.toLocaleString('pt-BR')));

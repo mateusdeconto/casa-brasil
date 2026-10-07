@@ -51,6 +51,8 @@ export interface GameEvents extends Record<string, unknown> {
   /** open the 3-step visit flow, optionally for a given partner */
   startVisit: { partner?: string; preGps?: boolean };
   openPage: { page: string; arg?: string };
+  openParent: void;
+  openSettings: void;
   coinsFly: { x: number; y: number; amount: number };
   [key: string]: unknown;
 }

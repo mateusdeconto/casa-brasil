@@ -18,6 +18,7 @@ import { toast } from './ui/dom';
 import { createEditFab, createHud, createNav } from './ui/hud';
 import { showOpening } from './ui/opening';
 import { createShop } from './ui/shop';
+import { startUsageTimer } from './ui/timeLimit';
 
 document.title = TITLE;
 const bus = new Emitter<GameEvents>();
@@ -77,6 +78,7 @@ function enterGame(): void {
       showActions(s);
       if (s.mode === 'none' && game.scene.isActive('room')) setTab('home');
     });
+    startUsageTimer(store, ui);
     setupRouter({ game, bus, store, ui, hud, shop, setTab: (t) => setTab(t), pickAvatar, asleep: wasAway });
     if (wasAway && store.data.animals.length) bus.emit('toast', 'Seus bichos produziram enquanto você esteve fora!');
   }
