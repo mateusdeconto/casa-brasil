@@ -18,7 +18,10 @@ export interface FurnitureDef {
   /** unlock key (partner type, 'semana' or 'evento'); the item is locked in the shop until set */
   exclusive?: string;
   noSell?: boolean;
+  /** shows the "edição limitada" ribbon */
   limited?: boolean;
+  /** only one copy per house */
+  unique?: boolean;
 }
 
 export interface ManifestEntry {
@@ -75,7 +78,13 @@ export interface PartnerDef {
   /** event partners have no GPS step and an optional photo */
   gps?: boolean;
   photoOptional?: boolean;
+  /** the event partner: reached by QR, not listed with the places to visit */
+  event?: boolean;
+  /** false = this partner does not grant the 2x garden boost */
+  boost?: boolean;
 }
 
 export const PARTNERS = partnersJson.partners as PartnerDef[];
+/** Partners with a real place (zoo, museum...), without the event. */
+export const PLACE_PARTNERS = PARTNERS.filter((p) => !p.event);
 export const partnerById = (id: string) => PARTNERS.find((p) => p.id === id)!;

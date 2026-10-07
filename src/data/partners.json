@@ -2,28 +2,113 @@
   "_doc": "Demo partners. Coordinates are fictional; the 200 m radius lives in src/config.ts. reward.unlock is the key set in profile.unlocks; reward.animal is added to the garden.",
   "partners": [
     {
-      "id": "zoo", "type": "zoo", "name": "Zoológico", "kind": "Zoológico", "lat": -23.6513, "lng": -46.6208,
-      "mission": "Observe 3 animais e descubra o que cada um come.", "photoTip": "Fotografe o lugar, sem pessoas",
-      "reward": { "unlock": "zoo", "animal": "jaguar", "text": "Onça-pintada liberada!" },
-      "stamp": "stamp_zoo", "ageRange": "5 a 10 anos", "distanceKm": 3.2, "image": "toucan_idle1"
+      "id": "zoo",
+      "type": "zoo",
+      "name": "Zoológico",
+      "kind": "Zoológico",
+      "lat": -23.6513,
+      "lng": -46.6208,
+      "mission": "Observe 3 animais e descubra o que cada um come.",
+      "photoTip": "Fotografe o lugar, sem pessoas",
+      "reward": {
+        "unlock": "zoo",
+        "animal": "jaguar",
+        "text": "Onça-pintada liberada!"
+      },
+      "stamp": "stamp_zoo",
+      "ageRange": "5 a 10 anos",
+      "distanceKm": 3.2,
+      "image": "toucan_idle1"
     },
     {
-      "id": "museu", "type": "museu", "name": "Museu de Ciências", "kind": "Museu", "lat": -23.5874, "lng": -46.6576,
-      "mission": "Ache uma peça muito antiga e imagine quem a usava.", "photoTip": "Fotografe o lugar, sem pessoas",
-      "reward": { "unlock": "museu", "items": ["fossil", "vase", "meteorite"], "text": "Fóssil, vaso e meteorito liberados na loja!" },
-      "stamp": "stamp_museu", "ageRange": "5 a 10 anos", "distanceKm": 5.1, "image": "fossil"
+      "id": "museu",
+      "type": "museu",
+      "name": "Museu de Ciências",
+      "kind": "Museu",
+      "lat": -23.5874,
+      "lng": -46.6576,
+      "mission": "Ache uma peça muito antiga e imagine quem a usava.",
+      "photoTip": "Fotografe o lugar, sem pessoas",
+      "reward": {
+        "unlock": "museu",
+        "items": [
+          "fossil",
+          "vase",
+          "meteorite"
+        ],
+        "text": "Fóssil, vaso e meteorito liberados na loja!"
+      },
+      "stamp": "stamp_museu",
+      "ageRange": "5 a 10 anos",
+      "distanceKm": 5.1,
+      "image": "fossil"
     },
     {
-      "id": "parque", "type": "parque", "name": "Parque Municipal", "kind": "Parque", "lat": -23.5874, "lng": -46.6683,
-      "mission": "Encontre 3 tipos de folha diferentes e uma árvore bem grande.", "photoTip": "Fotografe o lugar, sem pessoas",
-      "reward": { "unlock": "parque", "items": ["vaso_planta"], "text": "Vaso de planta liberado na loja!" },
-      "stamp": "stamp_parque", "ageRange": "5 a 10 anos", "distanceKm": 2.8, "image": "palm"
+      "id": "parque",
+      "type": "parque",
+      "name": "Parque Municipal",
+      "kind": "Parque",
+      "lat": -23.5874,
+      "lng": -46.6683,
+      "mission": "Encontre 3 tipos de folha diferentes e uma árvore bem grande.",
+      "photoTip": "Fotografe o lugar, sem pessoas",
+      "reward": {
+        "unlock": "parque",
+        "items": [
+          "vaso_planta"
+        ],
+        "text": "Vaso de planta liberado na loja!"
+      },
+      "stamp": "stamp_parque",
+      "ageRange": "5 a 10 anos",
+      "distanceKm": 2.8,
+      "image": "palm"
     },
     {
-      "id": "ciencia", "type": "ciencia", "name": "Centro de Ciências", "kind": "Centro de ciências", "lat": -23.5649, "lng": -46.7329,
-      "mission": "Faça uma experiência e conte o que mudou.", "photoTip": "Fotografe o lugar, sem pessoas",
-      "reward": { "unlock": "ciencia", "items": ["lantern"], "text": "Lanterna liberada na loja!" },
-      "stamp": "stamp_ciencia", "ageRange": "5 a 10 anos", "distanceKm": 6.4, "image": "lantern"
+      "id": "ciencia",
+      "type": "ciencia",
+      "name": "Centro de Ciências",
+      "kind": "Centro de ciências",
+      "lat": -23.5649,
+      "lng": -46.7329,
+      "mission": "Faça uma experiência e conte o que mudou.",
+      "photoTip": "Fotografe o lugar, sem pessoas",
+      "reward": {
+        "unlock": "ciencia",
+        "items": [
+          "lantern"
+        ],
+        "text": "Lanterna liberada na loja!"
+      },
+      "stamp": "stamp_ciencia",
+      "ageRange": "5 a 10 anos",
+      "distanceKm": 6.4,
+      "image": "lantern"
+    },
+    {
+      "id": "evento",
+      "type": "evento",
+      "name": "Evento Hackathon 2026",
+      "kind": "Evento",
+      "lat": 0,
+      "lng": 0,
+      "mission": "Escaneie o QR do evento e leve o Troféu Coruja para casa.",
+      "photoTip": "Fotografe o lugar, sem pessoas",
+      "reward": {
+        "unlock": "evento",
+        "items": [
+          "trophy_owl"
+        ],
+        "text": "Troféu Coruja, Edição Hackathon 2026, liberado!"
+      },
+      "stamp": "stamp_evento",
+      "ageRange": "5 a 10 anos",
+      "distanceKm": 0,
+      "image": "trophy_owl",
+      "event": true,
+      "gps": false,
+      "photoOptional": true,
+      "boost": false
     }
   ]
 }

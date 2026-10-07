@@ -26,6 +26,8 @@ export interface EditorState {
   name?: string;
   price?: number;
   selected?: boolean;
+  /** prize items (trophy, star) cannot be sold */
+  noSell?: boolean;
 }
 
 export interface GameEvents extends Record<string, unknown> {

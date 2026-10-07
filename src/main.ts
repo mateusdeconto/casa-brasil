@@ -18,6 +18,7 @@ import { toast } from './ui/dom';
 import { createEditFab, createHud, createNav } from './ui/hud';
 import { showOpening } from './ui/opening';
 import { createShop } from './ui/shop';
+import { handleQr } from './ui/qrFlow';
 import { startUsageTimer } from './ui/timeLimit';
 
 document.title = TITLE;
@@ -51,6 +52,8 @@ window.addEventListener('resize', () => {
 });
 (window as unknown as { game: Phaser.Game }).game = game;
 
+/** ?qr=<token> from a scanned code; consumed once the child has an avatar and the game is up */
+let pendingQr = new URLSearchParams(location.search).get('qr');
 const assetsReady = new Promise<void>((ok) => game.events.once('assets-ready', ok));
 let hud: ReturnType<typeof createHud> | null = null;
 let setTab: (t: Tab) => void = () => {};
@@ -87,6 +90,12 @@ function enterGame(): void {
   setTab('home');
   assetsReady.then(() => {
     if (!game.scene.isActive('room') && !game.scene.isActive('garden')) game.scene.start('room', { bus, store });
+    if (pendingQr) {
+      const token = pendingQr;
+      pendingQr = null;
+      history.replaceState(null, '', location.pathname);
+      handleQr({ store, bus, ui }, token);
+    }
   });
 }
 
@@ -102,4 +111,7 @@ function pickAvatar(): void {
 
 bus.on('toast', (text) => toast(ui, text));
 
-showOpening(ui, () => (store.data.started ? enterGame() : pickAvatar()));
+const begin = () => (store.data.started ? enterGame() : pickAvatar());
+// a scanned QR skips the opening: first the avatar (if needed), then the prize or the partner
+if (pendingQr) begin();
+else showOpening(ui, begin);

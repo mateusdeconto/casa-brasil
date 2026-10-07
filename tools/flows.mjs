@@ -104,6 +104,19 @@ export async function demoVisit(page, partnerId, shot, label = '') {
   if (shot) await shot(`${label}3_stamp`);
 }
 
+import { createHash } from 'node:crypto';
+import { readFileSync } from 'node:fs';
+
+/** Same formula as src/core/qr.ts (token = sha256("secret:text")[:8]). */
+function qrToken(text) {
+  const secret = /EVENT_SECRET\s*=\s*'([^']*)'/.exec(readFileSync('src/config.ts', 'utf8'))[1];
+  return createHash('sha256').update(`${secret}:${text}`).digest('hex').slice(0, 8);
+}
+const localDay = (offset = 0) => {
+  const d = new Date(Date.now() + offset * 86_400_000);
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+};
+
 const goto = (page, path) => page.goto(new URL(path, page.url()).href);
 
 /** Do every task of the student checklist (quiz, photo, diary, plain ticks). */
@@ -345,6 +358,41 @@ export const FLOWS = {
     await goto(page, '/escola#professor');
     await wait(page, 600);
     await shot('11_class_after');
+  },
+  async qr(page, shot) {
+    // fresh device: scanning the event QR asks for the avatar first, then gives the trophy
+    await goto(page, `/?qr=${qrToken(`evento:${localDay()}`)}`);
+    await wait(page, 900);
+    await shot('1_avatar_first');
+    await page.locator('.card').nth(2).click();
+    await page.fill('.picker input', 'Ana');
+    await page.click('text=Começar');
+    await wait(page, 1500);
+    await shot('2_celebration');
+    await page.click('text=Colocar na minha casa');
+    await wait(page, 700);
+    await shot('3_ghost');
+    await page.click('.actionbar button:has-text("Colocar")');
+    await wait(page, 600);
+    await shot('4_placed');
+    await page.click('.nav >> text=Loja');
+    await page.locator('.shop-list').evaluate((e) => (e.scrollTop = 9999));
+    await wait(page, 400);
+    await shot('5_shop_limited');
+    // same code again: already redeemed
+    await goto(page, `/?qr=${qrToken(`evento:${localDay(-1)}`)}`);
+    await wait(page, 1200);
+    await page.click('text=Jogar').catch(() => {});
+    await wait(page, 600);
+    await shot('6_already');
+    await page.click('text=Fechar');
+    await goto(page, '/?qr=00000000');
+    await wait(page, 1200);
+    await shot('7_expired');
+    await page.click('text=Entendi');
+    await goto(page, `/?qr=${qrToken('parceiro:museu')}`);
+    await wait(page, 1200);
+    await shot('8_partner_qr');
   },
   async offline(page, shot) {
     const tenHours = Date.now() - 10 * 3600_000;

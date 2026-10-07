@@ -329,7 +329,8 @@
       ],
       "blocks": true,
       "exclusive": "semana",
-      "noSell": true
+      "noSell": true,
+      "unique": true
     },
     {
       "id": "trophy_owl",
@@ -348,7 +349,8 @@
       "blocks": true,
       "exclusive": "evento",
       "noSell": true,
-      "limited": true
+      "limited": true,
+      "unique": true
     },
     {
       "id": "vitrine_mapa",

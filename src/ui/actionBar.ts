@@ -27,10 +27,11 @@ export function createActionBar(root: HTMLElement, h: ActionHandlers): (s: Edito
     const info = el('div', 'info');
     if (s.mode === 'place') {
       info.innerHTML = `<span>${s.name} ${coin}${s.price}</span><small>${s.valid ? 'Toque de novo para colocar' : 'Lugar ocupado'}</small>`;
-      bar.append(info, button('Cancelar', 'secondary', h.cancel), button('Comprar', '', h.buy, !s.valid));
+      bar.append(info, button('Cancelar', 'secondary', h.cancel), button(s.price ? 'Comprar' : 'Colocar', '', h.buy, !s.valid));
     } else if (s.mode === 'edit') {
-      info.innerHTML = s.selected ? `${s.name}<small>Arraste para mover</small>` : 'Editar<small>Toque num móvel</small>';
-      if (s.selected) bar.append(info, button(`Vender +${s.price}`, 'secondary', h.sell), button('Pronto', '', h.done));
+      info.innerHTML = s.selected ? `${s.name}<small>${s.noSell ? 'Prêmio: não pode ser vendido' : 'Arraste para mover'}</small>` : 'Editar<small>Toque num móvel</small>';
+      if (s.selected && s.noSell) bar.append(info, button('Pronto', '', h.done));
+      else if (s.selected) bar.append(info, button(`Vender +${s.price}`, 'secondary', h.sell), button('Pronto', '', h.done));
       else bar.append(info, button('Pronto', '', h.done));
     }
   };

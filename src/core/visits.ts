@@ -30,7 +30,7 @@ export function completeVisit(store: Store, input: VisitInput, now = Date.now())
   const wasUnlocked = !!d.unlocks[partner.reward.unlock];
   d.unlocks[partner.reward.unlock] = true;
   if (partner.reward.animal && !owns(store, partner.reward.animal)) d.animals.push({ id: partner.reward.animal, since: now });
-  grantBoost(d, now);
+  if (partner.boost !== false) grantBoost(d, now);
   store.commit();
   if (!wasUnlocked) store.bus.emit('unlocked', { key: partner.reward.unlock });
   store.bus.emit('visitCompleted', { visit });

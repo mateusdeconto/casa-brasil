@@ -1,5 +1,5 @@
 // "Planejar saída": pick one of the next 7 days and a partner, agree with the family, share.
-import { PARTNERS } from '../core/catalog';
+import { PARTNERS, PLACE_PARTNERS } from '../core/catalog';
 import { nextDays } from '../core/dates';
 import type { Emitter, GameEvents } from '../core/events';
 import { outingLabel, planOuting, shareOuting } from '../core/outings';
@@ -43,7 +43,7 @@ export function createPlannerPage(d: PlannerDeps, preselect?: string): PageHandl
       strip.appendChild(b);
     });
     list.innerHTML = '';
-    for (const p of PARTNERS) {
+    for (const p of PLACE_PARTNERS) {
       list.appendChild(partnerCard(p, { label: p.id === partner ? 'Escolhido' : 'Escolher', selected: p.id === partner, onPick: () => ((partner = p.id), render()) }));
     }
     agree.disabled = !partner;

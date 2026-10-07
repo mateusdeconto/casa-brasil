@@ -1,7 +1,7 @@
 // Routes nav-bar tabs and garden/shop events between the Phaser scenes and the HTML UI.
 import Phaser from 'phaser';
 import { buyAnimal } from './core/actions';
-import { PARTNERS, animalById } from './core/catalog';
+import { PLACE_PARTNERS, animalById } from './core/catalog';
 import type { Emitter, GameEvents, Tab } from './core/events';
 import type { Store } from './core/state';
 import type { RoomScene } from './scenes/RoomScene';
@@ -91,7 +91,7 @@ export function setupRouter(d: RouterDeps): { host: PageHost } {
   );
 
   bus.on('startVisit', ({ partner, preGps }) => {
-    const id = partner ?? PARTNERS[0].id;
+    const id = partner ?? PLACE_PARTNERS[0].id;
     host.push(
       startVisitFlow(
         { store, close: () => host.pop(), openGarden: () => bus.emit('tab', 'garden'), openPassport: () => (bus.emit('tab', 'family'), openPassport()) },
@@ -102,7 +102,7 @@ export function setupRouter(d: RouterDeps): { host: PageHost } {
   });
 
   const goVisit = (unlock?: string) => {
-    const p = PARTNERS.find((x) => x.reward.unlock === unlock);
+    const p = PLACE_PARTNERS.find((x) => x.reward.unlock === unlock);
     if (p) return bus.emit('startVisit', { partner: p.id });
     bus.emit('toast', NO_PARTNER_HINT[unlock ?? ''] ?? 'Faça uma visita no Clube Família.');
   };

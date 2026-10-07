@@ -26,13 +26,17 @@ export function createShop(root: HTMLElement, bus: Emitter<GameEvents>, data: ()
     for (const f of FURNITURE) {
       const locked = !!f.exclusive && !d.unlocks[f.exclusive];
       const poor = d.coins < f.price;
-      const card = el('button', 'shop-card' + (locked ? ' locked' : poor ? ' poor' : ''));
+      const placed = !!f.unique && d.furniture.some((i) => i.id === f.id);
+      const card = el('button', 'shop-card' + (locked ? ' locked' : placed ? ' poor' : poor ? ' poor' : ''));
       card.setAttribute('aria-label', f.name);
-      const price = locked
+      const price = placed
+        ? 'Na sua casa'
+        : locked
         ? `<img src="${itemUrl('lock')}" alt="">${LOCK_LABEL[f.exclusive!] ?? 'Exclusivo'}`
         : f.price ? `<img src="${itemUrl('coin')}" alt="">${f.price}` : 'Grátis';
-      card.innerHTML = `<div class="icon"><img src="${itemUrl(f.sprite)}" alt=""></div><div class="nm">${f.name}</div><div class="pr">${price}</div>`;
+      card.innerHTML = `<div class="icon"><img src="${itemUrl(f.sprite)}" alt=""></div><div class="nm">${f.name}</div><div class="pr">${price}</div>${f.limited ? `<img class="ribbon-limited" src="${itemUrl('ribbon_limited')}" alt="Edição limitada">` : ''}`;
       card.onclick = () => {
+        if (placed) return bus.emit('toast', 'Você já tem este item na casa');
         if (locked) return bus.emit('visitCard', { unlock: f.exclusive });
         if (poor) return bus.emit('toast', 'Moedas insuficientes');
         shop.close();

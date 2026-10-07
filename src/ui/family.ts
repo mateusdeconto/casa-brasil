@@ -1,5 +1,5 @@
 // Clube Família: weekly expedition, next outing, weekly missions and latest medals.
-import { PARTNERS, partnerById } from '../core/catalog';
+import { PLACE_PARTNERS, partnerById } from '../core/catalog';
 import { weekKey } from '../core/dates';
 import { BADGES } from '../core/badges';
 import type { Emitter, GameEvents } from '../core/events';
@@ -36,7 +36,7 @@ function header(): HTMLElement {
 }
 
 function expeditionCard(d: FamilyDeps, now: number): HTMLElement {
-  const partner = partnerById(featuredPartnerId(weekKey(now), PARTNERS.map((p) => p.id)));
+  const partner = partnerById(featuredPartnerId(weekKey(now), PLACE_PARTNERS.map((p) => p.id)));
   const seals = expeditionSeals(d.store, partner.id, now);
   const card = el('div', 'parch expedition');
   card.append(
@@ -61,7 +61,7 @@ function visitNow(d: FamilyDeps): HTMLElement {
   const box = el('div', 'visit-now');
   box.appendChild(el('h3', '', 'Já está em um destes lugares?'));
   const row = el('div', 'chips');
-  for (const p of PARTNERS) {
+  for (const p of PLACE_PARTNERS) {
     const chip = el('button', 'place-chip', `<img src="${itemUrl(p.image)}" alt=""><span>${p.name}</span>`);
     chip.dataset.partner = p.id;
     chip.onclick = () => d.startVisit(p.id);

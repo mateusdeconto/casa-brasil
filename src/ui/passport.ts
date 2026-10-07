@@ -1,5 +1,5 @@
 // Passport: 6 stamps (coloured or locked), "N de 6", and the special rewards row.
-import { FURNITURE, PARTNERS } from '../core/catalog';
+import { FURNITURE, PLACE_PARTNERS } from '../core/catalog';
 import type { Store } from '../core/state';
 import { el, itemUrl } from './dom';
 import { makePage, type PageHandle } from './pageHost';
@@ -13,7 +13,7 @@ const STAMP_HINT: Record<string, string> = {
 
 const REWARDS: { key: string; sprite: string; unlock: string }[] = [
   { key: 'jaguar', sprite: 'jaguar', unlock: 'zoo' },
-  ...PARTNERS.flatMap((p) => (p.reward.items ?? []).map((id) => ({ key: id, sprite: FURNITURE.find((f) => f.id === id)!.sprite, unlock: p.reward.unlock }))),
+  ...PLACE_PARTNERS.flatMap((p) => (p.reward.items ?? []).map((id) => ({ key: id, sprite: FURNITURE.find((f) => f.id === id)!.sprite, unlock: p.reward.unlock }))),
   { key: 'star_award', sprite: 'star_award', unlock: 'semana' },
   { key: 'trophy_owl', sprite: 'trophy_owl', unlock: 'evento' },
 ];

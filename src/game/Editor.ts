@@ -46,7 +46,7 @@ export class Editor {
   private emit(): void {
     const d = this.def;
     const price = this.mode === 'edit' && d ? Math.floor(d.price * SELL_RATIO) : d?.price;
-    this.room.ctx.bus.emit('editor', { mode: this.mode, valid: this.valid(), name: d?.name, price, selected: !!this.selected });
+    this.room.ctx.bus.emit('editor', { mode: this.mode, valid: this.valid(), name: d?.name, price, selected: !!this.selected, noSell: d?.noSell });
   }
 
   startPlace(id: string): void {
@@ -92,6 +92,7 @@ export class Editor {
   sell(): void {
     const it = this.selected;
     if (!it) return;
+    if (furnitureById(it.id).noSell) return void this.room.ctx.bus.emit('toast', 'Este item é um prêmio e não pode ser vendido');
     const value = Math.floor(furnitureById(it.id).price * SELL_RATIO);
     const img = this.room.furniture.sprites.get(it.uid)!;
     const top = img.getTopCenter();

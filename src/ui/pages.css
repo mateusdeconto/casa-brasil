@@ -201,3 +201,13 @@
 .pin-demo .ribbon-demo { top: 0; left: calc(50% - 32px); width: 64px; transform: rotate(-4deg); }
 .card-body input { font: inherit; font-size: 20px; padding: 10px 12px; border-radius: 8px; border: 3px solid var(--wood); background: #15111f; color: var(--cream); text-align: center; width: 100%; touch-action: auto; }
 .screen.picker { z-index: 30; }
+
+/* ---- bloco H: limited edition + event celebration ---- */
+.shop-card { position: relative; }
+.ribbon-limited { position: absolute; top: -6px; left: -6px; width: 76px; transform: rotate(-8deg); pointer-events: none; z-index: 2; }
+.celebrate { text-align: center; }
+.celebrate .trophy { position: relative; display: grid; place-items: center; padding: 10px; background: radial-gradient(#ffe9a8, #c58a2a 70%); border-radius: 12px; }
+.celebrate .trophy img.big { height: 150px; width: auto; object-fit: contain; animation: stampDrop 0.8s both; filter: drop-shadow(0 4px 4px #0008); }
+.celebrate .ribbon-limited { top: 6px; left: 6px; width: 96px; }
+.celebrate h3 { margin: 0; color: var(--amber); font-size: 22px; font-weight: 400; }
+.celebrate .event-line { color: var(--cream); opacity: 0.85; font-size: 15px; margin: 0; }
