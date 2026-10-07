@@ -25,6 +25,7 @@ import { createFeedback } from './ui/sound';
 import { openSettings } from './ui/settings';
 import { createTutorial, type Tutorial } from './ui/tutorial';
 import { startUsageTimer } from './ui/timeLimit';
+import { enableWheelScroll } from './ui/wheelScroll';
 
 document.title = TITLE;
 // ?rapido=1 (with ?demo=1): the garden produces 10x faster, for presentations
@@ -44,6 +45,14 @@ const ui = document.getElementById('ui')!;
 // 2x is plenty for this pixel-style art and keeps mid-range phones smooth
 const dpr = () => Math.min(window.devicePixelRatio || 1, 2);
 const size = () => ({ width: Math.round(app.clientWidth * dpr()), height: Math.round(app.clientHeight * dpr()) });
+
+enableWheelScroll(app);
+// canvas text is drawn once, so the font must be ready before the scenes create it
+const FONT_WAIT_MS = 2000;
+await Promise.race([
+  Promise.all([document.fonts.load('400 20px Fredoka'), document.fonts.load('700 20px Fredoka')]),
+  new Promise((ok) => setTimeout(ok, FONT_WAIT_MS)),
+]).catch(() => undefined);
 
 const game = new Phaser.Game({
   type: Phaser.AUTO,
