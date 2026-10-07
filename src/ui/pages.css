@@ -312,3 +312,26 @@ button:not(:disabled):active, a.btn:active { filter: brightness(1.12); transform
 .rt-swap { flex: none; align-self: center; padding: 4px 10px; border-radius: 8px; background: #6a4a33; color: var(--cream); font-size: 13px; border: 2px solid var(--wood-dark); }
 .rt-tip { margin: 0; padding: 8px 12px; font-size: 14px; color: #d8cbb0; }
 .rt-actions { display: flex; flex-direction: column; gap: 8px; padding-bottom: 12px; }
+
+/* ---- perto de você: map + places ---- */
+.nearby-here { margin: 0; color: var(--cream); font-size: 15px; line-height: 1.25; }
+.nearby-map { height: 280px; flex: none; border: 3px solid var(--cream); border-radius: 12px; overflow: hidden; background: #26324a; }
+.nearby-map.failed { display: grid; place-items: center; padding: 16px; text-align: center; color: var(--cream); font-size: 16px; height: auto; min-height: 100px; }
+.nearby-title { margin: 6px 0 0; color: var(--amber); font-size: 20px; font-weight: 400; }
+.nearby-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.nearby-item { display: grid; grid-template-columns: 34px 1fr; column-gap: 10px; width: 100%; text-align: left; padding: 8px 12px; font-family: inherit; color: var(--cream); background: var(--panel); border: 3px solid var(--wood); border-radius: 12px; }
+.nearby-item .num { grid-row: 1 / 4; align-self: center; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; font-size: 17px; color: #fff; background: var(--pin, #888); border: 2px solid #fff; }
+.nearby-item .name { font-size: 19px; }
+.nearby-item .dist { color: var(--amber); font-size: 15px; }
+.nearby-item .tip { font-size: 14px; opacity: 0.8; }
+.nearby-item:active { transform: translateY(2px); }
+.nearby-item.kind-museu { --pin: #8f5fd0; }
+.nearby-item.kind-parque { --pin: #3f9d36; }
+.nearby-item.kind-cultura { --pin: #d0507a; }
+.map-pin { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 2px 4px #0007; color: #fff; font: 700 15px/1 system-ui, sans-serif; background: #888; }
+.map-pin.kind-museu { background: #8f5fd0; }
+.map-pin.kind-parque { background: #3f9d36; }
+.map-pin.kind-cultura { background: #d0507a; }
+.map-pin.me { width: auto; min-width: 46px; height: 26px; padding: 0 8px; border-radius: 13px; background: #2d7be0; font-size: 13px; transform: translate(-8px, -2px); }
+.nearby-map .leaflet-popup-content { font: 15px/1.3 system-ui, sans-serif; margin: 10px 12px; color: #222; }
+.nearby-map .leaflet-popup-content a { color: #1a5fb4; font-weight: 600; }

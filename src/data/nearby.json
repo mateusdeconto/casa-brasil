@@ -1,0 +1,13 @@
+{
+  "_doc": "Simulation: the player is pretending to stand at FGV EAESP (Av. Nove de Julho, 2029). Coordinates are real (OpenStreetMap); replace origin with the GPS position and places with the partner centres when this goes live.",
+  "origin": { "name": "FGV EAESP", "address": "Av. Nove de Julho, 2029 · Bela Vista", "lat": -23.5590193, "lng": -46.6538695 },
+  "places": [
+    { "id": "masp", "name": "MASP", "kind": "Museu", "lat": -23.5614961, "lng": -46.6559677, "tip": "Museu de arte famoso pelo vão livre de 74 metros." },
+    { "id": "trianon", "name": "Parque Trianon", "kind": "Parque", "lat": -23.5627983, "lng": -46.6578347, "tip": "Pedaço de Mata Atlântica no meio da Paulista." },
+    { "id": "mario-covas", "name": "Parque Mário Covas", "kind": "Parque", "lat": -23.5600025, "lng": -46.6577371, "tip": "Parque com gramado, ao lado do Trianon." },
+    { "id": "ims", "name": "IMS Paulista", "kind": "Cultura", "lat": -23.5560722, "lng": -46.6619346, "tip": "Exposições de fotografia, música e literatura." },
+    { "id": "itau-cultural", "name": "Itaú Cultural", "kind": "Cultura", "lat": -23.5704483, "lng": -46.6460318, "tip": "Mostras de arte e tecnologia, com entrada gratuita." },
+    { "id": "casa-das-rosas", "name": "Casa das Rosas", "kind": "Cultura", "lat": -23.571099, "lng": -46.6451748, "tip": "Casarão histórico com jardim, dedicado à poesia." },
+    { "id": "teatro-oficina", "name": "Teatro Oficina", "kind": "Cultura", "lat": -23.5551932, "lng": -46.6412477, "tip": "Teatro de arquitetura única, projetado por Lina Bo Bardi." }
+  ]
+}

@@ -17,6 +17,7 @@ import type { Hud } from './ui/hud';
 import { PageHost } from './ui/pageHost';
 import { createPassportPage } from './ui/passport';
 import { createPlannerPage } from './ui/planner';
+import { createNearbyPage } from './ui/nearby';
 import { createParentPanel } from './ui/parentPanel';
 import { openParentGate } from './ui/parentGate';
 import { badgeById } from './core/badges';
@@ -72,7 +73,8 @@ export function setupRouter(d: RouterDeps): { host: PageHost } {
   const openRoteiro = (outing: Outing) => host.push(createRoteiroPage({ store, bus, outing, back: () => host.pop() }));
   const openPlanner = (partner?: string) =>
     host.push(createPlannerPage({ store, bus, back: () => (host.pop(), refreshFamily()), openRoteiro }, partner));
-  const openFamily = () => host.open(createFamilyPage({ store, bus, ui, openPassport, openPlanner, openRoteiro, startVisit: (partner) => bus.emit('startVisit', { partner }) }));
+  const openNearby = () => host.push(createNearbyPage({ back: () => host.pop() }));
+  const openFamily = () => host.open(createFamilyPage({ store, bus, ui, openPassport, openPlanner, openRoteiro, openNearby, startVisit: (partner) => bus.emit('startVisit', { partner }) }));
   /** the family page lists outings and missions, so redraw it after a sub-page closes */
   const refreshFamily = () => host.isOpen && host.top?.el.classList.contains('family') && openFamily();
   const openGalleryPage = () =>

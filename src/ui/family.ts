@@ -18,6 +18,7 @@ export interface FamilyDeps {
   openPassport: () => void;
   openPlanner: (partner?: string) => void;
   openRoteiro: (o: Outing) => void;
+  openNearby: () => void;
   startVisit: (partner: string) => void;
 }
 
@@ -59,6 +60,13 @@ function nextTrip(d: FamilyDeps, now: number): HTMLElement {
   wrap.appendChild(row);
   if (o) wrap.appendChild(button('Ver roteiro da saída', () => d.openRoteiro(o), 'secondary small'));
   return wrap;
+}
+
+function nearbyCard(d: FamilyDeps): HTMLElement {
+  const row = el('button', 'parch next-trip nearby-card');
+  row.innerHTML = `<img src="${itemUrl('mappin')}" alt=""><span>Perto de você:<br><b>mapa e lugares</b></span><i>›</i>`;
+  row.onclick = d.openNearby;
+  return row;
 }
 
 function visitNow(d: FamilyDeps): HTMLElement {
@@ -114,6 +122,7 @@ export function createFamilyPage(d: FamilyDeps): PageHandle {
     header(),
     expeditionCard(d, now),
     nextTrip(d, now),
+    nearbyCard(d),
     visitNow(d),
     missionsPanel(d, now),
     badgesPanel(d),
